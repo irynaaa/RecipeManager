@@ -52,12 +52,14 @@
     <Compile Include="Abstract\IMenuProvider.cs" />
     <Compile Include="Abstract\IMenuRecipeRecordProvider.cs" />
     <Compile Include="Abstract\IProductProvider.cs" />
+    <Compile Include="Abstract\IRecipeCategoryProvider.cs" />
     <Compile Include="Abstract\IRecipeProdRecordProvider.cs" />
     <Compile Include="Abstract\IRecipeProvider.cs" />
     <Compile Include="Concrete\DataModel.cs" />
     <Compile Include="Concrete\MenuProvider.cs" />
     <Compile Include="Concrete\MenuRecipeRecordProvider.cs" />
     <Compile Include="Concrete\ProductProvider.cs" />
+    <Compile Include="Concrete\RecipeCategoryProvider.cs" />
     <Compile Include="Concrete\RecipeProdRecordProvider.cs" />
     <Compile Include="Concrete\RecipeProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

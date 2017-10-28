@@ -53,11 +53,13 @@
     <Compile Include="Abstract\IMenuRecipeRecordRepository.cs" />
     <Compile Include="Abstract\IMenuRepository.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
+    <Compile Include="Abstract\IRecipeCategoryRepository.cs" />
     <Compile Include="Abstract\IRecipeProdRecordRepository.cs" />
     <Compile Include="Abstract\IRecipeRepository.cs" />
     <Compile Include="Concrete\MenuRecipeRecordRepository.cs" />
     <Compile Include="Concrete\MenuRepository.cs" />
     <Compile Include="Concrete\ProductRepository.cs" />
+    <Compile Include="Concrete\RecipeCategoryRepository.cs" />
     <Compile Include="Concrete\RecipeProdRecordRepository.cs" />
     <Compile Include="Concrete\RecipeRepository.cs" />
     <Compile Include="Entity\EFContext.cs" />
@@ -65,10 +67,23 @@
     <Compile Include="Entity\MenuRecipeRecord.cs" />
     <Compile Include="Entity\Product.cs" />
     <Compile Include="Entity\Recipe.cs" />
+    <Compile Include="Entity\RecipeCategory.cs" />
     <Compile Include="Entity\RecipeProdRecord.cs" />
     <Compile Include="Migrations\201710281329135_Create DB and table Products.cs" />
     <Compile Include="Migrations\201710281329135_Create DB and table Products.Designer.cs">
       <DependentUpon>201710281329135_Create DB and table Products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710281901268_add table RecipeCategory.cs" />
+    <Compile Include="Migrations\201710281901268_add table RecipeCategory.Designer.cs">
+      <DependentUpon>201710281901268_add table RecipeCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710281919560_delete table Products.cs" />
+    <Compile Include="Migrations\201710281919560_delete table Products.Designer.cs">
+      <DependentUpon>201710281919560_delete table Products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710281927210_fill table Products.cs" />
+    <Compile Include="Migrations\201710281927210_fill table Products.Designer.cs">
+      <DependentUpon>201710281927210_fill table Products.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +95,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710281329135_Create DB and table Products.resx">
       <DependentUpon>201710281329135_Create DB and table Products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710281901268_add table RecipeCategory.resx">
+      <DependentUpon>201710281901268_add table RecipeCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710281919560_delete table Products.resx">
+      <DependentUpon>201710281919560_delete table Products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710281927210_fill table Products.resx">
+      <DependentUpon>201710281927210_fill table Products.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

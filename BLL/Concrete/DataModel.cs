@@ -55,6 +55,12 @@ namespace BLL.Concrete
             builder.RegisterType<MenuRecipeRecordProvider>()
                .As<IMenuRecipeRecordProvider>().InstancePerRequest();
 
+            builder.RegisterType<RecipeCategoryRepository>()
+             .As<IRecipeCategoryRepository>().InstancePerRequest();
+
+            builder.RegisterType<RecipeCategoryProvider>()
+               .As<IRecipeCategoryProvider>().InstancePerRequest();
+
             //builder.RegisterType<UserRepository>()
             //  .As<IUserRepository>().InstancePerRequest();
 

@@ -16,6 +16,13 @@ namespace DAL.Migrations
 
         protected override void Seed(DAL.Entity.EFContext context)
         {
+            //using (var _context = new EFContext())
+            //{
+            //    var itemsToDelete = context.Set<Product>();
+            //    context.Products.RemoveRange(itemsToDelete);
+            //    context.SaveChanges();
+            //}
+
             IList<Product> products = new List<Product>();
             products.Add(new Product { ProductName = "Абрикосы", Proteins = 1, Fat = 0, Carbohydrates = 10, CaloricValue = 45 });
             products.Add(new Product { ProductName = "Авокадо", Proteins = 2, Fat = 19, Carbohydrates = 7, CaloricValue = 197 });

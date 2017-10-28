@@ -28,6 +28,7 @@ namespace DAL.Entity
 
         public DbSet<MenuRecipeRecord> MenuRecipeRecords { get; set; }
 
+        public DbSet<RecipeCategory> RecipeCategories { get; set; }
 
 
 

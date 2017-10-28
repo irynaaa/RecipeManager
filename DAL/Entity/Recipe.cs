@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,5 +23,10 @@ namespace DAL.Entity
         [Display(Name = "Фото")]
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
+
+        [ForeignKey("RecipeCategory")]
+        public int RecipeCategoryId { get; set; }
+
+        public RecipeCategory RecipeCategory { get; set; }
     }
 }
