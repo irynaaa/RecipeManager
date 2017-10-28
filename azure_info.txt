@@ -1,0 +1,10 @@
+RecipeManagerDB
+
+server
+recipemanagerserver.database.windows.net
+
+login
+smartrecipelogin
+
+password
+Kapitoshk@#1
