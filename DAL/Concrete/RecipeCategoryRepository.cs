@@ -10,24 +10,51 @@ namespace DAL.Concrete
 {
     public class RecipeCategoryRepository : IRecipeCategoryRepository
     {
+        private readonly IEFContext _context;
+        public RecipeCategoryRepository(IEFContext context)
+        {
+            _context = context;
+        }
+
         public RecipeCategory Add(RecipeCategory category)
         {
-            throw new NotImplementedException();
+            _context.Set<RecipeCategory>().Add(category);
+            return category;
         }
 
-        public IQueryable<RecipeCategory> GettAllRecipeCategory(bool published = true)
+        public RecipeCategory GetRecipeCategoryById(int id)
         {
-            throw new NotImplementedException();
+            return this.GettAllRecipeCategories()
+                .SingleOrDefault(c => c.Id == id);
         }
 
-        public void Remove(RecipeCategory category)
+        public IQueryable<RecipeCategory> GettAllRecipeCategories(bool published = false)
         {
-            throw new NotImplementedException();
+            return this._context.Set<RecipeCategory>()
+                .Where(c => c.IsPublished || c.IsPublished == published);
+    }
+        public void Remove(int id)
+        {
+            var category = this.GetRecipeCategoryById(id);
+            if (category != null)
+            {
+                _context.Set<RecipeCategory>().Remove(category);
+                this.SaveChanges();
+            }
         }
+        //public void Remove(RecipeCategory category)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public RecipeCategory Remove(int id)
+        //public RecipeCategory Remove(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public void SaveChanges()
         {
-            throw new NotImplementedException();
+            this._context.SaveChanges();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace RecipeManager
         {
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            builder.RegisterModule(new DataModel("ConnShopDb"));
+            builder.RegisterModule(new DataModel("RecipeManagerDB"));
             var conteiner = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(conteiner));
         }

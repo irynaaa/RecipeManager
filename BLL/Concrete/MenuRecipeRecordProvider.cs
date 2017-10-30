@@ -1,4 +1,5 @@
 ﻿using BLL.Abstract;
+using DAL.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace BLL.Concrete
 {
     public class MenuRecipeRecordProvider: IMenuRecipeRecordProvider
     {
-        IMenuRecipeRecordProvider _menuRecipeRecordProvider;
+        IMenuRecipeRecordRepository _menuRecipeRecordRepository;
 
-        public MenuRecipeRecordProvider(IMenuRecipeRecordProvider menuRecipeRecordProvider)
+        public MenuRecipeRecordProvider(IMenuRecipeRecordRepository menuRecipeRecordRepository)
         {
-            _menuRecipeRecordProvider = menuRecipeRecordProvider;
+            _menuRecipeRecordRepository = menuRecipeRecordRepository;
         }
     }
 }

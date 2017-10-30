@@ -1,4 +1,5 @@
 ﻿using BLL.Abstract;
+using DAL.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace BLL.Concrete
 {
     public class MenuProvider: IMenuProvider
     {
-        IMenuProvider _menuProvider;
+        IMenuRepository _menuRepository;
 
-        public MenuProvider(IMenuProvider menuProvider)
+        public MenuProvider(IMenuRepository menuRepository)
         {
-            _menuProvider = menuProvider;
+            _menuRepository = menuRepository;
         }
     }
 }

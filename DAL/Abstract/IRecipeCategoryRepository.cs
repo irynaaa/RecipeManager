@@ -10,13 +10,15 @@ namespace DAL.Abstract
    public interface IRecipeCategoryRepository
     {
         RecipeCategory Add(RecipeCategory category);
-        RecipeCategory Remove(int id);
-        void Remove(RecipeCategory category);
+        //RecipeCategory Remove(int id);
+        void Remove(int id);
+        // void Remove(RecipeCategory category);
         //Category Details(int id);
 
         //Category Edit(int id);
         //Category Edit(Category category);
-
-        IQueryable<RecipeCategory> GettAllRecipeCategory(bool published = true);
+        RecipeCategory GetRecipeCategoryById(int id);
+        IQueryable<RecipeCategory> GettAllRecipeCategories(bool published = true);
+        void SaveChanges();
     }
 }

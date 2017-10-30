@@ -1,4 +1,5 @@
 ﻿using BLL.Abstract;
+using DAL.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace BLL.Concrete
 {
    public class RecipeProvider: IRecipeProvider
     {
-        IRecipeProvider _recipeProvider;
+        IRecipeRepository _recipeRepository;
 
-        public RecipeProvider(IRecipeProvider recipeProvider)
+        public RecipeProvider(IRecipeRepository recipeRepository)
         {
-            _recipeProvider = recipeProvider;
+            _recipeRepository = recipeRepository;
         }
     }
 }
