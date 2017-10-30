@@ -24,6 +24,19 @@ namespace DAL.Entity
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
 
+        [Display(Name = "Описание")]
+        [StringLength(maximumLength: 3000)]
+        public string RecipeDescription { get; set; }
+
+        [Display(Name = "Создан")]
+        public DateTime CreatedAt { get; set; }
+
+        [Display(Name = "Изменен")]
+        public DateTime ModefiedAt { get; set; }
+
+        [Display(Name = "Время приготовления")]
+        public int CookingTime { get; set; }
+
         [ForeignKey("RecipeCategory")]
         public int RecipeCategoryId { get; set; }
 

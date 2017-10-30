@@ -85,6 +85,22 @@
     <Compile Include="Migrations\201710281927210_fill table Products.Designer.cs">
       <DependentUpon>201710281927210_fill table Products.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710301053297_add property RecipeDescription to Recipe table.cs" />
+    <Compile Include="Migrations\201710301053297_add property RecipeDescription to Recipe table.Designer.cs">
+      <DependentUpon>201710301053297_add property RecipeDescription to Recipe table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301055351_Remove products.cs" />
+    <Compile Include="Migrations\201710301055351_Remove products.Designer.cs">
+      <DependentUpon>201710301055351_Remove products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301058292_add products.cs" />
+    <Compile Include="Migrations\201710301058292_add products.Designer.cs">
+      <DependentUpon>201710301058292_add products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301217562_Modefied table Recipe.cs" />
+    <Compile Include="Migrations\201710301217562_Modefied table Recipe.Designer.cs">
+      <DependentUpon>201710301217562_Modefied table Recipe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -104,6 +120,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710281927210_fill table Products.resx">
       <DependentUpon>201710281927210_fill table Products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301053297_add property RecipeDescription to Recipe table.resx">
+      <DependentUpon>201710301053297_add property RecipeDescription to Recipe table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301055351_Remove products.resx">
+      <DependentUpon>201710301055351_Remove products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301058292_add products.resx">
+      <DependentUpon>201710301058292_add products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301217562_Modefied table Recipe.resx">
+      <DependentUpon>201710301217562_Modefied table Recipe.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
