@@ -11,5 +11,8 @@ namespace DAL.Abstract
     {
         Menu Add(Menu menu);
         IQueryable<Menu> Menus();
+        Menu GetMenuById(int id);
+        void Remove(int id);
+        void SaveChanges();
     }
 }

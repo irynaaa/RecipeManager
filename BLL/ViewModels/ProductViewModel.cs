@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace BLL.ViewModels
 {
-    //public class ProductViewModel
-    //{
         public class AddProductViewModel
         {
             public int Id { get; set; }
@@ -71,4 +69,3 @@ namespace BLL.ViewModels
             public float CaloricValue { get; set; }
         }
     }
-//}
