@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.ViewModels;
 using DAL.Abstract;
+using DAL.Entity;
 
 namespace BLL.Concrete
 {
@@ -18,29 +19,103 @@ namespace BLL.Concrete
             _productRepository = productRepository;
         }
 
-        public int AddProduct(ProductViewModel.AddProductViewModel addProduct)
+        public int AddProduct(AddProductViewModel addProduct)
         {
-            throw new NotImplementedException();
+            Product product = new Product
+            {
+                ProductName = addProduct.ProductName,
+                CaloricValue = addProduct.CaloricValue,
+                Fat = addProduct.Fat,
+                Proteins = addProduct.Proteins,
+                Carbohydrates = addProduct.Carbohydrates
+            };
+            _productRepository.Add(product);
+            _productRepository.SaveChanges();
+
+            return product.Id;
         }
 
-        public int EditProduct(ProductViewModel.EditProductViewModel editProduct)
+        public int EditProduct(EditProductViewModel editProduct)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var product =
+                    _productRepository.GetProductById(editProduct.Id);
+                if (product != null)
+                {
+                    product.ProductName = editProduct.ProductName;
+                    product.CaloricValue = editProduct.CaloricValue;
+                    product.Fat = editProduct.Fat;
+                    product.Proteins = editProduct.Proteins;
+                    product.Carbohydrates = editProduct.Carbohydrates;
+                    _productRepository.SaveChanges();
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+            return editProduct.Id;
         }
 
-        public ProductViewModel.EditProductViewModel EditProduct(int id)
+        public EditProductViewModel EditProduct(int id)
         {
-            throw new NotImplementedException();
+            EditProductViewModel model = null;
+
+            var product = _productRepository.GetProductById(id);
+
+            if (product != null)
+            {
+                model = new EditProductViewModel
+                {
+                    Id = product.Id,
+                    ProductName = product.ProductName,
+                    CaloricValue = product.CaloricValue,
+                    Fat = product.Fat,
+                    Proteins = product.Proteins,
+                    Carbohydrates = product.Carbohydrates
+                };
+            }
+            return model;
         }
 
-        public ProductViewModel.ProductsViewModel GetProductDetales(int id)
+        public ProductsViewModel GetProductDetales(int id)
         {
-            throw new NotImplementedException();
+            ProductsViewModel model = null;
+            var product = _productRepository.GetProductById(id);
+            if (product != null)
+            {
+                model = new ProductsViewModel
+                {
+                    Id = product.Id,
+                    ProductName = product.ProductName,
+                    CaloricValue = product.CaloricValue,
+                    Fat = product.Fat,
+                    Proteins = product.Proteins,
+                    Carbohydrates = product.Carbohydrates
+                };
+            }
+            return model;
         }
 
-        public IEnumerable<ProductViewModel.ProductsViewModel> GetProducts()
+        public IEnumerable<ProductsViewModel> GetProducts()
         {
-            throw new NotImplementedException();
+            var model = _productRepository.Products()
+                .Select(c => new ProductsViewModel
+                {
+                    Id = c.Id,
+                    ProductName = c.ProductName,
+                    CaloricValue=c.CaloricValue,
+                    Fat=c.Fat,
+                    Proteins=c.Proteins,
+                    Carbohydrates=c.Carbohydrates
+                });
+            return model.AsEnumerable();
+        }
+
+        public void RemoveProduct(int id)
+        {
+            _productRepository.Remove(id);
         }
     }
 }

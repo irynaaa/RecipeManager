@@ -19,18 +19,6 @@ namespace BLL.ViewModels
 
         [Display(Name = "Опубликовано?")]
         public bool IsPublished { get; set; }
-
-        public CategoryItemViewModel()
-        {
-
-        }
-
-        public CategoryItemViewModel(RecipeCategory category)
-        {
-            Id = category.Id;
-            NameRecipeCategory = category.NameRecipeCategory;
-            IsPublished = category.IsPublished;
-        }
     }
 
     public class AddCategoryViewModel
@@ -41,10 +29,18 @@ namespace BLL.ViewModels
 
         [Display(Name = "Опубликовано?")]
         public bool IsPublished { get; set; }
+    }
 
-        public AddCategoryViewModel()
-        {
+    public class EditRecipeCategoryViewModel
+    {
+        [Key]
+        public int Id { get; set; }
 
-        }
+        [Display(Name = "Категории")]
+        [Required, StringLength(maximumLength: 255)]
+        public string NameRecipeCategory { get; set; }
+
+        [Display(Name = "Опубликовано?")]
+        public bool IsPublished { get; set; }
     }
 }

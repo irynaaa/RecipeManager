@@ -42,15 +42,6 @@ namespace DAL.Concrete
                 this.SaveChanges();
             }
         }
-        //public void Remove(RecipeCategory category)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public RecipeCategory Remove(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public void SaveChanges()
         {

@@ -11,10 +11,9 @@ namespace BLL.Abstract
     {
         IEnumerable<CategoryItemViewModel> GetCategories();
         int AddCategory(AddCategoryViewModel addCategory);
-        //int RemoveCategory(CategoryItemViewModel removeCategory);
         void RemoveCategory(int id);
-        CategoryItemViewModel EditCategory(int id);
-        int EditCategory(CategoryItemViewModel editCategory);
+        EditRecipeCategoryViewModel EditRecipeCategory(int id);
+        int EditRecipeCategory(EditRecipeCategoryViewModel editCategory);
         CategoryItemViewModel GetCategoryDetails(int id);
     }
 }

@@ -8,18 +8,17 @@ using System.Web.Mvc;
 
 namespace RecipeManager.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
-        private readonly IRecipeCategoryProvider _recipeCategoryProvider;
-        public CategoryController(IRecipeCategoryProvider recipeCategoryProvider)
+        private readonly IProductProvider _productProvider;
+        public ProductController(IProductProvider productProvider)
         {
-            _recipeCategoryProvider = recipeCategoryProvider;
+            _productProvider = productProvider;
         }
-        // GET: Admin/Category
+        // GET: Admin/Product
         public ActionResult Index()
         {
-            var model = _recipeCategoryProvider.GetCategories();
+            var model = _productProvider.GetProducts();
             return View(model);
         }
 
@@ -31,38 +30,40 @@ namespace RecipeManager.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(AddCategoryViewModel category)
+        public ActionResult Add(AddProductViewModel product)
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new AddCategoryViewModel
+                var viewModel = new AddProductViewModel
                 {
-                    NameRecipeCategory = category.NameRecipeCategory,
-                    IsPublished = category.IsPublished
+                ProductName = product.ProductName,
+                CaloricValue=product.CaloricValue,
+                Fat=product.Fat,
+                Proteins=product.Proteins,
+                Carbohydrates=product.Carbohydrates
                 };
                 return View("Add", viewModel);
             }
-            _recipeCategoryProvider.AddCategory(category);
+            _productProvider.AddProduct(product);
             return RedirectToAction("Index");
         }
 
         public ActionResult Remove(int id)
         {
-            var model = _recipeCategoryProvider.GetCategoryDetails(id);
+            var model = _productProvider.GetProductDetales(id);
             return View(model);
         }
 
         [HttpPost]
         public ActionResult Remove(CategoryItemViewModel model)
         {
-            _recipeCategoryProvider.RemoveCategory(model.Id);
+            _productProvider.RemoveProduct(model.Id);
             return RedirectToAction("Index");
         }
 
-
         public ActionResult Details(int id)
         {
-            var model = _recipeCategoryProvider.GetCategoryDetails(id);
+            var model = _productProvider.GetProductDetales(id);
             if (model == null) return HttpNotFound();
             return View(model);
         }
@@ -70,23 +71,23 @@ namespace RecipeManager.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var model = _recipeCategoryProvider.EditRecipeCategory(id);
+            var model = _productProvider.EditProduct(id);
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditRecipeCategoryViewModel editCategory)
+        public ActionResult Edit(EditProductViewModel editProduct)
         {
             if (ModelState.IsValid)
             {
-                int result = _recipeCategoryProvider.EditRecipeCategory(editCategory);
+                int result = _productProvider.EditProduct(editProduct);
                 if (result == 0)
                     ModelState.AddModelError("", "Ошибка! Невозможно сохранить!");
                 else if (result != 0)
                     return RedirectToAction("Index");
             }
-            return View(editCategory);
+            return View(editProduct);
         }
     }
 }

@@ -32,14 +32,44 @@ namespace BLL.Concrete
             return category.Id;
         }
 
-        public int EditCategory(CategoryItemViewModel editCategory)
+       
+
+        public EditRecipeCategoryViewModel EditRecipeCategory(int id)
         {
-            throw new NotImplementedException();
+            EditRecipeCategoryViewModel model = null;
+
+            var category = _recipeCategoryRepository.GetRecipeCategoryById(id);
+            
+            if (category != null)
+            {
+                model = new EditRecipeCategoryViewModel
+                {
+                    Id = category.Id,
+                    NameRecipeCategory = category.NameRecipeCategory,
+                    IsPublished = category.IsPublished
+                };
+            }
+            return model;
         }
 
-        public CategoryItemViewModel EditCategory(int id)
+        public int EditRecipeCategory(EditRecipeCategoryViewModel editCategory)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var category =
+                    _recipeCategoryRepository.GetRecipeCategoryById(editCategory.Id);
+                if (category != null)
+                {
+                    category.NameRecipeCategory = editCategory.NameRecipeCategory;
+                    category.IsPublished = editCategory.IsPublished;
+                    _recipeCategoryRepository.SaveChanges();
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+            return editCategory.Id;
         }
 
         public IEnumerable<CategoryItemViewModel> GetCategories()
@@ -69,14 +99,6 @@ namespace BLL.Concrete
             }
             return model;
         }
-
-
-        //public CategoryItemViewModel RemoveCategory(int id)
-        //{
-        //    var category = _recipeCategoryRepository.Remove(id);
-        //    var model_ = new CategoryItemViewModel(category);
-        //    return model_;
-        //}
 
         public void RemoveCategory(int id)
         {

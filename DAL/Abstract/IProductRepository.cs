@@ -9,7 +9,11 @@ namespace DAL.Abstract
 {
     public interface IProductRepository
     {
-       Product Add(Product product);
+        Product Add(Product product);
         IQueryable<Product> Products();
+        Product GetProductById(int id);
+        void Remove(int id);
+        void SaveChanges();
+
     }
 }

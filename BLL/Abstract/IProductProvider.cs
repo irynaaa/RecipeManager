@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BLL.ViewModels.ProductViewModel;
+using BLL.ViewModels;
 
 namespace BLL.Abstract
 {
@@ -14,5 +14,6 @@ namespace BLL.Abstract
         ProductsViewModel GetProductDetales(int id);
         EditProductViewModel EditProduct(int id);
         int EditProduct(EditProductViewModel editProduct);
+        void RemoveProduct(int id);
     }
 }
