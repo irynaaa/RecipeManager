@@ -15,5 +15,6 @@ namespace BLL.Abstract
         EditRecipeCategoryViewModel EditRecipeCategory(int id);
         int EditRecipeCategory(EditRecipeCategoryViewModel editCategory);
         CategoryItemViewModel GetCategoryDetails(int id);
+        //IEnumerable<SelectItemViewModel> GetSelectCategories();
     }
 }

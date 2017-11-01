@@ -10,7 +10,10 @@ namespace DAL.Abstract
     public interface IRecipeRepository
     {
         Recipe Add(Recipe recipe);
-        Recipe Remove(Recipe recipe);
-        IQueryable<Recipe> Recipes();
+        //IQueryable<Recipe> Recipes();
+        void SaveChanges();
+        IQueryable<Recipe> GettAllRecipes();
+        Recipe GetRecipeById(int id);
+        void Delete(int id);
     }
 }

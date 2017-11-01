@@ -28,7 +28,7 @@ namespace DAL.Concrete
                 .SingleOrDefault(c => c.Id == id);
         }
 
-        public IQueryable<RecipeCategory> GettAllRecipeCategories(bool published = false)
+        public IEnumerable<RecipeCategory> GettAllRecipeCategories(bool published = false)
         {
             return this._context.Set<RecipeCategory>()
                 .Where(c => c.IsPublished || c.IsPublished == published);

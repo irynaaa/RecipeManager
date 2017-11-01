@@ -36,11 +36,12 @@ namespace BLL.Concrete
         {
             try
             {
-                var Menu =
+                var menu =
                     _menuRepository.GetMenuById(editMenu.Id);
-                if (Menu != null)
+                if (menu != null)
                 {
-                    Menu.MenuName = editMenu.MenuName;
+                    menu.MenuName = editMenu.MenuName;
+                    menu.IsPublished = editMenu.IsPublished;
                     _menuRepository.SaveChanges();
                 }
             }
@@ -55,14 +56,15 @@ namespace BLL.Concrete
         {
             EditMenuViewModel model = null;
 
-            var Menu = _menuRepository.GetMenuById(id);
+            var menu = _menuRepository.GetMenuById(id);
 
-            if (Menu != null)
+            if (menu != null)
             {
                 model = new EditMenuViewModel
                 {
-                    Id = Menu.Id,
-                    MenuName = Menu.MenuName,
+                    Id = menu.Id,
+                    MenuName = menu.MenuName,
+                    IsPublished = menu.IsPublished
                 };
             }
             return model;
@@ -71,13 +73,14 @@ namespace BLL.Concrete
         public MenusViewModel GetMenuDetales(int id)
         {
             MenusViewModel model = null;
-            var Menu = _menuRepository.GetMenuById(id);
-            if (Menu != null)
+            var menu = _menuRepository.GetMenuById(id);
+            if (menu != null)
             {
                 model = new MenusViewModel
                 {
-                    Id = Menu.Id,
-                    MenuName = Menu.MenuName,
+                    Id = menu.Id,
+                    MenuName = menu.MenuName,
+                    IsPublished = menu.IsPublished
                 };
             }
             return model;
@@ -90,6 +93,7 @@ namespace BLL.Concrete
                 {
                     Id = c.Id,
                     MenuName = c.MenuName,
+                    IsPublished=c.IsPublished
                 });
             return model.AsEnumerable();
         }

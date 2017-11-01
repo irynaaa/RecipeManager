@@ -100,6 +100,19 @@ namespace BLL.Concrete
             return model;
         }
 
+
+        //     public IEnumerable<SelectItemViewModel> GetSelectCategories()
+        //{
+        //    return _recipeCategoryRepository.GettAllRecipeCategories()
+        //        .Select(c => new SelectItemViewModel
+        //        {
+        //            Id = c.Id,
+        //            Name = c.NameRecipeCategory,
+                   
+        //        });
+        //}
+  
+
         public void RemoveCategory(int id)
         {
             _recipeCategoryRepository.Remove(id);

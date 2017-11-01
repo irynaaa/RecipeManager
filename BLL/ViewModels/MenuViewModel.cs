@@ -15,6 +15,9 @@ namespace BLL.ViewModels
         [Display(Name = "Тип меню")]
         [Required, StringLength(maximumLength: 255)]
         public string MenuName { get; set; }
+
+        [Display(Name = "Опубликовано?")]
+        public bool IsPublished { get; set; }
     }
 
     public class AddMenuViewModel
@@ -25,6 +28,9 @@ namespace BLL.ViewModels
         [Display(Name = "Тип меню")]
         [Required, StringLength(maximumLength: 255)]
         public string MenuName { get; set; }
+
+        [Display(Name = "Опубликовано?")]
+        public bool IsPublished { get; set; }
     }
 
     public class EditMenuViewModel
@@ -35,5 +41,8 @@ namespace BLL.ViewModels
         [Display(Name = "Тип меню")]
         [Required, StringLength(maximumLength: 255)]
         public string MenuName { get; set; }
+
+        [Display(Name = "Опубликовано?")]
+        public bool IsPublished { get; set; }
     }
 }

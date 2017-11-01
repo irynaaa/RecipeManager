@@ -16,7 +16,7 @@ namespace DAL.Abstract
         //Category Edit(int id);
         //Category Edit(Category category);
         RecipeCategory GetRecipeCategoryById(int id);
-        IQueryable<RecipeCategory> GettAllRecipeCategories(bool published = true);
+        IEnumerable<RecipeCategory> GettAllRecipeCategories(bool published = true);
         void SaveChanges();
     }
 }

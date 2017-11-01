@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BLL.ViewModels.RecipesViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Add")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().RecipeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().RecipeImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().RecipeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ModefiedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CookingTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().RecipeCategory.NameRecipeCategory)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipeImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipeDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModefiedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CookingTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RecipeCategory.NameRecipeCategory)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -12,7 +12,7 @@ namespace DAL.Entity
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Категории")]
+        [Display(Name = "Категория")]
         [Required, StringLength(maximumLength: 255)]
         public string NameRecipeCategory { get; set; }
 

@@ -40,6 +40,7 @@ namespace DAL.Entity
         [ForeignKey("RecipeCategory")]
         public int RecipeCategoryId { get; set; }
 
+        [Display(Name = "Категория")]
         public RecipeCategory RecipeCategory { get; set; }
     }
 }

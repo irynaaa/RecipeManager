@@ -18,5 +18,7 @@ namespace DAL.Entity
         [Display(Name = "Тип меню")]
         [Required, StringLength(maximumLength: 255)]
         public string MenuName { get; set; }
+        [Display(Name = "Опубликовано?")]
+        public bool IsPublished { get; set; }
     }
 }
