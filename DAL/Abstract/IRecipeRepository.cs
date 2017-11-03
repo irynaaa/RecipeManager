@@ -15,5 +15,7 @@ namespace DAL.Abstract
         IQueryable<Recipe> GettAllRecipes();
         Recipe GetRecipeById(int id);
         void Delete(int id);
+
+        IQueryable<RecipeProdRecord> RecipeProdRecords();
     }
 }

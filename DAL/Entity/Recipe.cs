@@ -42,5 +42,8 @@ namespace DAL.Entity
 
         [Display(Name = "Категория")]
         public RecipeCategory RecipeCategory { get; set; }
+
+
+        public virtual ICollection<RecipeProdRecord> RecipeProdRecords { get; set; }
     }
 }

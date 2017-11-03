@@ -29,7 +29,9 @@ namespace DAL.Entity
         [Display(Name = "Калории")]
         public float CaloricValue { get; set; }
 
-       // public int RecipeId { get; set; }
+
+        public virtual ICollection<RecipeProdRecord> RecipeProdRecords { get; set; }
+
 
         public override string ToString()
         {

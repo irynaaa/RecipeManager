@@ -59,6 +59,18 @@
         <td>
             @Html.DisplayFor(modelItem => item.RecipeCategory.NameRecipeCategory)
         </td>
+
+        <td>
+            @foreach (var prod in item.Products)
+            {
+                <span style="border: solid 1px; border-radius: 3px; padding: 3px; margin: 4px;">
+                    @prod.Name
+                    @*@prod.IsChecked*@
+                    @*<a href="#" class="delUserRole" data-id="@prod.Id" data-user-id="@item.Id">x</a>*@
+                </span>
+            }
+        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |

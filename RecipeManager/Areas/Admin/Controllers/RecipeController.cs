@@ -120,6 +120,7 @@ namespace RecipeManager.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var model = _recipeProvider.EditRecipe(id);
+            //ViewBag.ListProducts = _recipeProvider.GetRecipeProducts();
             return View(model);
         }
 
@@ -130,6 +131,7 @@ namespace RecipeManager.Areas.Admin.Controllers
             IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
             categoriesList = _recipeProvider.GetSelectCategories();
             editRecipe.Categories = categoriesList;
+
             if (ModelState.IsValid)
             {
                 int result = _recipeProvider.EditRecipe(editRecipe);

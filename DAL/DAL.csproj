@@ -105,6 +105,10 @@
     <Compile Include="Migrations\201710311949590_add property IsPublished to Menu table.Designer.cs">
       <DependentUpon>201710311949590_add property IsPublished to Menu table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711021553377_add mamy to many relations recipes-products.cs" />
+    <Compile Include="Migrations\201711021553377_add mamy to many relations recipes-products.Designer.cs">
+      <DependentUpon>201711021553377_add mamy to many relations recipes-products.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -139,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710311949590_add property IsPublished to Menu table.resx">
       <DependentUpon>201710311949590_add property IsPublished to Menu table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021553377_add mamy to many relations recipes-products.resx">
+      <DependentUpon>201711021553377_add mamy to many relations recipes-products.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

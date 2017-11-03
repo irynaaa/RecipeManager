@@ -1,4 +1,5 @@
 ﻿using BLL.Abstract;
+using BLL.ViewModels;
 using DAL.Abstract;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,21 @@ namespace BLL.Concrete
         public RecipeProdRecordProvider(IRecipeProdRecordRepository recipeProdRecordRepository)
         {
             _recipeProdRecordRepository = recipeProdRecordRepository;
+        }
+
+        public IEnumerable<RecipeProdRecordsViewModel> GetRecipeProdRecords()
+        {
+            var model = _recipeProdRecordRepository.RecipeProdRecords()
+                .Select(c => new RecipeProdRecordsViewModel
+                {
+                    Id = c.Id,
+                    ProductId=c.ProductId,
+                    RecipeId=c.RecipeId,
+                    Weight=c.Weight
+            
+        });
+
+            return model.AsEnumerable();
         }
     }
 }

@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Entity
+namespace BLL.ViewModels
 {
-    public class RecipeProdRecord
+    public class RecipeProdRecordsViewModel
     {
-        [Key]
         public int Id { get; set; }
 
         public int ProductId { get; set; }
@@ -18,15 +17,5 @@ namespace DAL.Entity
 
         [Display(Name = "Вес, г")]
         public float Weight { get; set; }
-
-        //public RecipeProdRecord()
-        //{
-        //    Recipes = new List<Recipe>();
-        //    Products = new List<Product>();
-        //}
-
-        public virtual Recipe Recipe { get; set; }
-
-        public virtual Product Product { get; set; }
     }
 }

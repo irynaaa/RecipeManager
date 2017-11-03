@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Entity;
+using System.Data.Entity;
 
 namespace DAL.Concrete
 {
@@ -24,7 +25,7 @@ namespace DAL.Concrete
 
         public IQueryable<Product> Products()
         {
-            return this._context.Set<Product>();
+            return this._context.Set<Product>()/*.Include(r=>r.RecipeProdRecords)*/;
         }
 
         public Product GetProductById(int id)
@@ -47,5 +48,11 @@ namespace DAL.Concrete
         {
             this._context.SaveChanges();
         }
+
+        public IQueryable<RecipeProdRecord> RecipeProdRecords()
+        {
+            return this._context.Set<RecipeProdRecord>()/*.Include(c => c.Product)*/;
+        }
+
     }
 }
