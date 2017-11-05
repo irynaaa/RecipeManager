@@ -38,9 +38,11 @@ namespace BLL.ViewModels
 
         public RecipeCategory RecipeCategory { get; set; }
 
-        public IEnumerable<CheckBoxViewModel> Products { get; set; }
+        [Display(Name = "Продукты")]
+        public IEnumerable</*CheckBoxViewModel*/SelectItemViewModel> Products { get; set; }
 
        // public IEnumerable<ProdItemViewModel> Products { get; set; }
+        
     }
 
     public class AddRecipeViewModel
@@ -77,6 +79,7 @@ namespace BLL.ViewModels
         [Display(Name = "Категория")]
         public RecipeCategory RecipeCategory { get; set; }
 
+        [Display(Name = "Продукты")]
         public List<CheckBoxViewModel> Products { get; set; }
     }
 
@@ -85,6 +88,8 @@ namespace BLL.ViewModels
         public int Id { get; set; }
         public string Name { get; set;}
     }
+
+
     public class EditRecipeViewModel
     {
         [Key]
@@ -121,7 +126,9 @@ namespace BLL.ViewModels
         [Display(Name = "Категория")]
         public RecipeCategory RecipeCategory { get; set; }
 
-        public List<CheckBoxViewModel> Products { get; set; }
+        [Display(Name = "Продукты")]
+        public /*int[]*/List<int> Products { get; set; }
+        // public List</*CheckBoxViewModel*/SelectItemViewModel> Products { get; set; }
 
     }
 

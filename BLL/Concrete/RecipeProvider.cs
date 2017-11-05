@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.ViewModels;
 using DAL.Entity;
-
+using System.Transactions;
 namespace BLL.Concrete
 {
     public class RecipeProvider : IRecipeProvider
@@ -63,53 +63,14 @@ namespace BLL.Concrete
             return recipe.Id;
         }
 
-        //IEnumerable<ProdItemViewModel> GetProdRecipes()
-        //{
-        //   var prods = _recipeRepository.GettAllRecipes()
-        //        .Select(c => new RecipesViewModel
-        //        {
-        //            Id = c.Id,
-        //            RecipeName = c.RecipeName,
-        //            RecipeImage = c.RecipeImage,
-        //            RecipeDescription = c.RecipeDescription,
-        //            CreatedAt = c.CreatedAt,
-        //            ModefiedAt = c.ModefiedAt,
-        //            CookingTime = c.CookingTime,
-        //            RecipeCategoryId = c.Id,
-        //            RecipeCategory = c.RecipeCategory,
-
-        //            Products = GetRecipeProducts().Select(p => new ProdItemViewModel
-        //            {
-        //                Id = p.Id,
-        //                Name = p.Name
-        //            })
-        //        });
-
-        //    List<ProdItemViewModel> model = new List<ProdItemViewModel>();
-        //    foreach(var p in prods)
-        //    {
-        //        model.Add(new ProdItemViewModel() { Id = p.Id, Name = p.RecipeName });
-        //    }
-
-        //    return model.AsEnumerable();
-        //}
-
         public RecipesViewModel GetRecipeDetales(int id)
         {
-           // RecipesViewModel model = null;
             var recipe = _recipeRepository.GetRecipeById(id);
+
+            IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
+            categoriesList = GetSelectCategories();
             if (recipe != null)
             {
-                var Results = from p in _productRepository.Products()
-                              select new
-                              {
-                                  p.Id,
-                                  p.ProductName,
-                                  IsChecked = ((from pr in _recipeRepository.RecipeProdRecords()
-                                                where (pr.ProductId == p.Id) & (pr.RecipeId == id)
-                                                select pr).Count() > 0)
-                              };
-
                 var MyViewModel = new RecipesViewModel();
                 MyViewModel.Id = id;
                 MyViewModel.RecipeName = recipe.RecipeName;
@@ -119,157 +80,31 @@ namespace BLL.Concrete
                 MyViewModel.ModefiedAt = recipe.ModefiedAt;
                 MyViewModel.CookingTime = recipe.CookingTime;
                 MyViewModel.RecipeCategory = recipe.RecipeCategory;
-                var MyCheckBoxList = new List<CheckBoxViewModel>();
-                foreach (var item in Results)
+                MyViewModel.Products = recipe.RecipeProdRecords.Select(pr => new SelectItemViewModel
                 {
-                    MyCheckBoxList.Add(new CheckBoxViewModel()
-                    {
-                        Id = item.Id,
-                        Name = item.ProductName,
-                        IsChecked = item.IsChecked
-                    });
-                 }
-                MyViewModel.Products = MyCheckBoxList;
+                    Id = pr.ProductId,
+                    Name = pr.Product.ProductName,
+                });
+
                 return MyViewModel;
-                }
-            return null;
             }
-           
 
-            //model = new RecipesViewModel
-            //{
-            //    Id = recipe.Id,
-            //    RecipeName = recipe.RecipeName,
-            //    RecipeImage = recipe.RecipeImage,
-            //    RecipeDescription = recipe.RecipeDescription,
-            //    CreatedAt = recipe.CreatedAt,
-            //    ModefiedAt = recipe.ModefiedAt,
-            //    CookingTime = recipe.CookingTime,
-            //    RecipeCategory = recipe.RecipeCategory
-            //};
-        //}
-        //    return model;
-        //}
-
-    public EditRecipeViewModel EditRecipe(int id)
-    {
-        EditRecipeViewModel model = null;
+            return null;
+        }
 
 
-            //////////////
+        public EditRecipeViewModel EditRecipe(int id)
+        {
+            EditRecipeViewModel model = null;
+
             var recipe = _recipeRepository.GetRecipeById(id);
 
             IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
             categoriesList = GetSelectCategories();
 
-            //var MyViewModel = new EditRecipeViewModel();
-            //if (recipe != null)
-            //{
-            //    var Results = from p in _productRepository.Products()
-            //                  select new
-            //                  {
-            //                      p.Id,
-            //                      p.ProductName,
-            //                      IsChecked = ((from pr in _recipeProdRecordRepository.RecipeProdRecords()
-            //                                    where (pr.ProductId == p.Id) & (pr.RecipeId == id)
-            //                                    select pr).Count() > 0)
-            //                  };
-
-            //    MyViewModel.Id = id;
-            //    MyViewModel.RecipeName = recipe.RecipeName;
-            //    MyViewModel.RecipeImage = recipe.RecipeImage;
-            //    MyViewModel.RecipeDescription = recipe.RecipeDescription;
-            //    MyViewModel.CreatedAt = recipe.CreatedAt;
-            //    MyViewModel.ModefiedAt = recipe.ModefiedAt;
-            //    MyViewModel.CookingTime = recipe.CookingTime;
-            //    MyViewModel.RecipeCategory = recipe.RecipeCategory;
-            //    MyViewModel.Categories = categoriesList;
-            //    MyViewModel.RecipeCategoryId = recipe.RecipeCategoryId;
-
-            //    var MyCheckBoxList = new List<CheckBoxViewModel>();
-
-            //    foreach (var item in Results)
-            //    {
-            //        MyCheckBoxList.Add(new CheckBoxViewModel()
-            //        {
-            //            Id = item.Id,
-            //            Name = item.ProductName,
-            //            IsChecked = item.IsChecked
-            //        });
-            //    }
-            //    MyViewModel.Products = MyCheckBoxList;
-
-            //}
-
-            ///////////////////
-
-            //    var recipe = _recipeRepository.GetRecipeById(id);
-            //IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
-            //categoriesList = GetSelectCategories();
-            //if (recipe != null)
-            //{
-            //    model = new EditRecipeViewModel
-            //    {
-            //        Id = recipe.Id,
-            //        RecipeName = recipe.RecipeName,
-            //        RecipeImage = recipe.RecipeImage,
-            //        RecipeDescription = recipe.RecipeDescription,
-            //        CreatedAt = recipe.CreatedAt,
-            //        ModefiedAt = DateTime.Now,
-            //        CookingTime = recipe.CookingTime,
-            //        Categories = categoriesList,
-            //        RecipeCategoryId = recipe.RecipeCategoryId,
-            //        RecipeCategory = recipe.RecipeCategory
-            //    };
-            //}
-
-            /* var ShowProducts =
-            from mpl in myplateRep.MyPlates().AsEnumerable()
-            join r in platefoodrecordRepositoryRep.PlateFoodRecords().AsEnumerable() on mpl.Id equals r.PlateId
-            join p in foodRep.Products().AsEnumerable() on r.FoodId equals p.Id
-            where mpl.mealtime.Month == t.Value.Month
-            select new
-            {
-                time = mpl.mealtime,
-                food = p.FoodName,
-                proteins = p.Proteins * r.Weight / 100,
-                fats = p.Fat * r.Weight / 100,
-                carbohydrates = p.Carbohydrates * r.Weight / 100,
-                call = p.CaloricValue * r.Weight / 100
-            };
-
-            foreach (var p in ShowProducts.OrderBy(x => x.time.Day).ThenBy(x => x.time.Hour))//отсортировала время по возрастанию
-            {
-                items_.Add(new PlateItems() { _time =p.time, _food = p.food, _proteins = p.proteins, _fats = p.fats, _carbohydrates = p.carbohydrates, _call = p.call });
-                
-            }*/
-
             if (recipe != null)
             {
 
-                var Results = from p in _productRepository.Products().AsEnumerable()
-                              select new 
-                              {
-                                  p.Id,
-                                  p.ProductName,
-                                  IsChecked=false
-                                  //IsChecked = ((from pr in _recipeProdRecordRepository.RecipeProdRecords().AsEnumerable()
-                                  //              where (pr.RecipeId == id)&(pr.ProductId == p.Id)  
-                                  //              select pr).Count() > 0)
-                              };
-
-                var MyCheckBoxList = new List<CheckBoxViewModel>();
-
-                foreach (var item in Results)
-                {
-                    MyCheckBoxList.Add(new CheckBoxViewModel()
-                    {
-                        Id = item.Id,
-                        Name = item.ProductName,
-                        IsChecked = item.IsChecked
-                    });
-                }
-             //    MyViewModel.Products = MyCheckBoxList;
                 model = new EditRecipeViewModel
                 {
                     Id = recipe.Id,
@@ -282,169 +117,146 @@ namespace BLL.Concrete
                     Categories = categoriesList,
                     RecipeCategoryId = recipe.RecipeCategoryId,
                     RecipeCategory = recipe.RecipeCategory,
-                    Products = MyCheckBoxList
+                   
+                    Products = recipe.RecipeProdRecords.Select(p => p.ProductId).ToList()
                 };
             }
 
-                return model/*MyViewModel*/;
-    }
+            return model;
+        }
 
-    public int EditRecipe(EditRecipeViewModel editRecipe)
-    {
-        try
+        public int EditRecipe(EditRecipeViewModel editRecipe)
         {
-            var recipe =
-                _recipeRepository.GetRecipeById(editRecipe.Id);
-            if (recipe != null)
+            try
             {
-                    recipe.Id = editRecipe.Id;
-                    recipe.RecipeName = editRecipe.RecipeName;
-                    recipe.RecipeImage = editRecipe.RecipeImage;
-                    recipe.RecipeDescription = editRecipe.RecipeDescription;
-                    recipe.CreatedAt = editRecipe.CreatedAt;
-                    recipe.ModefiedAt = DateTime.Now;
-                    recipe.CookingTime = editRecipe.CookingTime;
-                    recipe.RecipeCategoryId = editRecipe.RecipeCategoryId;
-                    recipe.RecipeCategory = editRecipe.RecipeCategory;
-
-                    foreach(var item in editRecipe.Products)
-                    {
-                        if(item.IsChecked)
-                        {
-                            _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item.Id });
-                        }
-                    }
-                    _recipeRepository.SaveChanges();
-            }
-        }
-        catch
-        {
-            return 0;
-        }
-        return editRecipe.Id;
-    }
-
-    public void Delete(int id)
-    {
-        _recipeRepository.Delete(id);
-    }
-
-        //public IEnumerable<SelectItemViewModel> GetListItemProducts()
-        //{
-        //    return GetProducts().AsEnumerable()
-        //        .Select(r => new SelectItemViewModel
-        //        {
-        //            Id = r.Id,
-        //            Name = r.ProductName
-        //        });
-        //}
-
-
-        //public IEnumerable<ProdItemViewModel> GetRecipeProducts()
-        //{
-        //    List<ProdItemViewModel> products = new List<ProdItemViewModel>();
-        //    var RecipeProducts =
-        //        from recipes in _recipeRepository.GettAllRecipes().AsEnumerable()
-        //        join recipe_prod in _recipeProdRecordRepository.RecipeProdRecords().AsEnumerable()
-        //        on recipes.Id equals recipe_prod.RecipeId
-        //        join prod in _productRepository.Products().AsEnumerable()
-        //         on recipe_prod.ProductId equals prod.Id
-        //        select new
-        //        {
-        //            Id = prod.Id,
-        //            Name = prod.ProductName
-        //        };
-
-        //    foreach (var p in RecipeProducts)
-        //    {
-        //        products.Add(new ProdItemViewModel() { Id = p.Id, Name = p.Name });
-        //    }
-        //    return products.AsEnumerable();
-
-        //}
-
-        /* public IEnumerable<UserItemViewModel> GetAllUsers()
+                var recipe =
+                    _recipeRepository.GetRecipeById(editRecipe.Id);
+                if (recipe != null)
                 {
-                IEnumerable<UserItemViewModel> users =
-                   _userRepository.GetAllUsers()
-                   .Select(u => new UserItemViewModel
-                   {
-                       Id = u.Id,
-                       Email = u.Email,
-                       Roles = u.Roles.Select(r => new RoleItemViewModel
-                       {
-                           Id = r.Id,
-                           Name = r.Name
-                       })
-                   });
-                    return users;*/
+                    using (var transaction = new TransactionScope())
+                    {
+                        recipe.Id = editRecipe.Id;
+                        recipe.RecipeName = editRecipe.RecipeName;
+                        recipe.RecipeImage = editRecipe.RecipeImage;
+                        recipe.RecipeDescription = editRecipe.RecipeDescription;
+                        recipe.CreatedAt = editRecipe.CreatedAt;
+                        recipe.ModefiedAt = DateTime.Now;
+                        recipe.CookingTime = editRecipe.CookingTime;
+                        recipe.RecipeCategoryId = editRecipe.RecipeCategoryId;
+                        recipe.RecipeCategory = editRecipe.RecipeCategory;
+
+                        List<int> prodIdlist = new List<int>();
+                        foreach (var item in recipe.RecipeProdRecords)
+                        {
+                            prodIdlist.Add(item.Id);
+
+                        }
+
+                        foreach (var item in prodIdlist)
+                        {
+                            _recipeProdRecordRepository.Remove(item);
+
+                        }
+
+                        _recipeProdRecordRepository.SaveChanges();
+                        _recipeProdRecordRepository.SaveChanges();
+
+                        foreach (var item in editRecipe.Products)
+                        {
+                            var prod = _productRepository.GetProductById(item);
+                            if (prod != null)
+                                _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item });
+                        }
+
+                        _recipeProdRecordRepository.SaveChanges();
+                        _recipeRepository.SaveChanges();
+                        transaction.Complete();
+                    }
+
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+            return editRecipe.Id;
+        }
+
+        public void Delete(int id)
+        {
+            _recipeRepository.Delete(id);
+        }
+
 
         public IEnumerable<RecipesViewModel> GetRecipes()
-    {
+        {
             var recipe = _recipeRepository.GettAllRecipes()
-                .Select(p=> new RecipesViewModel
+                .Select(p => new RecipesViewModel
                 {
                     Id = p.Id,
                     RecipeName = p.RecipeName,
                     RecipeImage = p.RecipeImage,
-                    RecipeDescription =p.RecipeDescription,
+                    RecipeDescription = p.RecipeDescription,
                     CreatedAt = p.CreatedAt,
                     ModefiedAt = p.ModefiedAt,
                     CookingTime = p.CookingTime,
                     RecipeCategoryId = p.Id,
                     RecipeCategory = p.RecipeCategory,
-                    Products = p.RecipeProdRecords.Select(pr=>new CheckBoxViewModel
+                   
+                    Products = p.RecipeProdRecords.Select(pr => new SelectItemViewModel
                     {
-                        Id=pr.Id,
-                        Name=pr.Product.ProductName,
-                        IsChecked=true
+                        Id = pr.ProductId,
+                        Name = pr.Product.ProductName,
                     })
                 });
-           
-            //    var Results = from p in _productRepository.Products()
-            //                  select new
-            //                  {
-            //                      p.Id,
-            //                      p.ProductName,
 
-            //                      IsChecked = ((from pr in _recipeProdRecordRepository.RecipeProdRecords()
-            //                                    where (pr.ProductId == p.Id)/* & (pr.RecipeId == id)*/
-            //                                    select pr).Count() > 0)
-            //                  };
+            return recipe;
+        }
 
-            //    var MyCheckBoxList = new List<CheckBoxViewModel>();
-            //try
-            //{
-            //    foreach (var item in Results)
-            //    {
-            //        MyCheckBoxList.Add(new CheckBoxViewModel()
-            //        {
-            //            Id = item.Id,
-            //            Name = item.ProductName,
-            //            IsChecked = item.IsChecked
-            //        });
-            //    }
-            //}
-            //catch
-            //{
 
-            //}
-            //var model = _recipeRepository.GettAllRecipes()
-            //.Select(c => new RecipesViewModel
-            //{
-            //    Id = c.Id,
-            //    RecipeName = c.RecipeName,
-            //    RecipeImage = c.RecipeImage,
-            //    RecipeDescription = c.RecipeDescription,
-            //    CreatedAt = c.CreatedAt,
-            //    ModefiedAt = c.ModefiedAt,
-            //    CookingTime = c.CookingTime,
-            //    RecipeCategoryId = c.Id,
-            //    RecipeCategory = c.RecipeCategory,
-            //    Products = MyCheckBoxList.AsEnumerable()
-            //});
-           
-            return /*model.AsEnumerable()*/ recipe;
+        public int DeleteRecipeProd(int recipeId, int prodId)
+        {
+
+            var prod = _productRepository.GetProductById(prodId);
+            if (prod != null)
+            {
+                var recipe = _recipeRepository.GetRecipeById(recipeId);
+                if (recipe != null)
+                {
+                    _recipeProdRecordRepository.Remove(_recipeProdRecordRepository.RecipeProdRecords()
+                        .FirstOrDefault(rpr => rpr.ProductId == prodId && rpr.RecipeId == recipeId).Id);
+
+                    _recipeRepository.SaveChanges();
+                    _recipeProdRecordRepository.SaveChanges();
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+
+        public IEnumerable<SelectItemViewModel> GetListItemProducts()
+        {
+            return _productRepository.Products()
+                .Select(r => new SelectItemViewModel
+                {
+                    Id = r.Id,
+                    Name = r.ProductName
+                });
+        }
+
+
+        public IEnumerable<SelectItemViewModel> GetListProducts()
+        {
+            return _recipeRepository.RecipeProdRecords()
+                .Select(r => new SelectItemViewModel
+                {
+                    Id = r.Product.Id,
+                    Name = r.Product.ProductName
+                });
+        }
+
+
+
     }
-}
 }

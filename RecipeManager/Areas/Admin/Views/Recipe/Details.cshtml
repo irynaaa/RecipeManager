@@ -67,6 +67,18 @@
             @Html.DisplayFor(model => model.RecipeCategory.NameRecipeCategory)
         </dd>
 
+        <dt>
+           @Html.DisplayNameFor(model => model.Products)
+        </dt>
+        <dd>
+            @foreach (var prod in Model.Products)
+            {
+                <span style="border: solid 1px; border-radius: 3px; padding: 3px; margin: 4px;">
+                    @prod.Name
+                </span>
+            }
+        </dd>
+
     </dl>
 </div>
 <p>

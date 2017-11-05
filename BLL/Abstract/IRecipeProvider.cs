@@ -17,8 +17,15 @@ namespace BLL.Abstract
         int EditRecipe(EditRecipeViewModel editRecipe);
         void Delete(int id);
 
+        int DeleteRecipeProd(int recipeId, int prodId);
+
+        IEnumerable<SelectItemViewModel> GetListItemProducts();
+
         //IEnumerable<ProdItemViewModel> GetRecipeProducts();
         //IEnumerable<SelectItemViewModel> GetListItemProducts();
+
+        IEnumerable<SelectItemViewModel> GetListProducts();
+
 
     }
 }

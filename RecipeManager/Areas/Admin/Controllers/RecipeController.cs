@@ -1,5 +1,6 @@
 ﻿using BLL.Abstract;
 using BLL.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace RecipeManager.Areas.Admin.Controllers
         {
             IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
             categoriesList = _recipeProvider.GetSelectCategories();
+
             ViewBag.CategoryId = new SelectList(categoriesList, "Id", "Name");
             var model = _recipeProvider.GetRecipes().OrderBy(i => i.Id);
 
@@ -120,7 +122,7 @@ namespace RecipeManager.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var model = _recipeProvider.EditRecipe(id);
-            //ViewBag.ListProducts = _recipeProvider.GetRecipeProducts();
+            ViewBag.ListProducts = _recipeProvider.GetListItemProducts();
             return View(model);
         }
 
@@ -130,11 +132,14 @@ namespace RecipeManager.Areas.Admin.Controllers
         {
             IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
             categoriesList = _recipeProvider.GetSelectCategories();
+
             editRecipe.Categories = categoriesList;
+
+            ViewBag.ListProducts = _recipeProvider.GetListProducts();
 
             if (ModelState.IsValid)
             {
-                int result = _recipeProvider.EditRecipe(editRecipe);
+                var result = _recipeProvider.EditRecipe(editRecipe);
 
                 if (result == 0)
                 {
@@ -143,8 +148,24 @@ namespace RecipeManager.Areas.Admin.Controllers
                 else if (result != 0)
                     return RedirectToAction("Index");
             }
+            ViewBag.ListProducts = _recipeProvider.GetListItemProducts();
+
             return View(editRecipe);
         }
 
+
+        [HttpPost]
+        public ContentResult DeleteRecipeProd(int recipeId, int prodId)
+        {
+            string json = "";
+           
+            int rez = _recipeProvider.DeleteRecipeProd(recipeId, prodId);
+
+            json = JsonConvert.SerializeObject(new
+            {
+                rez = rez
+            });
+            return Content(json, "application/json");
+        }
     }
 }

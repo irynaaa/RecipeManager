@@ -11,7 +11,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>EditRecipeViewModel</h4>
         <hr />
@@ -66,51 +66,39 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.RecipeCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipeCategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RecipeCategoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
         <div class="form-group">
             @Html.LabelFor(model => model.RecipeCategoryId)
             @Html.DropDownListFor(model => model.RecipeCategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.RecipeCategoryId, "", new { @class = "text-danger" })
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.Products, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <select data-placeholder="" name="mySelectChosen" id="mySelectChosen" multiple class="chosen-select">
                     <option value=""></option>
                     @foreach (var item in (IEnumerable<BLL.ViewModels.SelectItemViewModel>)ViewBag.ListProducts)
                     {
-                        int roleId = Model.Products.SingleOrDefault(r => r == item.Id);
+                        int prodId = Model.Products.FirstOrDefault(p => p == item.Id);
                         string selected = "";
-                        if (roleId != 0)
+                        if (prodId != 0)
                         {
                             selected = "selected";
                         }
                         <option value="@item.Id" @Html.Raw(selected)>@item.Name</option>
                     }
                 </select>
+
+                <div id="selectedProdId">
+                    @foreach (var item in Model.Products)
+                    {
+                        <input type="hidden" name="Products" id="Products" value="@item" />
+                    }
+                </div>
             </div>
-        </div>*@
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Products)
-            @for (int i = 0; i < Model.Products.Count(); i++)
-            {
-                @Html.EditorFor(m => Model.Products[i].IsChecked)
-                @Html.DisplayFor(m => Model.Products[i].Name)
-
-                @Html.HiddenFor(m => Model.Products[i].Name)
-                @Html.HiddenFor(m => Model.Products[i].Id)
-            }
-
         </div>
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -124,17 +112,30 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
 
-@*@section styles {
+@section styles {
     <link href="~/Content/bootstrap-chosen/bootstrap-chosen.css" rel="stylesheet" />
 }
+<input type="hidden" name="Products" id="Products" value="" />
 @section scripts {
     <script src="~/Scripts/chosen.jquery.js"></script>
     <script>
         $(".chosen-select").chosen();
         $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
+
+        /////////////
+        $("#mySelectChosen").on("change", function () {
+            var selectedArray=$($(this).val());
+            var divProducts = $("#selectedProdId");
+            var result = "";
+            $.each(selectedArray, function(key,value){
+                result+='<input type="hidden" name="Products" id="Products" value="'+value+'"/>';
+            });
+            divProducts.html(result);
+            //console.log($(this).val());
+        });
     </script>
-}*@
+}

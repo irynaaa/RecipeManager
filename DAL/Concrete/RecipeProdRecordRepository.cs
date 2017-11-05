@@ -29,5 +29,27 @@ namespace DAL.Concrete
         {
             return this._context.Set<RecipeProdRecord>()/*.Include(p=>p.ProductId)*/;
         }
+
+
+        public RecipeProdRecord RecipeProdRecordById(int id)
+        {
+            return this.RecipeProdRecords()
+                .SingleOrDefault(c => c.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+            var rpr = this.RecipeProdRecordById(id);
+            if (rpr != null)
+            {
+                _context.Set<RecipeProdRecord>().Remove(rpr);
+            }
+        }
+   
+
+        public void SaveChanges()
+        {
+            this._context.SaveChanges();
+        }
     }
 }
