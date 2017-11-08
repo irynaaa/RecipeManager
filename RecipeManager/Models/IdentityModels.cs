@@ -21,7 +21,7 @@ namespace RecipeManager.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection"/*"RecipeManagerDB"*/, throwIfV1Schema: false)
+            : base(/*"DefaultConnection"*/"RecipeManagerDB", throwIfV1Schema: false)
         {
         }
 
