@@ -1,10 +1,8 @@
-﻿@model RecipeManager.Models.RegisterViewModel
+﻿@model BLL.ViewModels.Identity.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
-
 <h2>@ViewBag.Title.</h2>
-
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -35,7 +33,6 @@
         </div>
     </div>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

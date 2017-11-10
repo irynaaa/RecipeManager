@@ -1,4 +1,6 @@
 ﻿using DAL.Abstract;
+using DAL.Entities.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Entity
 {
-    public class EFContext : DbContext, IEFContext
+    public class EFContext : /*DbContext,*/IdentityDbContext<AppUser>, IEFContext
     {
         public EFContext() : base("RecipeManagerDB_ConnectionString")
         {
