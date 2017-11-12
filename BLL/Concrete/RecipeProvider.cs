@@ -143,7 +143,6 @@ namespace BLL.Concrete
                         recipe.ModefiedAt = DateTime.Now;
                         recipe.CookingTime = editRecipe.CookingTime;
                         recipe.RecipeCategoryId = editRecipe.RecipeCategoryId;
-                        recipe.RecipeCategory = editRecipe.RecipeCategory;
 
                         List<int> prodIdlist = new List<int>();
                         foreach (var item in recipe.RecipeProdRecords)
