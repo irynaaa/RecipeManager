@@ -80,7 +80,7 @@ namespace BLL.ViewModels
         public RecipeCategory RecipeCategory { get; set; }
 
         [Display(Name = "Продукты")]
-        public List<CheckBoxViewModel> Products { get; set; }
+        public IEnumerable<SelectItemViewModel> Products { get; set; }
     }
 
     public class ProdItemViewModel

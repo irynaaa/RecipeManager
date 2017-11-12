@@ -159,13 +159,15 @@ namespace BLL.Concrete
                         }
 
                         _recipeProdRecordRepository.SaveChanges();
-                        _recipeProdRecordRepository.SaveChanges();
+                        
 
                         foreach (var item in editRecipe.Products)
                         {
                             var prod = _productRepository.GetProductById(item);
                             if (prod != null)
+                            {
                                 _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item });
+                            }
                         }
 
                         _recipeProdRecordRepository.SaveChanges();

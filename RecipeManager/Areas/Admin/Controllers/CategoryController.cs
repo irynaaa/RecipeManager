@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace RecipeManager.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly IRecipeCategoryProvider _recipeCategoryProvider;

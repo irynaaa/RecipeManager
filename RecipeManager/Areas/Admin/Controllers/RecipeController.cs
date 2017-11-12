@@ -135,8 +135,6 @@ namespace RecipeManager.Areas.Admin.Controllers
 
             editRecipe.Categories = categoriesList;
 
-            ViewBag.ListProducts = _recipeProvider.GetListProducts();
-
             if (ModelState.IsValid)
             {
                 var result = _recipeProvider.EditRecipe(editRecipe);

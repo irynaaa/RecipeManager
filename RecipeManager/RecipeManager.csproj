@@ -361,10 +361,6 @@
       <Project>{6b726cb6-aad2-428b-8f65-e7b34dc694f2}</Project>
       <Name>BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{30D7AD3F-1AD5-4EF9-9F05-EC6ECEC24950}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711082128401_InitialCreate.resx">
