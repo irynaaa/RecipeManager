@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace BLL.ViewModels
 {
@@ -59,6 +60,8 @@ namespace BLL.ViewModels
         [Display(Name = "Фото")]
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
+
+        public HttpPostedFileBase PhotoUpload { get; set; }
 
         [Display(Name = "Описание")]
         [StringLength(maximumLength: 3000)]

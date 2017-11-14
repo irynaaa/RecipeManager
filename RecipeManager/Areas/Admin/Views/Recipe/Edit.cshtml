@@ -77,22 +77,27 @@
             <div class="col-md-10">
                 <select data-placeholder="" name="mySelectChosen" id="mySelectChosen" multiple class="chosen-select">
                     <option value=""></option>
+                   
                     @foreach (var item in (IEnumerable<BLL.ViewModels.SelectItemViewModel>)ViewBag.ListProducts)
                     {
-                        int prodId = Model.Products.FirstOrDefault(p => p == item.Id);
-                        string selected = "";
-                        if (prodId != 0)
-                        {
-                            selected = "selected";
-                        }
+                            int prodId = Model.Products?.FirstOrDefault(p => p == item.Id)??0;
+                            string selected = "";
+                            if (prodId != 0)
+                            {
+                                selected = "selected";
+                            }
+
                         <option value="@item.Id" @Html.Raw(selected)>@item.Name</option>
                     }
                 </select>
 
                 <div id="selectedProdId">
-                    @foreach (var item in Model.Products)
+                    @if (Model.Products != null)
                     {
+                        foreach (var item in Model.Products)
+                        {
                         <input type="hidden" name="Products" id="Products" value="@item" />
+                        }
                     }
                 </div>
 

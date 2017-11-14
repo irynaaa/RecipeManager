@@ -233,6 +233,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\WorkWithImage.cs" />
     <Compile Include="Migrations\201711082128401_InitialCreate.cs" />
     <Compile Include="Migrations\201711082128401_InitialCreate.Designer.cs">
       <DependentUpon>201711082128401_InitialCreate.cs</DependentUpon>
@@ -348,6 +349,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Images\Recipe\Big\" />
+    <Folder Include="Images\Recipe\Small\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

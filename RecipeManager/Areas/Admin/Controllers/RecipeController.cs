@@ -3,6 +3,8 @@ using BLL.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -59,6 +61,8 @@ namespace RecipeManager.Areas.Admin.Controllers
             IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
             categoriesList = _recipeProvider.GetSelectCategories();
 
+           
+
             var viewModel = new AddRecipeViewModel
             {
                 CreatedAt = DateTime.Now,
@@ -72,15 +76,34 @@ namespace RecipeManager.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(AddRecipeViewModel recipe)
         {
+            var validTypes = new[] { "image/jpeg", "image/pjpeg", "image/png", "image/gif" };
+            if (!validTypes.Contains(recipe.PhotoUpload.ContentType))
+            {
+                ModelState.AddModelError("PhotoUpload", "Please upload either a JPG, GIF, or PNG image.");
+            }
+
             if (!ModelState.IsValid)
             {
                 IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
                 categoriesList = _recipeProvider.GetSelectCategories();
 
+
+                if (recipe.PhotoUpload.ContentLength > 0)
+                {
+                    // A file was uploaded
+                    var fileName = Path.GetFileName(recipe.PhotoUpload.FileName);
+                    string uploadPath = "~/Images/Recipe/Big/";
+                    var path = Path.Combine(Server.MapPath(uploadPath));
+                    recipe.PhotoUpload.SaveAs(path);
+                    recipe.RecipeImage = uploadPath + fileName;
+                }
+
+
                 var viewModel = new AddRecipeViewModel
                 {
                     RecipeName = recipe.RecipeName,
                     RecipeImage=recipe.RecipeImage,
+                    PhotoUpload=recipe.PhotoUpload,
                     RecipeDescription = recipe.RecipeDescription,
                     CreatedAt = recipe.CreatedAt,
                     ModefiedAt = recipe.ModefiedAt,
@@ -89,7 +112,19 @@ namespace RecipeManager.Areas.Admin.Controllers
                     Categories = categoriesList
 
                 };
+
                 return View("Add", viewModel);
+            }
+
+            if (recipe.PhotoUpload.ContentLength > 0)
+            {
+                // A file was uploaded
+                var fileName = Path.GetFileName(recipe.PhotoUpload.FileName);
+                string uploadPath = "~/Images/Recipe/Big/";
+                //var path = Path.Combine(Server.MapPath(uploadPath), fileName);
+                var path = Path.Combine(Server.MapPath(uploadPath), fileName);
+                recipe.PhotoUpload.SaveAs(path);
+                recipe.RecipeImage = uploadPath + fileName;
             }
             _recipeProvider.AddRecipe(recipe);
             return RedirectToAction("Index");
@@ -141,7 +176,7 @@ namespace RecipeManager.Areas.Admin.Controllers
 
                 if (result == 0)
                 {
-                    ModelState.AddModelError("", "Ошибка! Невозможно сохранить!");
+                    ModelState.AddModelError("", "Ошибка! Невозможно сохранить! Проверьте все ли поля указаны.");
                 }
                 else if (result != 0)
                     return RedirectToAction("Index");

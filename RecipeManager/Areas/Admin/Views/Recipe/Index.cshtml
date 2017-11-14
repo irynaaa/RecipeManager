@@ -42,7 +42,8 @@
                     @Html.DisplayFor(modelItem => item.RecipeName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RecipeImage)
+                    @*@Html.DisplayFor(modelItem => item.RecipeImage)*@
+                    <img style="width:30%" src="@Url.Content(item.RecipeImage)" alt="@item.RecipeName" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RecipeDescription)
