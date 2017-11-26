@@ -52,9 +52,13 @@ namespace DAL.Concrete
 
         public IQueryable<RecipeProdRecord> RecipeProdRecords()
         {
-            return this._context.Set<RecipeProdRecord>()/*.Include(c => c.Recipe)*/;
+            return this._context.Set<RecipeProdRecord>();
         }
 
+        public IQueryable<MenuRecipeRecord> MenuRecipeRecords()
+        {
+            return this._context.Set<MenuRecipeRecord>();
+        }
 
         public void SaveChanges()
         {

@@ -11,5 +11,9 @@ namespace DAL.Abstract
     {
         MenuRecipeRecord Add(MenuRecipeRecord menuRecipeRecord);
         IQueryable<MenuRecipeRecord> MenuRecipeRecords();
+
+        void SaveChanges();
+        void Remove(int id);
+        MenuRecipeRecord MenuRecipeRecordById(int id);
     }
 }

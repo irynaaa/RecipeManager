@@ -32,7 +32,8 @@ namespace DAL.Entity
 
         public DbSet<RecipeCategory> RecipeCategories { get; set; }
 
-
+        //??
+        //public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
         IDbSet<TEntity> IEFContext.Set<TEntity>()
         {

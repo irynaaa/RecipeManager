@@ -16,7 +16,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RecipeName)
+            @*@Html.DisplayFor(model => model.RecipeName)*@
+            <img src="@Url.Content(Model.RecipeImage)" alt="@Model.RecipeName" />
         </dd>
 
         <dt>
@@ -67,6 +68,17 @@
             @Html.DisplayFor(model => model.RecipeCategory.NameRecipeCategory)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Menus)
+        </dt>
+        <dd>
+            @foreach (var menu in Model.Menus)
+            {
+                <span style="border: solid 1px; border-radius: 3px; padding: 3px; margin: 4px;">
+                    @menu.Name
+                </span>
+            }
+        </dd>
         <dt>
            @Html.DisplayNameFor(model => model.Products)
         </dt>

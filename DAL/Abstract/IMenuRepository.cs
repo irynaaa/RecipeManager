@@ -14,5 +14,6 @@ namespace DAL.Abstract
         Menu GetMenuById(int id);
         void Remove(int id);
         void SaveChanges();
+       
     }
 }

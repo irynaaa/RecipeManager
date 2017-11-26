@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -112,5 +113,22 @@ namespace BLL.ViewModels.Identity
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class UserViewModel
+    {
+        public string Id { get; set; }
+
+        [Required, EmailAddress, Display(Name = "Електронна пошта")]
+        public string Email { get; set; }
+
+        public string RoleId { get; set; }
+
+        // [Display(Name = "Role")]
+        public IRole Role { get; set; }
+
+
+        /////////
+        public IEnumerable<SelectRoleViewModel> Roles { get; set; }
     }
 }

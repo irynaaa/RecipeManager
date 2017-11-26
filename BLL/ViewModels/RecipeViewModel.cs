@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BLL.ViewModels
 {
@@ -13,6 +14,8 @@ namespace BLL.ViewModels
     {
         [Key]
         public int Id { get; set; }
+
+        public HttpPostedFileBase PhotoUpload { get; set; }
 
         [Display(Name = "Название рецепта")]
         [Required, StringLength(maximumLength: 255)]
@@ -40,10 +43,11 @@ namespace BLL.ViewModels
         public RecipeCategory RecipeCategory { get; set; }
 
         [Display(Name = "Продукты")]
-        public IEnumerable</*CheckBoxViewModel*/SelectItemViewModel> Products { get; set; }
+        public IEnumerable<SelectItemViewModel> Products { get; set; }
 
-       // public IEnumerable<ProdItemViewModel> Products { get; set; }
-        
+        [Display(Name = "Меню")]
+        public IEnumerable<SelectItemViewModel> Menus { get; set; }
+
     }
 
     public class AddRecipeViewModel
@@ -84,6 +88,9 @@ namespace BLL.ViewModels
 
         [Display(Name = "Продукты")]
         public IEnumerable<SelectItemViewModel> Products { get; set; }
+
+        [Display(Name = "Меню")]
+        public IEnumerable<SelectItemViewModel> Menus { get; set; }
     }
 
     public class ProdItemViewModel
@@ -92,6 +99,11 @@ namespace BLL.ViewModels
         public string Name { get; set;}
     }
 
+    public class MenuItemViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 
     public class EditRecipeViewModel
     {
@@ -109,6 +121,8 @@ namespace BLL.ViewModels
         [Display(Name = "Фото")]
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
+
+        public HttpPostedFileBase PhotoUpload { get; set; }
 
         [Display(Name = "Описание")]
         [StringLength(maximumLength: 3000)]
@@ -130,8 +144,10 @@ namespace BLL.ViewModels
         public RecipeCategory RecipeCategory { get; set; }
 
         [Display(Name = "Продукты")]
-        public /*int[]*/List<int> Products { get; set; }
-        // public List</*CheckBoxViewModel*/SelectItemViewModel> Products { get; set; }
+        public List<int> Products { get; set; }
+
+        [Display(Name = "Меню")]
+        public List<int> Menus { get; set; }
 
     }
 

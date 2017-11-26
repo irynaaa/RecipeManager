@@ -45,5 +45,6 @@ namespace DAL.Entity
 
 
         public virtual ICollection<RecipeProdRecord> RecipeProdRecords { get; set; }
+        public virtual ICollection<MenuRecipeRecord> MenuRecipeRecords { get; set; }
     }
 }

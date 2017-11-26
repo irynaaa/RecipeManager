@@ -64,12 +64,16 @@
     <Compile Include="Abstract\IRecipeCategoryRepository.cs" />
     <Compile Include="Abstract\IRecipeProdRecordRepository.cs" />
     <Compile Include="Abstract\IRecipeRepository.cs" />
+    <Compile Include="Abstract\IRoleRepository.cs" />
+    <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\MenuRecipeRecordRepository.cs" />
     <Compile Include="Concrete\MenuRepository.cs" />
     <Compile Include="Concrete\ProductRepository.cs" />
     <Compile Include="Concrete\RecipeCategoryRepository.cs" />
     <Compile Include="Concrete\RecipeProdRecordRepository.cs" />
     <Compile Include="Concrete\RecipeRepository.cs" />
+    <Compile Include="Concrete\RoleRepository.cs" />
+    <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Entities\Identity\AppRole.cs" />
     <Compile Include="Entities\Identity\AppUser.cs" />
     <Compile Include="Entity\EFContext.cs" />
@@ -119,9 +123,9 @@
     <Compile Include="Migrations\201711021553377_add mamy to many relations recipes-products.Designer.cs">
       <DependentUpon>201711021553377_add mamy to many relations recipes-products.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711101431560_add AppRole, AppUser to Entities DAL.cs" />
-    <Compile Include="Migrations\201711101431560_add AppRole, AppUser to Entities DAL.Designer.cs">
-      <DependentUpon>201711101431560_add AppRole, AppUser to Entities DAL.cs</DependentUpon>
+    <Compile Include="Migrations\201711251421024_add MenuRecipeRecords.cs" />
+    <Compile Include="Migrations\201711251421024_add MenuRecipeRecords.Designer.cs">
+      <DependentUpon>201711251421024_add MenuRecipeRecords.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -161,8 +165,8 @@
     <EmbeddedResource Include="Migrations\201711021553377_add mamy to many relations recipes-products.resx">
       <DependentUpon>201711021553377_add mamy to many relations recipes-products.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711101431560_add AppRole, AppUser to Entities DAL.resx">
-      <DependentUpon>201711101431560_add AppRole, AppUser to Entities DAL.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711251421024_add MenuRecipeRecords.resx">
+      <DependentUpon>201711251421024_add MenuRecipeRecords.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

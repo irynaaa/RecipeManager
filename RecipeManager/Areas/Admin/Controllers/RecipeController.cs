@@ -1,6 +1,7 @@
 ﻿using BLL.Abstract;
 using BLL.ViewModels;
 using Newtonsoft.Json;
+using RecipeManager.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
@@ -77,7 +78,8 @@ namespace RecipeManager.Areas.Admin.Controllers
         public ActionResult Add(AddRecipeViewModel recipe)
         {
             var validTypes = new[] { "image/jpeg", "image/pjpeg", "image/png", "image/gif" };
-            if (!validTypes.Contains(recipe.PhotoUpload.ContentType))
+
+            if (recipe.PhotoUpload!=null&&!validTypes.Contains(recipe.PhotoUpload.ContentType))
             {
                 ModelState.AddModelError("PhotoUpload", "Please upload either a JPG, GIF, or PNG image.");
             }
@@ -116,7 +118,7 @@ namespace RecipeManager.Areas.Admin.Controllers
                 return View("Add", viewModel);
             }
 
-            if (recipe.PhotoUpload.ContentLength > 0)
+            if (recipe.PhotoUpload!=null&&recipe.PhotoUpload.ContentLength > 0)
             {
                 // A file was uploaded
                 var fileName = Path.GetFileName(recipe.PhotoUpload.FileName);
@@ -126,6 +128,7 @@ namespace RecipeManager.Areas.Admin.Controllers
                 recipe.PhotoUpload.SaveAs(path);
                 recipe.RecipeImage = uploadPath + fileName;
             }
+            else recipe.RecipeImage = "/Images/Recipe/Big/noimage.JPEG";
             _recipeProvider.AddRecipe(recipe);
             return RedirectToAction("Index");
         }
@@ -158,6 +161,7 @@ namespace RecipeManager.Areas.Admin.Controllers
         {
             var model = _recipeProvider.EditRecipe(id);
             ViewBag.ListProducts = _recipeProvider.GetListItemProducts();
+            ViewBag.ListMenus = _recipeProvider.GetListItemMenus();
             return View(model);
         }
 
@@ -170,6 +174,9 @@ namespace RecipeManager.Areas.Admin.Controllers
 
             editRecipe.Categories = categoriesList;
 
+            var image = editRecipe.PhotoUpload;
+            var imageSave = WorkWithImage.CreateImage(image, 800, 600);
+
             if (ModelState.IsValid)
             {
                 var result = _recipeProvider.EditRecipe(editRecipe);
@@ -179,12 +186,65 @@ namespace RecipeManager.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Ошибка! Невозможно сохранить! Проверьте все ли поля указаны.");
                 }
                 else if (result != 0)
+                {
+                    if (editRecipe.RecipeImage != null && editRecipe.PhotoUpload == null)
+                    {
+                        _recipeProvider.EditRecipe(editRecipe);
+                        return RedirectToAction("Index");
+                    }
+                    else if (/*editRecipe.PhotoUpload.ContentLength > 0*/editRecipe.PhotoUpload != null)
+                    {
+                        // A file was uploaded
+                        var fileName = Path.GetFileName(editRecipe.PhotoUpload.FileName);
+                        string uploadPath = "~/Images/Recipe/Big/";
+                        //var path = Path.Combine(Server.MapPath(uploadPath), fileName);
+                        var path = Path.Combine(Server.MapPath(uploadPath), fileName);
+                        imageSave.Save(path, ImageFormat.Jpeg);
+                        editRecipe.RecipeImage = uploadPath + fileName;
+                    }
+                    _recipeProvider.EditRecipe(editRecipe);
                     return RedirectToAction("Index");
+                }
             }
-            ViewBag.ListProducts = _recipeProvider.GetListItemProducts();
 
+            //if (!ModelState.IsValid)
+            //{
+
+            //    if (editRecipe.PhotoUpload.ContentLength > 0)
+            //    {
+            //        // A file was uploaded
+            //        var fileName = Path.GetFileName(editRecipe.PhotoUpload.FileName);
+            //        string uploadPath = "~/Images/Recipe/Big/";
+            //        var path = Path.Combine(Server.MapPath(uploadPath), fileName);
+            //        //editRecipe.PhotoUpload.SaveAs(path);
+            //        imageSave.Save(path, ImageFormat.Jpeg);
+            //        editRecipe.RecipeImage = uploadPath + fileName;
+            //    }
+
+
+            //    var viewModel = new EditRecipeViewModel
+            //    {
+            //        RecipeName = editRecipe.RecipeName,
+            //        RecipeImage = editRecipe.RecipeImage,
+            //        PhotoUpload = editRecipe.PhotoUpload,
+            //        RecipeDescription = editRecipe.RecipeDescription,
+            //        CreatedAt = editRecipe.CreatedAt,
+            //        ModefiedAt = editRecipe.ModefiedAt,
+            //        CookingTime = editRecipe.CookingTime,
+            //        RecipeCategoryId = editRecipe.RecipeCategoryId,
+            //        Categories = categoriesList
+
+            //    };
+
+                //return View("Edit", /*viewModel*/editRecipe);
+           // }
+
+            ViewBag.ListProducts = _recipeProvider.GetListItemProducts();
+            ViewBag.ListMenus = _recipeProvider.GetListItemMenus();
             return View(editRecipe);
         }
+
+
 
 
         [HttpPost]
@@ -193,6 +253,20 @@ namespace RecipeManager.Areas.Admin.Controllers
             string json = "";
            
             int rez = _recipeProvider.DeleteRecipeProd(recipeId, prodId);
+
+            json = JsonConvert.SerializeObject(new
+            {
+                rez = rez
+            });
+            return Content(json, "application/json");
+        }
+
+        [HttpPost]
+        public ContentResult DeleteRecipeMenu(int recipeId, int menuId)
+        {
+            string json = "";
+
+            int rez = _recipeProvider.DeleteRecipeMenu(recipeId, menuId);
 
             json = JsonConvert.SerializeObject(new
             {

@@ -16,14 +16,18 @@ namespace DAL.Entity
 
         public int RecipeId { get; set; }
 
-        public MenuRecipeRecord()
-        {
-            Recipes = new List<Recipe>();
-            Menus = new List<Menu>();
-        }
+        //public MenuRecipeRecord()
+        //{
+        //    Recipes = new List<Recipe>();
+        //    Menus = new List<Menu>();
+        //}
 
-        public virtual ICollection<Recipe> Recipes { get; set; }
+        //public virtual ICollection<Recipe> Recipes { get; set; }
 
-        public virtual ICollection<Menu> Menus { get; set; }
+        //public virtual ICollection<Menu> Menus { get; set; }
+
+        public virtual Recipe Recipe { get; set; }
+
+        public virtual Menu Menu { get; set; }
     }
 }

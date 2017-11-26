@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BLL.ViewModels.Identity.UserViewModel>
+@{
+    ViewBag.Title = "Admin Panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="jumbotron">
+    <h1>Привет, админ!</h1>
+    @*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role.Name)
+            </th>
+            <th></th>
+        </tr>
+        <tbody id="listUsers">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                        @Html.DisplayFor(modelItem => item.Role.Name)
+                        @foreach (var role in item.Roles)
+                        {
+                            <span>
+                                @role.Name
+                                <a href="#" class="delUserRole" data-id="@role.Id" data-user-id="@item.Id">X</a>
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>*@
+    <div class="navbar-collapse collapse">
+        @*<ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Категории", "Index", "Category")</li>
+            <li>@Html.ActionLink("Продукты", "Index", "Product")</li>
+            <li>@Html.ActionLink("Категории", "Index", "Category")</li>
+            <li>@Html.ActionLink("Продукты", "Index", "Product")</li>
+        </ul>*@
+
+    </div>
+    @Html.Partial("_NavBar")
+</div>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BLL.ViewModels;
 
 namespace BLL.Concrete
 {
@@ -15,6 +16,19 @@ namespace BLL.Concrete
         public MenuRecipeRecordProvider(IMenuRecipeRecordRepository menuRecipeRecordRepository)
         {
             _menuRecipeRecordRepository = menuRecipeRecordRepository;
+        }
+
+        public IEnumerable<RecipeMenuRecordsViewModel> GetRecipeMenuRecords()
+        {
+            var model = _menuRecipeRecordRepository.MenuRecipeRecords()
+                 .Select(c => new RecipeMenuRecordsViewModel
+                 {
+                     Id = c.Id,
+                     MenuId = c.MenuId,
+                     RecipeId = c.RecipeId,
+                 });
+
+            return model.AsEnumerable();
         }
     }
 }

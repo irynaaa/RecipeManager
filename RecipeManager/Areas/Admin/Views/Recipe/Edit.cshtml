@@ -3,13 +3,15 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var path = @Url.Content(Model?.RecipeImage ?? "~/Images/Recipe/Big/noimage.JPEG");
 }
 
 <h2>Edit</h2>
 
-
-@using (Html.BeginForm())
+ 
+@using (Html.BeginForm("Edit", "Recipe", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
+
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -27,17 +29,14 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RecipeImage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipeImage, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RecipeImage, "", new { @class = "text-danger" })
-            </div>
+            <img src="@path" alt="@Model.RecipeName" />
+            @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file" })
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.RecipeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipeDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.RecipeDescription,  new { htmlAttributes = new { @class = "form-control", @rows = "10", @cols = "100", @style = "width:100%;" } })
                 @Html.ValidationMessageFor(model => model.RecipeDescription, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,6 +70,37 @@
             @Html.DropDownListFor(model => model.RecipeCategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.RecipeCategoryId, "", new { @class = "text-danger" })
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Menus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select data-placeholder="" name="MenuSelectChosen" id="MenuSelectChosen" multiple class="chosen-select">
+                    <option value=""></option>
+
+                    @foreach (var item in (IEnumerable<BLL.ViewModels.SelectItemViewModel>)ViewBag.ListMenus)
+                    {
+                        int menuId = Model.Menus?.FirstOrDefault(p => p == item.Id) ?? 0;
+                        string selected = "";
+                        if (menuId != 0)
+                        {
+                            selected = "selected";
+                        }
+
+                        <option value="@item.Id" @Html.Raw(selected)>@item.Name</option>
+                    }
+                </select>
+                <div id="selectedMenuId">
+                    @if (Model.Menus != null)
+                    {
+                        foreach (var item in Model.Menus)
+                        {
+                            <input type="hidden" name="Menus" id="Menus" value="@item" />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Products, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -126,6 +156,7 @@
     <link href="~/Content/bootstrap-chosen/bootstrap-chosen.css" rel="stylesheet" />
 }
 <input type="hidden" name="Products" id="Products" value="" />
+<input type="hidden" name="Menus" id="Menus" value="" />
 @section scripts {
     <script src="~/Scripts/chosen.jquery.js"></script>
     <script>
@@ -136,12 +167,28 @@
         $("#mySelectChosen").on("change", function () {
             var selectedArray=$($(this).val());
             var divProducts = $("#selectedProdId");
-            var result = "";
+            var result_prod = "";
             $.each(selectedArray, function(key,value){
-                result+='<input type="hidden" name="Products" id="Products" value="'+value+'"/>';
+                result_prod += '<input type="hidden" name="Products" id="Products" value="' + value + '"/>';
             });
-            divProducts.html(result);
-            //console.log($(this).val());
+            divProducts.html(result_prod);
         });
     </script>
+
+<script>
+        $(".chosen-select").chosen();
+        $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
+
+        /////////////
+        $("#MenuSelectChosen").on("change", function () {
+            var selectedArray=$($(this).val());
+            var divMenus = $("#selectedMenuId");
+            var result_menu = "";
+            
+            $.each(selectedArray, function (key, value) {
+                result_menu += '<input type="hidden" name="Menus" id="Menus" value="' + value + '"/>';
+            });
+            divMenus.html(result_menu);
+        });
+</script>
 }
