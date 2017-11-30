@@ -1,165 +1,185 @@
 ﻿@model BLL.ViewModels.EditRecipeViewModel
-
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var path = @Url.Content(Model?.RecipeImage ?? "~/Images/Recipe/Big/noimage.JPEG");
 }
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Редактор</title>
+    <!-- TinyMCE Script Reference -->
+    <script src="~/scripts/tinymce/tinymce.min.js"></script>
+    
+    <!-- Script to wire up your TinyMCE editor -->
+    <script type="text/javascript">
+        // Initialize your tinyMCE Editor with your preferred options
+        tinyMCE.init({
+            // General options
+            mode: "textareas",
+            theme: "modern",
+            height: 500,
+            // Theme options
+            plugins: [
+ 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+ 'searchreplace wordcount visualblocks visualchars code fullscreen',
+ 'insertdatetime media nonbreaking save table contextmenu directionality',
+ 'emoticons template paste textcolor colorpicker textpattern imagetools'
+            ],
+            toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons ',
+            image_advtab: true,
+            // Example content CSS (should be your site CSS)
+            content_css: "css/example.css",
+        });
+        
+    </script>
+</head>
+<body>
+    <h2>Edit</h2>
 
-<h2>Edit</h2>
+    @using (Html.BeginForm("Edit", "Recipe", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
 
- 
-@using (Html.BeginForm("Edit", "Recipe", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-{
+        @Html.AntiForgeryToken()
 
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>EditRecipeViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RecipeName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RecipeName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RecipeName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <img src="@path" alt="@Model.RecipeName" />
-            @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RecipeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.RecipeDescription,  new { htmlAttributes = new { @class = "form-control", @rows = "10", @cols = "100", @style = "width:100%;" } })
-                @Html.ValidationMessageFor(model => model.RecipeDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ModefiedAt, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ModefiedAt, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ModefiedAt, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CookingTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CookingTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CookingTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RecipeCategoryId)
-            @Html.DropDownListFor(model => model.RecipeCategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.RecipeCategoryId, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Menus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <select data-placeholder="" name="MenuSelectChosen" id="MenuSelectChosen" multiple class="chosen-select">
-                    <option value=""></option>
-
-                    @foreach (var item in (IEnumerable<BLL.ViewModels.SelectItemViewModel>)ViewBag.ListMenus)
-                    {
-                        int menuId = Model.Menus?.FirstOrDefault(p => p == item.Id) ?? 0;
-                        string selected = "";
-                        if (menuId != 0)
-                        {
-                            selected = "selected";
-                        }
-
-                        <option value="@item.Id" @Html.Raw(selected)>@item.Name</option>
-                    }
-                </select>
-                <div id="selectedMenuId">
-                    @if (Model.Menus != null)
-                    {
-                        foreach (var item in Model.Menus)
-                        {
-                            <input type="hidden" name="Menus" id="Menus" value="@item" />
-                        }
-                    }
+        <div class="form-horizontal">
+            <h4>EditRecipeViewModel</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group">
+                @Html.LabelFor(model => model.RecipeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RecipeName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RecipeName, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RecipeImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <img src="@path" alt="@Model.RecipeName" />
+                    @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file" })
+                </div>
+                </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RecipeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.RecipeDescription, new { htmlAttributes = new { @class = "form-control", @rows = 10, @cols = 10 } })
+                    @Html.ValidationMessageFor(model => model.RecipeDescription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ModefiedAt, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ModefiedAt, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ModefiedAt, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CookingTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CookingTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CookingTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RecipeCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.RecipeCategoryId, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RecipeCategoryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Menus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select data-placeholder="" name="MenuSelectChosen" id="MenuSelectChosen" multiple class="chosen-select">
+                        <option value=""></option>
 
+                        @foreach (var item in (IEnumerable<BLL.ViewModels.SelectItemViewModel>)ViewBag.ListMenus)
+                        {
+                            int menuId = Model.Menus?.FirstOrDefault(p => p == item.Id) ?? 0;
+                            string selected = "";
+                            if (menuId != 0)
+                            {
+                                selected = "selected";
+                            }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Products, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <select data-placeholder="" name="mySelectChosen" id="mySelectChosen" multiple class="chosen-select">
-                    <option value=""></option>
-                   
-                    @foreach (var item in (IEnumerable<BLL.ViewModels.SelectItemViewModel>)ViewBag.ListProducts)
-                    {
-                            int prodId = Model.Products?.FirstOrDefault(p => p == item.Id)??0;
+                            <option value="@item.Id" @Html.Raw(selected)>@item.Name</option>
+                        }
+                    </select>
+                    <div id="selectedMenuId">
+                        @if (Model.Menus != null)
+                        {
+                            foreach (var item in Model.Menus)
+                            {
+                                <input type="hidden" name="Menus" id="Menus" value="@item" />
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Products, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select data-placeholder="" name="mySelectChosen" id="mySelectChosen" multiple class="chosen-select">
+                        <option value=""></option>
+
+                        @foreach (var item in (IEnumerable<BLL.ViewModels.SelectItemViewModel>)ViewBag.ListProducts)
+                        {
+                            int prodId = Model.Products?.FirstOrDefault(p => p == item.Id) ?? 0;
                             string selected = "";
                             if (prodId != 0)
                             {
                                 selected = "selected";
                             }
 
-                        <option value="@item.Id" @Html.Raw(selected)>@item.Name</option>
-                    }
-                </select>
-
-                <div id="selectedProdId">
-                    @if (Model.Products != null)
-                    {
-                        foreach (var item in Model.Products)
-                        {
-                        <input type="hidden" name="Products" id="Products" value="@item" />
+                            <option value="@item.Id" @Html.Raw(selected)>@item.Name</option>
                         }
-                    }
+                    </select>
+                    <div id="selectedProdId">
+                        @if (Model.Products != null)
+                        {
+                            foreach (var item in Model.Products)
+                            {
+                                <input type="hidden" name="Products" id="Products" value="@item" />
+                            }
+                        }
+                    </div>
                 </div>
+            </div>
 
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
         </div>
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }*@
-
-@section styles {
-    <link href="~/Content/bootstrap-chosen/bootstrap-chosen.css" rel="stylesheet" />
-}
-<input type="hidden" name="Products" id="Products" value="" />
-<input type="hidden" name="Menus" id="Menus" value="" />
-@section scripts {
-    <script src="~/Scripts/chosen.jquery.js"></script>
-    <script>
+    </body>
+</html>
+    @*@section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }*@
+    @section styles {
+        <link href="~/Content/bootstrap-chosen/bootstrap-chosen.css" rel="stylesheet" />
+    }
+    <input type="hidden" name="Products" id="Products" value="" />
+    <input type="hidden" name="Menus" id="Menus" value="" />
+    @section scripts {
+        <script src="~/Scripts/chosen.jquery.js"></script>
+        <script>
         $(".chosen-select").chosen();
         $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
 
@@ -173,9 +193,8 @@
             });
             divProducts.html(result_prod);
         });
-    </script>
-
-<script>
+        </script>
+        <script>
         $(".chosen-select").chosen();
         $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
 
@@ -184,11 +203,11 @@
             var selectedArray=$($(this).val());
             var divMenus = $("#selectedMenuId");
             var result_menu = "";
-            
+
             $.each(selectedArray, function (key, value) {
                 result_menu += '<input type="hidden" name="Menus" id="Menus" value="' + value + '"/>';
             });
             divMenus.html(result_menu);
         });
-</script>
-}
+        </script>
+    }

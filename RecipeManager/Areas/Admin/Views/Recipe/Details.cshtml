@@ -33,7 +33,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RecipeDescription)
+            @*@Html.DisplayFor(model => model.RecipeDescription)*@
+            @Html.Raw(Model.RecipeDescription)
         </dd>
 
         <dt>

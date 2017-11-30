@@ -25,6 +25,7 @@ namespace BLL.ViewModels
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
 
+        [AllowHtml]
         [Display(Name = "Описание")]
         [StringLength(maximumLength: 3000)]
         public string RecipeDescription { get; set; }
@@ -67,6 +68,7 @@ namespace BLL.ViewModels
 
         public HttpPostedFileBase PhotoUpload { get; set; }
 
+        [AllowHtml]
         [Display(Name = "Описание")]
         [StringLength(maximumLength: 3000)]
         public string RecipeDescription { get; set; }
@@ -124,6 +126,7 @@ namespace BLL.ViewModels
 
         public HttpPostedFileBase PhotoUpload { get; set; }
 
+        [AllowHtml]
         [Display(Name = "Описание")]
         [StringLength(maximumLength: 3000)]
         public string RecipeDescription { get; set; }
