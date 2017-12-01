@@ -3,44 +3,42 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var path = @Url.Content(Model?.RecipeImage ?? "~/Images/Recipe/Big/noimage.JPEG");
+
+    <link href="~/Content/dropZone.css" rel="stylesheet" />
+    <!-- TinyMCE Script Reference -->
+    <script src="~/scripts/tinymce/tinymce.min.js"></script>
+    <!-- Script to wire up your TinyMCE editor -->
+
+    <script type="text/javascript">
+        // Initialize your tinyMCE Editor with your preferred options mode: "textareas",
+        tinymce.init({
+            mode: "textareas",
+            height: 500,
+            theme: 'modern',
+            plugins: [
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools'
+            ],
+            toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons ',
+            image_advtab: true,
+
+        });
+
+    </script>
 }
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Редактор</title>
-    <!-- TinyMCE Script Reference -->
-    <script src="~/scripts/tinymce/tinymce.min.js"></script>
-    
-    <!-- Script to wire up your TinyMCE editor -->
-    <script type="text/javascript">
-        // Initialize your tinyMCE Editor with your preferred options
-        tinyMCE.init({
-            // General options
-            mode: "textareas",
-            theme: "modern",
-            height: 500,
-            // Theme options
-            plugins: [
- 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
- 'searchreplace wordcount visualblocks visualchars code fullscreen',
- 'insertdatetime media nonbreaking save table contextmenu directionality',
- 'emoticons template paste textcolor colorpicker textpattern imagetools'
-            ],
-            toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            toolbar2: 'print preview media | forecolor backcolor emoticons ',
-            image_advtab: true,
-            // Example content CSS (should be your site CSS)
-            content_css: "css/example.css",
-        });
-        
-    </script>
 </head>
 <body>
-    <h2>Edit</h2>
-
+    <h2>Редактировать рецепт</h2>
+    @Html.Partial("_Dropzone")
     @using (Html.BeginForm("Edit", "Recipe", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
-
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
@@ -60,6 +58,7 @@
                 <div class="col-md-10">
                     <img src="@path" alt="@Model.RecipeName" />
                     @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file" })
+                    @Html.ValidationMessageFor(model => model.PhotoUpload, "", new { @class = "text-danger" })
                 </div>
                 </div>
             <div class="form-group">

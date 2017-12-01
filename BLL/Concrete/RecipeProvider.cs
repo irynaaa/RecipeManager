@@ -128,7 +128,7 @@ namespace BLL.Concrete
                     Id = recipe.Id,
                     RecipeName = recipe.RecipeName,
                     RecipeImage = recipe.RecipeImage,
-                    RecipeDescription = recipe.RecipeDescription/*.Replace("../..", "")*/,
+                    RecipeDescription = recipe.RecipeDescription,
                     CreatedAt = recipe.CreatedAt,
                     ModefiedAt = recipe.ModefiedAt,
                     CookingTime = recipe.CookingTime,
@@ -161,7 +161,7 @@ namespace BLL.Concrete
                         recipe.Id = editRecipe.Id;
                         recipe.RecipeName = editRecipe.RecipeName;
                         recipe.RecipeImage = editRecipe.RecipeImage?? recipe.RecipeImage;
-                        recipe.RecipeDescription = editRecipe.RecipeDescription/*.Replace("../..", "")*/;
+                        recipe.RecipeDescription = editRecipe.RecipeDescription;
                         recipe.CreatedAt = editRecipe.CreatedAt;
                         recipe.ModefiedAt = DateTime.Now;
                         recipe.CookingTime = editRecipe.CookingTime;
@@ -330,28 +330,6 @@ namespace BLL.Concrete
                     Name = r.MenuName
                 });
         }
-
-
-        //public IEnumerable<SelectItemViewModel> GetListProducts()
-        //{
-        //    return _recipeRepository.RecipeProdRecords()
-        //        .Select(r => new SelectItemViewModel
-        //        {
-        //            Id = r.Product.Id,
-        //            Name = r.Product.ProductName
-        //        });
-        //}
-
-
-        //public IEnumerable<SelectItemViewModel> GetListMenus()
-        //{
-        //    return _recipeRepository.MenuRecipeRecords()
-        //        .Select(r => new SelectItemViewModel
-        //        {
-        //            Id = r.Menu.Id,
-        //            Name = r.Menu.MenuName
-        //        });
-        //}
 
     }
 }

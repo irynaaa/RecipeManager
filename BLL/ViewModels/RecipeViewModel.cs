@@ -21,7 +21,7 @@ namespace BLL.ViewModels
         [Required, StringLength(maximumLength: 255)]
         public string RecipeName { get; set; }
 
-        [Display(Name = "Фото")]
+        [Display(Name = "Главное фото")]
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
 
@@ -62,10 +62,11 @@ namespace BLL.ViewModels
         [Required, StringLength(maximumLength: 255)]
         public string RecipeName { get; set; }
 
-        [Display(Name = "Фото")]
+        [Display(Name = "Главное фото")]
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
 
+        [Display(Name = "Главное фото")]
         public HttpPostedFileBase PhotoUpload { get; set; }
 
         [AllowHtml]
@@ -120,10 +121,11 @@ namespace BLL.ViewModels
         [Required, StringLength(maximumLength: 255)]
         public string RecipeName { get; set; }
 
-        [Display(Name = "Фото")]
+        [Display(Name = "Главное фото")]
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
 
+        [Display(Name = "Главное фото")]
         public HttpPostedFileBase PhotoUpload { get; set; }
 
         [AllowHtml]

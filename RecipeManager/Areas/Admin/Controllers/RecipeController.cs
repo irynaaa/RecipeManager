@@ -123,7 +123,6 @@ namespace RecipeManager.Areas.Admin.Controllers
                 // A file was uploaded
                 var fileName = Path.GetFileName(recipe.PhotoUpload.FileName);
                 string uploadPath = "~/Images/Recipe/Big/";
-                //var path = Path.Combine(Server.MapPath(uploadPath), fileName);
                 var path = Path.Combine(Server.MapPath(uploadPath), fileName);
                 recipe.PhotoUpload.SaveAs(path);
                 recipe.RecipeImage = uploadPath + fileName;
@@ -197,7 +196,6 @@ namespace RecipeManager.Areas.Admin.Controllers
                         // A file was uploaded
                         var fileName = Path.GetFileName(editRecipe.PhotoUpload.FileName);
                         string uploadPath = "~/Images/Recipe/Big/";
-                        //var path = Path.Combine(Server.MapPath(uploadPath), fileName);
                         var path = Path.Combine(Server.MapPath(uploadPath), fileName);
                         imageSave.Save(path, ImageFormat.Jpeg);
                         editRecipe.RecipeImage = uploadPath + fileName;

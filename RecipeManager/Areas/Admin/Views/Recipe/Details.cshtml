@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Детально о рецепте</h2>
 
 <div>
-    <h4>RecipesViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -16,8 +15,8 @@
         </dt>
 
         <dd>
-            @*@Html.DisplayFor(model => model.RecipeName)*@
-            <img src="@Url.Content(Model.RecipeImage)" alt="@Model.RecipeName" />
+            @Html.DisplayFor(model => model.RecipeName)
+            
         </dd>
 
         <dt>
@@ -25,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RecipeImage)
+            <img src="@Url.Content(Model.RecipeImage)" alt="@Model.RecipeName" />
         </dd>
 
         <dt>
@@ -33,7 +32,6 @@
         </dt>
 
         <dd>
-            @*@Html.DisplayFor(model => model.RecipeDescription)*@
             @Html.Raw(Model.RecipeDescription)
         </dd>
 

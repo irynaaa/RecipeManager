@@ -20,7 +20,7 @@ namespace DAL.Entity
         [Required, StringLength(maximumLength: 255)]
         public string RecipeName { get; set; }
 
-        [Display(Name = "Фото")]
+        [Display(Name = "Главное фото")]
         [StringLength(maximumLength: 255)]
         public string RecipeImage { get; set; }
 
