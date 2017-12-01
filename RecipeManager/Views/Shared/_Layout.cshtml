@@ -6,8 +6,12 @@
     <title>@ViewBag.Title - Recipe-Manager</title>
     @RenderSection("styles", required: false)
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/dropzonescss")
     @Scripts.Render("~/bundles/modernizr")
-
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    @Scripts.Render("~/bundles/dropzonescripts")
+    
     @*<script type="text/javascript">
     if (window.location.hash && window.location.hash == '#_=_') {
         if (window.history && history.pushState) {
@@ -58,8 +62,7 @@
 
     @*@Scripts.Render("~/bundles/jquery")*@
     @*@Scripts.Render("~/bundles/bootstrap")*@
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

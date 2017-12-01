@@ -207,38 +207,6 @@ namespace RecipeManager.Areas.Admin.Controllers
                 }
             }
 
-            //if (!ModelState.IsValid)
-            //{
-
-            //    if (editRecipe.PhotoUpload.ContentLength > 0)
-            //    {
-            //        // A file was uploaded
-            //        var fileName = Path.GetFileName(editRecipe.PhotoUpload.FileName);
-            //        string uploadPath = "~/Images/Recipe/Big/";
-            //        var path = Path.Combine(Server.MapPath(uploadPath), fileName);
-            //        //editRecipe.PhotoUpload.SaveAs(path);
-            //        imageSave.Save(path, ImageFormat.Jpeg);
-            //        editRecipe.RecipeImage = uploadPath + fileName;
-            //    }
-
-
-            //    var viewModel = new EditRecipeViewModel
-            //    {
-            //        RecipeName = editRecipe.RecipeName,
-            //        RecipeImage = editRecipe.RecipeImage,
-            //        PhotoUpload = editRecipe.PhotoUpload,
-            //        RecipeDescription = editRecipe.RecipeDescription,
-            //        CreatedAt = editRecipe.CreatedAt,
-            //        ModefiedAt = editRecipe.ModefiedAt,
-            //        CookingTime = editRecipe.CookingTime,
-            //        RecipeCategoryId = editRecipe.RecipeCategoryId,
-            //        Categories = categoriesList
-
-            //    };
-
-                //return View("Edit", /*viewModel*/editRecipe);
-           // }
-
             ViewBag.ListProducts = _recipeProvider.GetListItemProducts();
             ViewBag.ListMenus = _recipeProvider.GetListItemMenus();
             return View(editRecipe);
@@ -273,6 +241,55 @@ namespace RecipeManager.Areas.Admin.Controllers
                 rez = rez
             });
             return Content(json, "application/json");
+        }
+
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\WallImages", Server.MapPath(@"\")));
+
+                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
+
+                        var fileName1 = Path.GetFileName(file.FileName);
+
+                        bool isExists = System.IO.Directory.Exists(pathString);
+
+                        if (!isExists)
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                        var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                        file.SaveAs(path);
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message = fName });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
         }
     }
 }

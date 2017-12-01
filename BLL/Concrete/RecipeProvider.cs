@@ -58,7 +58,7 @@ namespace BLL.Concrete
             {
                 RecipeName = addRecipe.RecipeName,
                 RecipeImage = addRecipe.RecipeImage,
-                RecipeDescription = addRecipe.RecipeDescription,
+                RecipeDescription = addRecipe.RecipeDescription.Replace("../..", ""),
                 CreatedAt = DateTime.Now,
                 ModefiedAt = DateTime.Now,
                 CookingTime = addRecipe.CookingTime,
@@ -128,7 +128,7 @@ namespace BLL.Concrete
                     Id = recipe.Id,
                     RecipeName = recipe.RecipeName,
                     RecipeImage = recipe.RecipeImage,
-                    RecipeDescription = recipe.RecipeDescription,
+                    RecipeDescription = recipe.RecipeDescription/*.Replace("../..", "")*/,
                     CreatedAt = recipe.CreatedAt,
                     ModefiedAt = recipe.ModefiedAt,
                     CookingTime = recipe.CookingTime,
@@ -161,7 +161,7 @@ namespace BLL.Concrete
                         recipe.Id = editRecipe.Id;
                         recipe.RecipeName = editRecipe.RecipeName;
                         recipe.RecipeImage = editRecipe.RecipeImage?? recipe.RecipeImage;
-                        recipe.RecipeDescription = editRecipe.RecipeDescription;
+                        recipe.RecipeDescription = editRecipe.RecipeDescription/*.Replace("../..", "")*/;
                         recipe.CreatedAt = editRecipe.CreatedAt;
                         recipe.ModefiedAt = DateTime.Now;
                         recipe.CookingTime = editRecipe.CookingTime;

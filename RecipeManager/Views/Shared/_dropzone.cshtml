@@ -1,0 +1,24 @@
+﻿
+<script>
+        Dropzone.options.dropzoneForm = {
+            init: function () {
+                this.on("complete", function (data) {
+                    //var res = eval('(' + data.xhr.responseText + ')');
+                    var res = JSON.parse(data.xhr.responseText);
+                    tinyMCE.activeEditor.execCommand("mceInsertContent", true, "<img src=/Images/WallImages/imagepath/" + data.name + " alt='Uploaded Image' class='img-responsive' />");
+                     console.log(data.name);
+                });
+
+                 
+            }
+        };
+</script>
+
+<div class="jumbotron">
+    <form action="~/Recipe/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm" style="width: 50px; background: none; border: none;">
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+            <input type="submit" value="Upload" />
+        </div>
+    </form>
+</div>
