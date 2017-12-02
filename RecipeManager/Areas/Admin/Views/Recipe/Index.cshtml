@@ -1,15 +1,33 @@
-﻿@model IEnumerable<BLL.ViewModels.RecipesViewModel>
-
+﻿@*@model IEnumerable<BLL.ViewModels.RecipesViewModel>*@
+@model PagedList.IPagedList<BLL.ViewModels.RecipesViewModel>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Рецепты";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 @Html.Partial("_NavBar")
-<h2>Index</h2>
-<p>
+<h2>Рецепты</h2>
+@*<p>
     @Html.ActionLink("Create New", "Add")
-</p>
+</p>*@
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <div class="form-group">
+            <table class="searchRecipe">
+                <tr>
+                    <th>@Html.ActionLink("Create New", "Add")</th>
+                    <th>@Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })</th>
+                    <th><input type="submit" value="Search" /></th>
+                    <th>@Html.ActionLink("Show All", "Index")</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+}
 <table class="table">
     <tr>
         <th>
@@ -96,7 +114,11 @@
         }
     </tbody>
 </table>
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount products
 
 @section scripts {
     <script>

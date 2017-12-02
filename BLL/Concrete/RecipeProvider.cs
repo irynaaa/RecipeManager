@@ -250,7 +250,7 @@ namespace BLL.Concrete
                     CreatedAt = p.CreatedAt,
                     ModefiedAt = p.ModefiedAt,
                     CookingTime = p.CookingTime,
-                    RecipeCategoryId = p.Id,
+                    RecipeCategoryId = p.RecipeCategoryId,
                     RecipeCategory = p.RecipeCategory,
                    
                     Products = p.RecipeProdRecords.Select(pr => new SelectItemViewModel

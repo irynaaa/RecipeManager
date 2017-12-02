@@ -1,6 +1,7 @@
 ﻿using BLL.Abstract;
 using BLL.ViewModels;
 using Newtonsoft.Json;
+using PagedList;
 using RecipeManager.Helpers;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace RecipeManager.Areas.Admin.Controllers
         }
         // GET: Category
 
-        public ActionResult Index(/*int? page*/)
+        public ActionResult Index(int? page)
         {
             IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
             categoriesList = _recipeProvider.GetSelectCategories();
@@ -32,15 +33,16 @@ namespace RecipeManager.Areas.Admin.Controllers
 
 
             var model = _recipeProvider.GetRecipes().OrderBy(i => i.Id);
-            // int pageSize = 10;
-            // int pageNumber = (page ?? 1);
-            //return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));
-            return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id));
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));
+            //return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id));
         }
 
+        
 
         [HttpPost]
-        public ActionResult Index(/*int? page,*/ int? categoryId)
+        public ActionResult Index(int? page, int? categoryId)
         {
             IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
             categoriesList = _recipeProvider.GetSelectCategories();
@@ -48,12 +50,13 @@ namespace RecipeManager.Areas.Admin.Controllers
             ViewBag.CategoryId = new SelectList(categoriesList, "Id", "Name");
             var model = _recipeProvider.GetRecipes().OrderBy(i => i.Id);
 
-           // int pageSize = 10;
-           // int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
             if (categoryId != null)
-                return View(_recipeProvider.GetRecipes().Where(recipe => recipe.RecipeCategoryId == categoryId).OrderBy(i => i.Id));//.ToPagedList(pageNumber, pageSize));
+                //View(_productProvider.GetProducts().Where(prod => prod.CategoryId == categoryId).OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));
+                return View(_recipeProvider.GetRecipes().Where(recipe => recipe.RecipeCategoryId == categoryId).OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));//;
             else
-                return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id));//.ToPagedList(pageNumber, pageSize));
+                return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));//;
         }
 
         // [ValidateAntiForgeryToken]
