@@ -16,6 +16,19 @@ namespace BLL.ViewModels
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        // public int UserId { get; set; }
     }
+
+    public class SelectProdWeightViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public float Weight { get; set; }
+    }
+
+    //public class ProdWeightViewModel
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    public float Weight { get; set; }
+    //}
 }

@@ -3,7 +3,6 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var path = @Url.Content(Model?.RecipeImage ?? "~/Images/Recipe/Big/noimage.JPEG");
-
     <link href="~/Content/dropZone.css" rel="stylesheet" />
     <!-- TinyMCE Script Reference -->
     <script src="~/scripts/tinymce/tinymce.min.js"></script>
@@ -35,10 +34,17 @@
     <title>Редактор</title>
 </head>
 <body>
+
     <h2>Редактировать рецепт</h2>
     @Html.Partial("_Dropzone")
+
+
+
+
+
     @using (Html.BeginForm("Edit", "Recipe", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
+
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
@@ -58,9 +64,8 @@
                 <div class="col-md-10">
                     <img src="@path" alt="@Model.RecipeName" />
                     @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file" })
-                    @Html.ValidationMessageFor(model => model.PhotoUpload, "", new { @class = "text-danger" })
                 </div>
-                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.RecipeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -166,19 +171,19 @@
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
-    </body>
+</body>
 </html>
-    @*@section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }*@
-    @section styles {
-        <link href="~/Content/bootstrap-chosen/bootstrap-chosen.css" rel="stylesheet" />
-    }
-    <input type="hidden" name="Products" id="Products" value="" />
-    <input type="hidden" name="Menus" id="Menus" value="" />
-    @section scripts {
-        <script src="~/Scripts/chosen.jquery.js"></script>
-        <script>
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+@section styles {
+    <link href="~/Content/bootstrap-chosen/bootstrap-chosen.css" rel="stylesheet" />
+}
+<input type="hidden" name="Products" id="Products" value="" />
+<input type="hidden" name="Menus" id="Menus" value="" />
+@section scripts {
+    <script src="~/Scripts/chosen.jquery.js"></script>
+    <script>
         $(".chosen-select").chosen();
         $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
 
@@ -192,8 +197,8 @@
             });
             divProducts.html(result_prod);
         });
-        </script>
-        <script>
+    </script>
+    <script>
         $(".chosen-select").chosen();
         $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
 
@@ -208,5 +213,5 @@
             });
             divMenus.html(result_menu);
         });
-        </script>
-    }
+    </script>
+}

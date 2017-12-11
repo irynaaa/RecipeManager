@@ -30,6 +30,11 @@ namespace DAL.Concrete
             return this._context.Set<RecipeProdRecord>()/*.Include(p=>p.ProductId)*/;
         }
 
+        public IQueryable<RecipeProdRecord> RecipeProdRecordByRecipeId(int id)
+        {
+            return this.RecipeProdRecords().Where(i => i.RecipeId==id);
+                
+        }
 
         public RecipeProdRecord RecipeProdRecordById(int id)
         {
@@ -45,7 +50,19 @@ namespace DAL.Concrete
                 _context.Set<RecipeProdRecord>().Remove(rpr);
             }
         }
-   
+
+
+        public void RemoveRecipe(int RecipeId)
+        {
+            var rpr = this.RecipeProdRecords().Where(r=>r.RecipeId == RecipeId);
+            if (rpr != null)
+            {
+                foreach(var recipe in rpr)
+                _context.Set<RecipeProdRecord>().Remove(recipe);
+            }
+            this._context.SaveChanges();
+        }
+
 
         public void SaveChanges()
         {

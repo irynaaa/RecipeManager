@@ -18,10 +18,10 @@
         <div class="form-group">
             <table class="searchRecipe">
                 <tr>
-                    <th>@Html.ActionLink("Create New", "Add")</th>
+                    <th class="btn btn-default">@Html.ActionLink("Create New", "Add")</th>
                     <th>@Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })</th>
                     <th><input type="submit" value="Search" /></th>
-                    <th>@Html.ActionLink("Show All", "Index")</th>
+                    <th class="btn btn-default">@Html.ActionLink("Show All", "Index")</th>
                 </tr>
             </table>
         </div>
@@ -85,9 +85,9 @@
                 <td>
                     @foreach (var menu in item.Menus)
                     {
-                        <span style="border: solid 1px; border-radius: 3px; padding: 3px; margin: 4px;">
+                        <span class="btn btn-info" style="line-height:1; margin-bottom:5px;">
                             @menu.Name
-                            <a href="#" class="delRecipeMenu" data-id2="@menu.Id" data-menu-id="@item.Id">x</a>
+                            <a href="#" @*class="delRecipeMenu"*@ data-id2="@menu.Id" data-menu-id="@item.Id">x</a>
                         </span>
                     }
                 </td>
@@ -96,7 +96,7 @@
                     
                         @foreach (var prod in item.Products)
                         {
-                            <span style="border: solid 1px; border-radius: 3px; padding: 3px; margin: 4px;">
+                            <span class="btn btn-default"  style="line-height:1; margin-bottom:5px;">
                                 @prod.Name
                                 @*@prod.IsChecked*@
                                 <a href="#" class="delRecipeProd" data-id1="@prod.Id" data-prod-id="@item.Id">x</a>
@@ -106,9 +106,10 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Править", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning", @style = "line-height:1; margin-bottom:5px;" })
+                    @Html.ActionLink("Детали", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "line-height:1; margin-bottom:5px;" })
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "line-height:1; margin-bottom:5px;" })
+                    @Html.ActionLink("Добавить вес", "ProductsWeight", new { item.Id }, htmlAttributes: new { @class = "btn btn-primary", @style = "line-height:1; margin-bottom:5px;" })
                 </td>
             </tr>
         }

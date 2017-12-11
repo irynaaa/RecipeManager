@@ -15,8 +15,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RecipeName)
-            
+            <h4>@Html.DisplayFor(model => model.RecipeName)</h4>
+
         </dd>
 
         <dt>
@@ -24,14 +24,17 @@
         </dt>
 
         <dd>
+            <br/>
             <img src="@Url.Content(Model.RecipeImage)" alt="@Model.RecipeName" />
         </dd>
 
         <dt>
+            
             @Html.DisplayNameFor(model => model.RecipeDescription)
         </dt>
 
         <dd>
+            <br />
             @Html.Raw(Model.RecipeDescription)
         </dd>
 
@@ -73,24 +76,43 @@
         <dd>
             @foreach (var menu in Model.Menus)
             {
-                <span style="border: solid 1px; border-radius: 3px; padding: 3px; margin: 4px;">
+                <span>
                     @menu.Name
                 </span>
             }
         </dd>
-        <dt>
-           @Html.DisplayNameFor(model => model.Products)
-        </dt>
-        <dd>
+    </dl>
+
+    <table>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Products)</td>
+            <td>@Html.DisplayNameFor(model => model.Weight)</td>
+        </tr>
+
+        <tr>
             @foreach (var prod in Model.Products)
             {
-                <span style="border: solid 1px; border-radius: 3px; padding: 3px; margin: 4px;">
-                    @prod.Name
-                </span>
-            }
-        </dd>
 
-    </dl>
+                <td> @prod.Name</td>
+
+            }
+        </tr>
+
+        <tr>
+            @foreach (var prod in Model.Weight)
+
+            {
+
+                <td> @prod.Weight</td>
+
+            }
+
+        </tr>
+
+
+
+    </table>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

@@ -1,0 +1,85 @@
+﻿@model BLL.ViewModels.RecipesViewModel
+
+@using (Html.BeginForm("ProductsWeight", "Recipe", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+@Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.RecipeName)
+        @Html.HiddenFor(model => model.RecipeImage)
+        @Html.HiddenFor(model => model.RecipeDescription)
+        @Html.HiddenFor(model => model.CreatedAt)
+        @Html.HiddenFor(model => model.ModefiedAt)
+        @Html.HiddenFor(model => model.CookingTime)
+        @Html.HiddenFor(model => model.RecipeCategory.NameRecipeCategory)
+        
+        @for (var i = 0; i < Model.Menus.Count; i++)
+        {
+            @Html.HiddenFor(model => Model.Menus[i].Id)
+            @Html.HiddenFor(model => Model.Menus[i].Name)
+        }
+
+        @for (var i = 0; i < Model.Products.Count; i++)
+        {
+            @Html.HiddenFor(model => Model.Products[i].Id)
+            @Html.HiddenFor(model => Model.Products[i].Name)
+        }
+
+        @*@for (var i = 0; i < Model.Weight.Count; i++)
+        {
+            @Html.HiddenFor(model => Model.Weight[i].Id)
+            @Html.HiddenFor(model => Model.Weight[i].Name)
+            @Html.HiddenFor(model => Model.Weight[i].Weight)
+        }*@
+       
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.RecipeName)
+            </dt>
+
+            <dd>
+                <h4>@Html.DisplayFor(model => model.RecipeName)</h4>
+
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Menus)
+            </dt>
+            <dd>
+                @foreach (var menu in Model.Menus)
+                {
+                    <span>
+                        @menu.Name
+                    </span>
+                }
+            </dd>
+        </dl>
+
+
+        @for (var i = 0; i < Model.Weight.Count; i++)
+        {
+            @Html.HiddenFor(model => Model.Weight[i].Id)
+            @Html.DisplayFor(model => Model.Weight[i].Name)
+            @Html.ValidationMessageFor(model => Model.Weight[i].Name, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => Model.Weight[i].Weight, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => Model.Weight[i].Weight, "", new { @class = "text-danger" })
+        }
+
+        @for (var i = 0; i < Model.Weight.Count; i++)
+        {
+            @Html.HiddenFor(model => Model.Weight[i].Weight)
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -44,10 +44,13 @@ namespace BLL.ViewModels
         public RecipeCategory RecipeCategory { get; set; }
 
         [Display(Name = "Продукты")]
-        public IEnumerable<SelectItemViewModel> Products { get; set; }
+        public IList<SelectItemViewModel> Products { get; set; }
 
         [Display(Name = "Меню")]
-        public IEnumerable<SelectItemViewModel> Menus { get; set; }
+        public IList<SelectItemViewModel> Menus { get; set; }
+
+        [Display(Name = "Вес, г")]
+        public IList<SelectProdWeightViewModel> Weight { get; set; }
 
     }
 
@@ -151,8 +154,12 @@ namespace BLL.ViewModels
         [Display(Name = "Продукты")]
         public List<int> Products { get; set; }
 
+        [Display(Name = "Вес, г")]
+        public List<float> Weight { get; set; }
+
         [Display(Name = "Меню")]
         public List<int> Menus { get; set; }
+
 
     }
 

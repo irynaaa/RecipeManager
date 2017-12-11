@@ -13,6 +13,8 @@ namespace DAL.Abstract
         IQueryable<RecipeProdRecord> RecipeProdRecords();
         void SaveChanges();
         void Remove(int id);
+        void RemoveRecipe(int RecipeId);
+        IQueryable<RecipeProdRecord> RecipeProdRecordByRecipeId(int id);
         RecipeProdRecord RecipeProdRecordById(int id);
     }
 }

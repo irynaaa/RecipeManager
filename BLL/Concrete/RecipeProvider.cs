@@ -94,13 +94,19 @@ namespace BLL.Concrete
                 {
                     Id = pr.ProductId,
                     Name = pr.Product.ProductName,
-                });
+                }).ToList();
 
                 MyViewModel.Menus = recipe.MenuRecipeRecords.Select(mr => new SelectItemViewModel
                 {
                     Id = mr.MenuId,
                     Name = mr.Menu.MenuName,
-                });
+                }).ToList();
+
+                MyViewModel.Weight = recipe.RecipeProdRecords.Select(pr => new SelectProdWeightViewModel
+                {
+                    Id = pr.ProductId,
+                    Weight = pr.Weight
+                }).ToList();
 
                 return MyViewModel;
             }
@@ -137,8 +143,8 @@ namespace BLL.Concrete
                     RecipeCategory = recipe.RecipeCategory,
 
                     Products = recipe.RecipeProdRecords.Select(p => p.ProductId).ToList(),
-                    Menus = recipe.MenuRecipeRecords.Select(p => p.MenuId).ToList()
-
+                    Menus = recipe.MenuRecipeRecords.Select(p => p.MenuId).ToList(),
+                    //Weight=recipe.RecipeProdRecords.Select(p => p.Weight).ToList()
                 };
 
                
@@ -168,28 +174,31 @@ namespace BLL.Concrete
                         recipe.RecipeCategoryId = editRecipe.RecipeCategoryId;
 
                         List<int> prodIdlist = new List<int>();
+                        //List<float> prodWeight = new List<float>();
                         foreach (var item in recipe.RecipeProdRecords)
                         {
                             prodIdlist.Add(item.Id);
-
+                          //  prodWeight.Add(item.Weight);
                         }
 
-                        foreach (var item in prodIdlist)
-                        {
-                            _recipeProdRecordRepository.Remove(item);
+                        //foreach (var item in prodIdlist)
+                        //{
+                            _recipeProdRecordRepository.RemoveRecipe(editRecipe.Id);
 
-                        }
+                        // }
+
+
 
                         _recipeProdRecordRepository.SaveChanges();
                         _recipeRepository.SaveChanges();
-
+                        var i = 0;
                         foreach (var item in editRecipe.Products)
                         {
                             var prod = _productRepository.GetProductById(item);
                             if (prod != null)
-                                _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item });
+                                _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item/*, Weight = editRecipe.Weight[i]*/ });
+                            ++i;
                         }
-
 
 
                         List<int> menuIdlist = new List<int>();
@@ -217,7 +226,7 @@ namespace BLL.Concrete
 
 
 
-
+                        _recipeProdRecordRepository.SaveChanges();
                         _menuRecipeRecordRepository.SaveChanges();
                         _recipeRepository.SaveChanges();
                         transaction.Complete();
@@ -231,6 +240,166 @@ namespace BLL.Concrete
             }
             return editRecipe.Id;
         }
+
+
+        public RecipesViewModel EditRecipeProdWeight(int id)
+        {
+            var recipe = _recipeRepository.GetRecipeById(id);
+
+            IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
+            categoriesList = GetSelectCategories();
+            if (recipe != null)
+            {
+                var MyViewModel = new RecipesViewModel();
+                MyViewModel.Id = id;
+                MyViewModel.RecipeName = recipe.RecipeName;
+                MyViewModel.RecipeImage = recipe.RecipeImage;
+                MyViewModel.RecipeDescription = recipe.RecipeDescription;
+                MyViewModel.CreatedAt = recipe.CreatedAt;
+                MyViewModel.ModefiedAt = recipe.ModefiedAt;
+                MyViewModel.CookingTime = recipe.CookingTime;
+                MyViewModel.RecipeCategory = recipe.RecipeCategory;
+                MyViewModel.Products = recipe.RecipeProdRecords.Select(pr => new SelectItemViewModel
+                {
+                    Id = pr.ProductId,
+                    Name = pr.Product.ProductName,
+                }).ToList();
+
+                MyViewModel.Menus = recipe.MenuRecipeRecords.Select(mr => new SelectItemViewModel
+                {
+                    Id = mr.MenuId,
+                    Name = mr.Menu.MenuName,
+                }).ToList();
+
+                MyViewModel.Weight = recipe.RecipeProdRecords.Select(pr => new SelectProdWeightViewModel
+                {
+                    Id = pr.ProductId,
+                    Name=pr.Product.ProductName,
+                    Weight = pr.Weight
+                }).ToList();
+
+                return MyViewModel;
+            }
+
+            return null;
+        }
+        public RecipesViewModel EditRecipeProdWeight(RecipesViewModel editRecipe)
+        {
+            RecipesViewModel editView = new RecipesViewModel();
+            try
+            {
+                var recipe =
+                    _recipeRepository.GetRecipeById(editRecipe.Id);
+                if (recipe != null)
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                       // recipe.Id = editRecipe.Id;
+                       // recipe.RecipeName = editRecipe.RecipeName;
+                        //recipe.Id = editRecipe.Id;
+                        //recipe.RecipeName = editRecipe.RecipeName;
+                       // recipe.RecipeImage = editRecipe.RecipeImage ?? recipe.RecipeImage;
+                       // recipe.RecipeDescription = editRecipe.RecipeDescription;
+                        //recipe.CreatedAt = editRecipe.CreatedAt;
+                     //   recipe.ModefiedAt = DateTime.Now;
+                       // recipe.CookingTime = editRecipe.CookingTime;
+                      //  recipe.RecipeCategoryId = editRecipe.RecipeCategoryId;
+
+                       // List<int> prodIdlist = new List<int>();
+                        //List<float> prodWeight = new List<float>();
+                      //  foreach (var item in recipe.RecipeProdRecords)
+                      //  {
+                     //       prodIdlist.Add(item.Id);
+                            //  prodWeight.Add(item.Weight);
+                    //    }
+
+
+                        //editRecipe.Products = recipe.RecipeProdRecords.Select(pr => new SelectItemViewModel
+                        //{
+                        //    Id = pr.ProductId,
+                        //    Name = pr.Product.ProductName,
+                        //});
+
+                        //editRecipe.Menus = recipe.MenuRecipeRecords.Select(mr => new SelectItemViewModel
+                        //{
+                        //    Id = mr.MenuId,
+                        //    Name = mr.Menu.MenuName,
+                        //});
+
+                        //editRecipe.Weight = recipe.RecipeProdRecords.Select(pr => new SelectProdWeightViewModel
+                        //{
+                        //    Id = pr.ProductId,
+                        //    Name = pr.Product.ProductName,
+                        //    Weight = pr.Weight
+                        //});
+
+
+                        //foreach (var item in prodIdlist)
+                        //{
+                        _recipeProdRecordRepository.RemoveRecipe(editRecipe.Id);
+
+                        // }
+
+
+
+                        _recipeProdRecordRepository.SaveChanges();
+                        _recipeRepository.SaveChanges();
+                        var i = 0;
+                        foreach (var item in editRecipe.Weight)
+                        {
+                            var prod = _productRepository.GetProductById(item.Id);
+                            if (prod != null)
+                                _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item.Id, Weight = item.Weight });
+                            ++i;
+                        }
+
+
+                        
+                            
+
+                        //List<int> menuIdlist = new List<int>();
+                        //foreach (var item in recipe.MenuRecipeRecords)
+                        //{
+                        //    menuIdlist.Add(item.Id);
+
+                        //}
+
+                        //foreach (var item in menuIdlist)
+                        //{
+                        //    _menuRecipeRecordRepository.Remove(item);
+
+                        //}
+
+                        //_menuRecipeRecordRepository.SaveChanges();
+                        //_recipeRepository.SaveChanges();
+
+                        //foreach (var item in editRecipe?.Menus)
+                        //{
+                        //    var menu = _menuRepository.GetMenuById(item);
+                        //    if (menu != null)
+                        //        _menuRecipeRecordRepository.Add(new MenuRecipeRecord() { RecipeId = editRecipe.Id, MenuId = item });
+                        //}
+
+
+
+
+                        _recipeProdRecordRepository.SaveChanges();
+                       
+                        _recipeRepository.SaveChanges();
+                        transaction.Complete();
+                    }
+
+                }
+            }
+            catch
+            {
+                return null;
+            }
+
+
+            return editRecipe;
+        }
+
 
         public void Delete(int id)
         {
@@ -257,13 +426,13 @@ namespace BLL.Concrete
                     {
                         Id = pr.ProductId,
                         Name = pr.Product.ProductName,
-                    }),
+                    }).ToList(),
 
                      Menus = p.MenuRecipeRecords.Select(mr => new SelectItemViewModel
                      {
                          Id = mr.MenuId,
                          Name = mr.Menu.MenuName,
-                     })
+                     }).ToList()
                 });
 
             return recipe;
@@ -318,6 +487,17 @@ namespace BLL.Concrete
                 {
                     Id = r.Id,
                     Name = r.ProductName
+                });
+        }
+
+        public IEnumerable<SelectProdWeightViewModel> GetListWeightProducts(int id)
+        {
+            return _recipeProdRecordRepository.RecipeProdRecordByRecipeId(id)
+                .Select(r => new SelectProdWeightViewModel
+                {
+                    Id = r.ProductId,
+                    Name=r.Product.ProductName,//?
+                    Weight = r.Weight
                 });
         }
 
