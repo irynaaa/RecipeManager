@@ -1,7 +1,8 @@
 ﻿@model BLL.ViewModels.EditRecipeViewModel
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     var path = @Url.Content(Model?.RecipeImage ?? "~/Images/Recipe/Big/noimage.JPEG");
     <link href="~/Content/dropZone.css" rel="stylesheet" />
     <!-- TinyMCE Script Reference -->
@@ -39,19 +40,17 @@
     @Html.Partial("_Dropzone")
 
 
-
-
-
     @using (Html.BeginForm("Edit", "Recipe", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
 
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>EditRecipeViewModel</h4>
+
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
+
             <div class="form-group">
                 @Html.LabelFor(model => model.RecipeName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -59,11 +58,12 @@
                     @Html.ValidationMessageFor(model => model.RecipeName, "", new { @class = "text-danger" })
                 </div>
             </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.RecipeImage, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <img src="@path" alt="@Model.RecipeName" />
-                    @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file" })
+                    <img id="picPath" src="@path" class="img-responsive img-rounded" alt="@Model.RecipeName" /><br /><br />
+                    @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file", id="mainPicture"})
                 </div>
             </div>
             <div class="form-group">
@@ -163,13 +163,19 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Сохранить" class="btn btn-success" />
                 </div>
             </div>
         </div>
     }
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @*@Html.ActionLink("Back to List", "Index")*@
+
+        <br /><br />
+        @Html.ActionLink("Править", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-warning", @style = "line-height:1; margin-bottom:5px;" })
+        @Html.ActionLink("Добавить вес", "ProductsWeight", new { Model.Id }, htmlAttributes: new { @class = "btn btn-primary", @style = "line-height:1; margin-bottom:5px;" })
+        @Html.ActionLink("Удалить", "Delete", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "line-height:1; margin-bottom:5px;" })
+        @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-success", @style = "line-height:1; margin-bottom:5px;" })
     </div>
 </body>
 </html>
@@ -189,10 +195,10 @@
 
         /////////////
         $("#mySelectChosen").on("change", function () {
-            var selectedArray=$($(this).val());
+            var selectedArray = $($(this).val());
             var divProducts = $("#selectedProdId");
             var result_prod = "";
-            $.each(selectedArray, function(key,value){
+            $.each(selectedArray, function (key, value) {
                 result_prod += '<input type="hidden" name="Products" id="Products" value="' + value + '"/>';
             });
             divProducts.html(result_prod);
@@ -204,7 +210,7 @@
 
         /////////////
         $("#MenuSelectChosen").on("change", function () {
-            var selectedArray=$($(this).val());
+            var selectedArray = $($(this).val());
             var divMenus = $("#selectedMenuId");
             var result_menu = "";
 
@@ -214,4 +220,5 @@
             divMenus.html(result_menu);
         });
     </script>
+
 }

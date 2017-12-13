@@ -163,4 +163,10 @@ namespace BLL.ViewModels
 
     }
 
+    public enum StatusDeleteViewModel
+    {
+        Succes = 0,
+        Error = 1
+    }
+
 }

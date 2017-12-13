@@ -2,14 +2,13 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 style="color:red">Вы уверены, что хотите удалить рецепт "@Html.DisplayFor(model => model.RecipeName)"?</h3>
 <div>
-    <h4>RecipesViewModel</h4>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -25,7 +24,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RecipeImage)
+            <br />
+            <img src="@Url.Content(Model.RecipeImage)" alt="@Model.RecipeName" />
         </dd>
 
         <dt>
@@ -33,7 +33,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RecipeDescription)
+            <br />
+            @Html.Raw(Model.RecipeDescription)
         </dd>
 
         <dt>
@@ -74,8 +75,11 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <br />
+            <input type="submit" value="Удалить" class="btn btn-danger" />
+            <br /><br />
+            @Html.ActionLink("Править", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-warning", @style = "line-height:1; margin-bottom:5px;" })
+            @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-success", @style = "line-height:1; margin-bottom:5px;" })
         </div>
     }
 </div>

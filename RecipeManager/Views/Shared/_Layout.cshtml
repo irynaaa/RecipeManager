@@ -7,15 +7,17 @@
     @RenderSection("styles", required: false)
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/dropzonescss")
+    @Styles.Render("~/Content/frontsitecss")
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     @Scripts.Render("~/bundles/dropzonescripts")
+    @Scripts.Render("~/bundles/frontsitescripts")
     
 </head>
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -34,7 +36,7 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="container body-content">
         @RenderBody()
         <hr />

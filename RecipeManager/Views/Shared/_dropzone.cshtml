@@ -5,7 +5,7 @@
                 this.on("complete", function (data) {
                     //var res = eval('(' + data.xhr.responseText + ')');
                     var res = JSON.parse(data.xhr.responseText);
-                    tinyMCE.activeEditor.execCommand("mceInsertContent", true, "<img src=/Images/WallImages/imagepath/" + data.name + " alt='Uploaded Image' class='img-responsive' />");
+                    tinyMCE.activeEditor.execCommand("mceInsertContent", true, "<img class=\"img-responsive img-rounded\" src=/Images/WallImages/imagepath/" + data.name + " alt='Uploaded Image' class='img-responsive' />");
                      console.log(data.name);
                 });
 

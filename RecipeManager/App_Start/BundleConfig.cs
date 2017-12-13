@@ -8,6 +8,8 @@ namespace RecipeManager
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.IgnoreList.Clear();
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -16,6 +18,10 @@ namespace RecipeManager
 
             bundles.Add(new ScriptBundle("~/bundles/dropzonescripts").Include(
                      "~/Scripts/dropzone/dropzone.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/frontsitescripts").Include(
+                     "~/Content/FrontSite/js/bootstrap.min.js",
+                     "~/Content/FrontSite/js/jquery-2.1.1.min.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -33,6 +39,12 @@ namespace RecipeManager
             bundles.Add(new StyleBundle("~/Content/dropzonescss").Include(
                      "~/Scripts/dropzone/css/basic.css",
                      "~/Scripts/dropzone/css/dropzone.css"));
+
+
+            bundles.Add(new StyleBundle("~/Content/frontsitecss").Include(
+                    "~/Content/FrontSite/css/bootstrap.min.css",
+                    "~/Content/FrontSite/css/font-awesome.min.css",
+                    "~/Content/FrontSite/css/style.css"));
         }
     }
 }

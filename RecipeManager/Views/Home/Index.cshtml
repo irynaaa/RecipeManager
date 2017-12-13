@@ -1,52 +1,528 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-<link href="~/Content/dropZone.css" rel="stylesheet" />
-<script>
-    //File Upload response from the server
-    $(function() {
-        Dropzone.options.dropzoneForm = {
-        init: function () {
-            this.on("complete", function (data) {
-                //var res = eval('(' + data.xhr.responseText + ')');
-                var res = JSON.parse(data.xhr.responseText);
-            });
-        }
-        };
-    });
-</script>
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recipe-Manager</title>
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    @*<link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>*@
 
-<div class="jumbotron">
-    <form action="~/Home/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm" style="width: 50px; background: none; border: none;">
-        <div class="fallback">
-            <input name="file" type="file" multiple />
-            <input type="submit" value="Upload" />
+    <style>
+        section {
+            background-color: #ECE8D9;
+        }
+
+        .center_inner {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wraper">
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <section id="header_top" class="clearfix">
+                        <div class="header_top">
+                            <div class="col-sm-12">
+                                <div class="col-sm-3">
+                                    <div class="header_top_1">
+                                        <h1>
+                                            <a style="color:#ee8647" href="#">SmartFOOD</a>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="header_top_2">
+                                        <div class="col-md-12">
+                                            <nav class="navbar navbar-default" role="navigation">
+                                                <!-- Brand and toggle get grouped for better mobile display -->
+                                                <div class="navbar-header">
+                                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                                        <span class="sr-only">Toggle navigation</span>
+                                                        <span class="icon-bar"></span>
+                                                        <span class="icon-bar"></span>
+                                                        <span class="icon-bar"></span>
+                                                    </button>
+                                                </div>
+                                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                                    <ul class="nav navbar-nav">
+                                                        <li>@Html.ActionLink("Домой", "Index", "Home")</li>
+                                                        <li>
+                                                            @*@Html.ActionLink("Рецепты", "Index", "Home", htmlAttributes: new { @class = "dropdown-toggle" })*@
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                Рецепты
+                                                                <span class="caret"></span></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a href="#">Action</a></li>
+                                                                    <li><a href="#">Another action</a></li>
+                                                                    <li><a href="#">Something else here</a></li>
+                                                                    <li class="divider"></li>
+                                                                    <li><a href="#">Separated link</a></li>
+                                                                    <li class="divider"></li>
+                                                                    <li><a href="#">One more separated link</a></li>
+                                                                </ul>
+</li>
+                                                        <li>@Html.ActionLink("Домой", "Index", "Home")</li>
+                                                        @*<li><a class="border_none_1 active_1" href="index.html">Домой</a></li>*@
+                                                        @*<li><a href="recipes.html">RECIPES</a></li>
+                                                        <li><a href="details.html">DETAILS</a></li>
+                                                        <li><a href="pages.html">TYPOGRAPHY</a></li>
+                                                        <li><a href="contact.html">CONTACT</a></li>*@
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">VIDEOS <b class="caret"></b></a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#">Action</a></li>
+                                                                <li><a href="#">Another action</a></li>
+                                                                <li><a href="#">Something else here</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">Separated link</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">One more separated link</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- /.navbar-collapse -->
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="header_top_3">
+                                        <div class="search">
+                                            <input type="text" class="form-control input-sm" maxlength="64" placeholder="Search">
+                                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="header_line"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="center">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-8 center_main_left">
+                                        <div class="col-12 clearfix center_main_1">
+                                            <div class="col-sm-4">
+                                                <div class="center_1">
+                                                    <a href="#"><h3>SIT AMET </h3></a>
+                                                    <h4><a href="#">INTEGER</a></h4>
+                                                    <p>Sed cursus ante dapibus diam.<br />consectetur adipiscing elit<br /> on <a href="#">Fusce nec tellus </a>,<a href="#">Sed nisi<br /></a>Nulla quis sem at nibh.</p>
+                                                    <p><a href="#">10+ consectetur adipiscing</a></p>
+                                                    <h5>CLASS APTENT TACITI SOCIOSQU</h5>
+                                                    <ul>
+                                                        <li><a href="#">Vestibulum lacinia arcu</a></li>
+                                                        <li><a href="#">nibh elementum imperdiet</a></li>
+                                                        <li><a href="#">Sed nisi Nulla quis sem</a></li>
+                                                        <li><a href="#">Fusce nec tellus sed augue</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 watch">
+                                                <div class="center_inner clearfix">
+                                                    <img src="img/500.jpg">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 episodes">
+                                                <div class="col-sm-4 episodes_1">
+                                                    <div class="Stream">
+                                                        <h3> Lorem ipsum dolor</h3>
+                                                        <div class="Stream_1">
+                                                            <a href="#"><img src="img/199.jpg" width="100%"></a>
+                                                            <div class="Stream_2">
+                                                                <p>adipiscing elit.<br />nec</p>
+                                                                <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.</p>
+                                                                <a href="#">Duis sagittis ipsum.</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="Recipes small">
+                                                        <h3> Lorem ipsum dolor</h3>
+                                                        <ul>
+                                                            <li><a href="#">Sed dignissim</a></li>
+                                                            <li><a href="#">per inceptos himenaeos.</a></li>
+                                                            <li><a href="#">Sed dignissim lacinia nunc.</a></li>
+                                                            <li><a href="#">cursus ante dapibus diam. Sed</a></li>
+                                                            <li><a href="#"> Nulla quis sem at nibh elementum imperdiet</a></li>
+                                                            <li><a href="#"> Curabitursodales ligula in libero.</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="Recipes small">
+                                                        <h3>Integer nec odionec </h3>
+                                                        <ul>
+                                                            <li><a href="#">Sed dignissim</a></li>
+                                                            <li><a href="#">per inceptos himenaeos.</a></li>
+                                                            <li><a href="#">Sed dignissim lacinia nunc.</a></li>
+                                                            <li><a href="#">cursus ante dapibus diam. Sed</a></li>
+                                                            <li><a href="#"> Nulla quis sem at nibh elementum imperdiet</a></li>
+                                                            <li><a href="#"> Curabitursodales ligula in libero.</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="Recipes_1"><img src="img/503.jpg"></div>
+                                                </div>
+                                                <div class="col-sm-8 lock">
+                                                    <div class="Stream_3">
+                                                        <div class="col-sm-12 lock_inner">
+                                                            <div class="Devour clearfix">
+                                                                <div class="col-sm-12 Stream_top">
+                                                                    <div class="Stream_top_1 clearfix">
+                                                                        <h2>BLOG</h2>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 Stream_inner_main">
+                                                                    <div class="Stream_4"><a href="#"><img src="img/197.jpg"></a></div>
+                                                                </div>
+                                                                <div class="col-sm-8 Stream_inner_main">
+                                                                    <div class="Stream_5">
+                                                                        <h4><a href="#">consectetur adipiscing</a></h4>
+                                                                        <P>
+                                                                            Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia<br />
+                                                                            <a href="#">Sed dignissim lacinia nunc.</a>
+                                                                        </P>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-12">
+                                                                    <div class="Stream_inner">
+                                                                        <h5><i>|</i>Fusce nec tellus sed</h5>
+                                                                    </div>
+                                                                    <div class="col-sm-6 Stream_inner_main">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="shape clearfix">
+                                                                                <div class="col-sm-6 Stream_inner_main clearfix">
+                                                                                    <div class="Stream_inner_1"><img src="img/195.jpg"></div>
+                                                                                </div>
+                                                                                <div class="col-sm-6 Stream_inner_main">
+                                                                                    <div class="Stream_inner_2"><a href="#"> Mauris massa. Vestibulum </a></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 Stream_inner_main">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="shape clearfix">
+                                                                                <div class="col-sm-6 Stream_inner_main">
+                                                                                    <div class="Stream_inner_3">
+                                                                                        <img src="img/196.jpg">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-sm-6 Stream_inner_main">
+                                                                                    <div class="Stream_inner_4">
+                                                                                        <a href="#">elementum imperdiet. Duis</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 globe">
+                                                            <div class="plane clearfix">
+                                                                <h3>Fusce nec tellus sed augue</h3>
+                                                            </div>
+                                                            <div class="plane_1">
+                                                                <img src="img/191.jpg" width="95%" height="300px">
+                                                            </div>
+                                                            <div class="plane_2 clearfix">
+                                                                <a href="#">dignissim lacinia nunc</a>
+                                                                <p>Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="Squash clearfix">
+                                                                <div class="col-sm-6">
+                                                                    <div class="plane_3">
+                                                                        <ul>
+                                                                            <li><a href="#">lacinia nunc</a></li>
+                                                                            <li><a href="#">per conubia nostra, </a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="plane_4">
+                                                                        <ul>
+                                                                            <li><a href="#">augue semper porta</a></li>
+                                                                            <li><a href="#">dapibus diam. Sed nisi</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="Squash_inner text-center">
+                                                                <img src="img/502.jpg">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 center_main_inner">
+                                        <div class="Deviled clearfix">
+                                            <div class="col-sm-12 deviled_main">
+                                                <div class="col-sm-7 deviled_1">
+                                                    <div class="center_inner_1">
+                                                        <p><span class="about">NEC</span> SED CURSUS ANTE</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5 deviled_1">
+                                                    <div class="center_inner_2">
+                                                        <ul>
+                                                            <li><a href="#">Fusce nec</a></li>
+                                                            <li><a class="border_none_1" href="#">augue Nulla</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 deviled_main">
+                                                <div class="col-sm-4 deviled_1">
+                                                    <div class="center_inner_3"><p>Fusce</p><h4>nec</h4></div>
+                                                </div>
+                                                <div class="col-sm-8 deviled_1">
+                                                    <div class="center_inner_4"><a href="#">Integer</a></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 deviled_main">
+                                                <div class="col-sm-4 deviled_1">
+                                                    <div class="center_inner_5"><p>litora<h4>conubia </h4></p></div>
+                                                </div>
+                                                <div class="col-sm-8 deviled_1">
+                                                    <div class="center_inner_6"><a href="#">lacinia arcu eget nulla.</a></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-4 deviled_1">
+                                                    <div class="center_inner_7"><h3>nunc<br />litora </h3></div>
+                                                </div>
+                                                <div class="col-sm-4 deviled_1">
+                                                    <div class="center_inner_8"><a href="#"><img src="img/201.jpg"></a></div>
+                                                </div>
+                                                <div class="col-sm-4 deviled_1">
+                                                    <div class="center_inner_9"><a href="#">aptent taciti</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popular clearfix">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-7 middle_main_1">
+                                                    <div class="middle"><p>Integer nec odionec odio nunc</p></div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="middle"><a href="#">Lorem sit</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="middle_1"><img src="img/194.jpg"></div>
+                                            <div class="middle_2"><h4 class="text-center">Curabitursodal</h4></div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="seasons clearfix">
+                                                <div class="col-sm-5">
+                                                    <div class="middle_3"><h3>Taciti sociosqu</h3></div>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <div class="middle_4">
+                                                        <ul>
+                                                            <li>Torquent</li>
+                                                            <li>1234</li>
+                                                            <li> sit</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="Premiere clearfix">
+                                                <div class="col-sm-6">
+                                                    <div class="Premiere_block1">
+                                                        <div class="middle_5"><img src="img/193.jpg"></div>
+                                                        <div class="middle_7"><a href="#">torquent per conubia nostra, per inceptos  [11:55:55]</a></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="Premiere_block2">
+                                                        <div class="middle_6"><img src="img/192.jpg"></div>
+                                                        <div class="middle_7">
+                                                            <a href="#">torquent per conubia nostra, per inceptos  [11:55:55]</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 Healthy">
+                                            <div class="plane_inner clearfix">
+                                                <div class="middle_8"><h3>Lorem ipsum dolor sit</h3></div>
+                                                <div class="plane clearfix">
+                                                    <div class="col-sm-12 Healthy_1">
+                                                        <div class="Healthy_2">
+                                                            <ul>
+                                                                <li class="Healthy_3">1</li>
+                                                                <li class="Healthy_4"><a href="#"><img src="img/202.jpg"></a></li>
+                                                                <li class="Healthy_5"><a href="#">Integer nec odionec odio</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="Healthy_2">
+                                                            <ul>
+                                                                <li class="Healthy_3">2</li>
+                                                                <li class="Healthy_5"><a href="#">lacinia arcu eget nulla</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="Healthy_2">
+                                                            <ul>
+                                                                <li class="Healthy_3">3</li>
+                                                                <li class="Healthy_5"><a href="#"> Fusce nec tellus sed augue semper porta.</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="Healthy_2">
+                                                            <ul>
+                                                                <li class="Healthy_3">4</li>
+                                                                <li class="Healthy_5"><a href="#">consectetur adipiscing elit</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="Healthy_2">
+                                                            <ul>
+                                                                <li class="Healthy_3">5</li>
+                                                                <li class="Healthy_5"><a href="#"> odionec odio. Praesent libero.</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="recipes_inner">
+                                                <h3>Lorem ipsum</h3>
+                                                <p>Fusce nec tellus sed augue semper porta. Mauris massa.<br /> Vestibulum lacinia arcu eget nulla.Class aptent</p>
+                                                <div class="recipes_inner_1 text-center"><a href="#">HIMENAEOS</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="footer_top" class="clearfix">
+                        <div class="col-sm-12 push clearfix">
+                            <div class="footer_top_1">
+                                <h4>Lorem ipsum dolor sit amet</h4>
+                                <div class="col-sm-12 push">
+                                    <div class="footer_top_2">
+                                        <ul>
+                                            <li><i>.</i><a href="#">Integer nec odionec odio </a></li>
+                                            <li><i>.</i><a href="#">ante dapibus diam amet</a></li>
+                                            <li><i>.</i><a href="#">Fusce nec tellus sed diam</a></li>
+                                            <li><i>.</i><a href="#">cursus ante dapibus arcu</a></li>
+                                            <li><i>.</i><a href="#">lacinia arcu eget nulla</a></li>
+                                            <li><i>.</i><a href="#">inceptos himenaeos</a></li>
+                                            <li><i>.</i><a href="#">consectetur adipiscing</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 push">
+                                    <div class="footer_top_2">
+                                        <ul>
+                                            <li><i>.</i><a href="#">Integer nec odionec odio </a></li>
+                                            <li><i>.</i><a href="#">ante dapibus diam amet</a></li>
+                                            <li><i>.</i><a href="#">Fusce nec tellus sed diam</a></li>
+                                            <li><i>.</i><a href="#">cursus ante dapibus arcu</a></li>
+                                            <li><i>.</i><a href="#">lacinia arcu eget nulla</a></li>
+                                            <li><i>.</i><a href="#">inceptos himenaeos</a></li>
+                                            <li><i>.</i><a href="#">consectetur adipiscing</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 push_1 clerafix">FFFHGFHJFJFJHFJHF</div>
+                        <div class="footer_top_2 clerafix">
+                            <div class="col-sm-12 footer_main_inner_1">
+                                <div class="col-sm-2 push_2">
+                                    <div class="footer_top_3">
+                                        <h5>EGET Duis<br /> Integer  odionec</h5>
+                                        <ul>
+                                            <li><a href="#">Praesent</a></li>
+                                            <li><a href="#">lacinia</a></li>
+                                            <li><a href="#">mauris T-E</a></li>
+                                            <li><a href="#">conubia E-X</a></li>
+                                            <li><a href="#">Nulla S-V</a></li>
+                                            <li><a href="#">sodales D-B</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 footer_main">
+                                    <div class="footer_top_4">
+                                        <h5>consectetur adipiscing</h5>
+                                        <h6><a href="#">Ante Iacinia</a></h6>
+                                    </div>
+                                    <div class="footer_top_5">
+                                        <img src="img/501.jpg">
+                                        <a href="#">50+ nunc-sed Vestibulum</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 footer_main_1">
+                                    <div class="footer_top_6">
+                                        <h5><a href="#">Nunc.Nec</a></h5>
+                                        <ul>
+                                            <li><a href="#">Rainbow Veggie Pizza</a></li>
+                                            <li><a href="#">per inceptos himenaeos</a></li>
+                                            <li><a href="#">34 Vestibulum massa</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4  footer_main_inner">
+                                    <div class="footer_top_7">
+                                        <h5><a href="#">Diam.Sed</a></h5>
+                                        <ul>
+                                            <li><a href="#">conubia lacinia nulla</a></li>
+                                            <li><a href="#">How to Make a Kale Salad</a></li>
+                                            <li><a href="#">42 Vestibulum massa</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12 footer-main-1">
+                                    <div class="col-sm-7 bold">
+                                        <div class="footer_1">
+                                            <p>Amet Iacinia Class</p>
+                                            <h6>© 2016 <a href="http://www.templateonweb.com">TemplateOnWeb</a>, SED. SEM Mauris Sociosqu</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 bold_inner">
+                                        <div class="footer_2">
+                                            <p><a href="#">Sit Nec At Iacinia Inceptos Iigula</a></p>
+                                            <ul>
+                                                <li><a href="#">Iacinia |</a></li>
+                                                <li><a href="#">Consectetur |</a></li>
+                                                <li><a href="#">adipiscing elit |</a></li>
+                                                <li><a href="#">Himenaeos |</a></li>
+                                                <li><a href="#">Vestibulum |</a></li>
+                                                <li><a href="#">Augue </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
+</body>
+</html>

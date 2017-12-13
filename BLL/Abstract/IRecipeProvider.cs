@@ -18,7 +18,7 @@ namespace BLL.Abstract
         RecipesViewModel EditRecipeProdWeight(int id);
         RecipesViewModel EditRecipeProdWeight(RecipesViewModel editRecipe);
         void Delete(int id);
-
+        StatusDeleteViewModel DeletePopup(int id);
         int DeleteRecipeProd(int recipeId, int prodId);
         int DeleteRecipeMenu(int recipeId, int menuId);
 

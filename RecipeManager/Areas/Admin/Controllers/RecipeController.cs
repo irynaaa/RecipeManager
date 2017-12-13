@@ -142,6 +142,7 @@ namespace RecipeManager.Areas.Admin.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(RecipesViewModel recipeDel)
@@ -150,6 +151,37 @@ namespace RecipeManager.Areas.Admin.Controllers
             return RedirectToAction("Index");
 
         }
+ 
+
+        #region AJAX
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ContentResult DeletePopup(RecipesViewModel model)
+        {
+            
+            string json = ""; int rez = 0; string message = "";
+            // message = "Подумай ще!";
+            if (ModelState.IsValid)
+            {
+                var status = _recipeProvider.DeletePopup(model.Id);
+                if (status == StatusDeleteViewModel.Succes)
+                {
+                    rez = 1;
+                }
+                else
+                {
+                    message = "Во время удаления возникла ошибка!";
+                    rez = 2;
+                }
+            }
+            json = JsonConvert.SerializeObject(new
+            {
+                rez = rez,
+                message = message
+            });
+            return Content(json, "application/json");
+        }
+        #endregion
 
         [HttpGet]
         public ActionResult Details(int id)
@@ -178,7 +210,7 @@ namespace RecipeManager.Areas.Admin.Controllers
             editRecipe.Categories = categoriesList;
 
             var image = editRecipe.PhotoUpload;
-            var imageSave = WorkWithImage.CreateImage(image, 800, 600);
+            var imageSave = WorkWithImage.CreateImage(image, 640, 480);
 
             if (ModelState.IsValid)
             {
@@ -308,9 +340,6 @@ namespace RecipeManager.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ProductsWeight(RecipesViewModel editRecipe)
         {
-
-           
-
             var image = editRecipe.PhotoUpload;
             var imageSave = WorkWithImage.CreateImage(image, 800, 600);
 
@@ -349,35 +378,11 @@ namespace RecipeManager.Areas.Admin.Controllers
             return View(editRecipe);
         }
 
-
-
-        //        if (result == null)
-        //        {
-        //            ModelState.AddModelError("", "Ошибка! Невозможно сохранить! Проверьте все ли поля указаны.");
-        //        }
-        //        else if (result != null)
-        //        {
-
-        //            _recipeProvider.EditRecipeProdWeight(editRecipe);
-        //            return RedirectToAction("Index");/*RedirectToAction("ProductsWeight", new { id = editRecipe.Id })*/;
-        //        }
-        //    }
-        //            //_recipeProvider.EditRecipeProdWeight(editRecipe);
-        //            // return RedirectToAction/*("Edit", new { id = editRecipe.Id })*/("Index");
-        //            ViewBag.ListProductWeights = _recipeProvider.GetListWeightProducts(editRecipe.Id);
-        //    ViewBag.ListProductWeights = _recipeProvider.GetListWeightProducts(editRecipe.Id);
-        //    return View(editRecipe);
-        //}
-
         [HttpPost]
         public ContentResult AddAjax(EditRecipeViewModel editRecipe)
         {
-            //editRecipe=_recipeProvider.EditRecipeProdWeight(editRecipe);
+            
             int status = 1;
-
-
-
-
 
             IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
             categoriesList = _recipeProvider.GetSelectCategories();
@@ -400,7 +405,6 @@ namespace RecipeManager.Areas.Admin.Controllers
                     if (editRecipe.RecipeImage != null && editRecipe.PhotoUpload == null)
                     {
                         _recipeProvider.EditRecipe(editRecipe);
-                        //return RedirectToAction("Index");/*RedirectToAction("ProductsWeight", new { id = editRecipe.Id })*/;
                     }
                     else if (/*editRecipe.PhotoUpload.ContentLength > 0*/editRecipe.PhotoUpload != null)
                     {
@@ -412,25 +416,17 @@ namespace RecipeManager.Areas.Admin.Controllers
                         editRecipe.RecipeImage = uploadPath + fileName;
                     }
                     _recipeProvider.EditRecipe(editRecipe);
-                    //return RedirectToAction/*("ProductsWeight", new { id = editRecipe.Id })*/("Index");
                 }
             }
 
             ViewBag.ListProducts = _recipeProvider.GetListItemProducts();
             ViewBag.ListMenus = _recipeProvider.GetListItemMenus();
             ViewBag.ListProductWeights = _recipeProvider.GetListWeightProducts(editRecipe.Id);
-           // return View(editRecipe);
-
-
-
 
             string json = JsonConvert.SerializeObject(new
             {
                 result = status,
-                recipe = editRecipe,
-
-           
-            
+                recipe = editRecipe,  
         });
             return Content(json, "application/json");
 

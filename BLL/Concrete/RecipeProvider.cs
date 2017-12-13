@@ -126,9 +126,6 @@ namespace BLL.Concrete
 
             if (recipe != null)
             {
-
-               
-
                 model = new EditRecipeViewModel
                 {
                     Id = recipe.Id,
@@ -142,7 +139,7 @@ namespace BLL.Concrete
                     Categories = categoriesList,
                     RecipeCategory = recipe.RecipeCategory,
 
-                    Products = recipe.RecipeProdRecords.Select(p => p.ProductId).ToList(),
+                Products = recipe.RecipeProdRecords.Select(p => p.ProductId).ToList(),
                     Menus = recipe.MenuRecipeRecords.Select(p => p.MenuId).ToList(),
                     //Weight=recipe.RecipeProdRecords.Select(p => p.Weight).ToList()
                 };
@@ -178,16 +175,9 @@ namespace BLL.Concrete
                         foreach (var item in recipe.RecipeProdRecords)
                         {
                             prodIdlist.Add(item.Id);
-                          //  prodWeight.Add(item.Weight);
                         }
 
-                        //foreach (var item in prodIdlist)
-                        //{
-                            _recipeProdRecordRepository.RemoveRecipe(editRecipe.Id);
-
-                        // }
-
-
+                         _recipeProdRecordRepository.RemoveRecipe(editRecipe.Id);
 
                         _recipeProdRecordRepository.SaveChanges();
                         _recipeRepository.SaveChanges();
@@ -283,6 +273,7 @@ namespace BLL.Concrete
 
             return null;
         }
+
         public RecipesViewModel EditRecipeProdWeight(RecipesViewModel editRecipe)
         {
             RecipesViewModel editView = new RecipesViewModel();
@@ -294,53 +285,7 @@ namespace BLL.Concrete
                 {
                     using (var transaction = new TransactionScope())
                     {
-                       // recipe.Id = editRecipe.Id;
-                       // recipe.RecipeName = editRecipe.RecipeName;
-                        //recipe.Id = editRecipe.Id;
-                        //recipe.RecipeName = editRecipe.RecipeName;
-                       // recipe.RecipeImage = editRecipe.RecipeImage ?? recipe.RecipeImage;
-                       // recipe.RecipeDescription = editRecipe.RecipeDescription;
-                        //recipe.CreatedAt = editRecipe.CreatedAt;
-                     //   recipe.ModefiedAt = DateTime.Now;
-                       // recipe.CookingTime = editRecipe.CookingTime;
-                      //  recipe.RecipeCategoryId = editRecipe.RecipeCategoryId;
-
-                       // List<int> prodIdlist = new List<int>();
-                        //List<float> prodWeight = new List<float>();
-                      //  foreach (var item in recipe.RecipeProdRecords)
-                      //  {
-                     //       prodIdlist.Add(item.Id);
-                            //  prodWeight.Add(item.Weight);
-                    //    }
-
-
-                        //editRecipe.Products = recipe.RecipeProdRecords.Select(pr => new SelectItemViewModel
-                        //{
-                        //    Id = pr.ProductId,
-                        //    Name = pr.Product.ProductName,
-                        //});
-
-                        //editRecipe.Menus = recipe.MenuRecipeRecords.Select(mr => new SelectItemViewModel
-                        //{
-                        //    Id = mr.MenuId,
-                        //    Name = mr.Menu.MenuName,
-                        //});
-
-                        //editRecipe.Weight = recipe.RecipeProdRecords.Select(pr => new SelectProdWeightViewModel
-                        //{
-                        //    Id = pr.ProductId,
-                        //    Name = pr.Product.ProductName,
-                        //    Weight = pr.Weight
-                        //});
-
-
-                        //foreach (var item in prodIdlist)
-                        //{
                         _recipeProdRecordRepository.RemoveRecipe(editRecipe.Id);
-
-                        // }
-
-
 
                         _recipeProdRecordRepository.SaveChanges();
                         _recipeRepository.SaveChanges();
@@ -352,36 +297,6 @@ namespace BLL.Concrete
                                 _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item.Id, Weight = item.Weight });
                             ++i;
                         }
-
-
-                        
-                            
-
-                        //List<int> menuIdlist = new List<int>();
-                        //foreach (var item in recipe.MenuRecipeRecords)
-                        //{
-                        //    menuIdlist.Add(item.Id);
-
-                        //}
-
-                        //foreach (var item in menuIdlist)
-                        //{
-                        //    _menuRecipeRecordRepository.Remove(item);
-
-                        //}
-
-                        //_menuRecipeRecordRepository.SaveChanges();
-                        //_recipeRepository.SaveChanges();
-
-                        //foreach (var item in editRecipe?.Menus)
-                        //{
-                        //    var menu = _menuRepository.GetMenuById(item);
-                        //    if (menu != null)
-                        //        _menuRecipeRecordRepository.Add(new MenuRecipeRecord() { RecipeId = editRecipe.Id, MenuId = item });
-                        //}
-
-
-
 
                         _recipeProdRecordRepository.SaveChanges();
                        
@@ -404,6 +319,16 @@ namespace BLL.Concrete
         public void Delete(int id)
         {
             _recipeRepository.Delete(id);
+        }
+
+
+        public StatusDeleteViewModel DeletePopup(int id)
+        {
+           
+                _recipeRepository.Delete(id);
+                return StatusDeleteViewModel.Succes;
+            //}
+            //return StatusDeleteViewModel.Error;
         }
 
 

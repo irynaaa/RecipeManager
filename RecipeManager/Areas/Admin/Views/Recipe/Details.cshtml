@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Детально о рецепте</h2>
@@ -25,7 +25,7 @@
 
         <dd>
             <br/>
-            <img src="@Url.Content(Model.RecipeImage)" alt="@Model.RecipeName" />
+            <img class="img-responsive img-rounded" src="@Url.Content(Model.RecipeImage)" alt="@Model.RecipeName" />
         </dd>
 
         <dt>
@@ -115,6 +115,11 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    <br/>
+    <br />
+    @Html.ActionLink("Править", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-warning", @style = "line-height:1; margin-bottom:5px;" })
+    @Html.ActionLink("Добавить вес", "ProductsWeight", new { Model.Id }, htmlAttributes: new { @class = "btn btn-primary", @style = "line-height:1; margin-bottom:5px;" })
+    @Html.ActionLink("Удалить", "Delete", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "line-height:1; margin-bottom:5px;" })
+    @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-success", @style = "line-height:1; margin-bottom:5px;" })
+     @*@Html.ActionLink("Back to List", "Index")*@
 </p>

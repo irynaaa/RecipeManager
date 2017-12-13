@@ -1,0 +1,106 @@
+﻿
+@model BLL.ViewModels.RecipesViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div id="DeleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+@using (Html.BeginForm("DeletePopup", "Recipe", FormMethod.Post, new { @id = "form_delete" }))
+{
+    @Html.HiddenFor(model => model.Id)
+                <h3>Вы уверены, что хотите удалить рецепт "@Html.DisplayFor(model => model.RecipeName)"?</h3>
+                <div>
+
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RecipeName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.RecipeName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RecipeImage)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.RecipeImage)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RecipeDescription)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.RecipeDescription)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CreatedAt)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CreatedAt)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ModefiedAt)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ModefiedAt)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CookingTime)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CookingTime)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RecipeCategory.NameRecipeCategory)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.RecipeCategory.NameRecipeCategory)
+                        </dd>
+
+                    </dl>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @*<div class="form-actions no-color">
+                            <input type="submit" value="Delete" class="btn btn-default" />
+                            @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+                        </div>*@
+                    }
+                </div>
+}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnDeletePopup">Delete</button>
+                <button id="btnContinueDelete" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts {
+
+<script src="~/Scripts/Admin/Recipe/DeletePopup.js"></script>
+    }
