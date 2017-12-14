@@ -13,7 +13,7 @@ namespace BLL.ViewModels
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Категории")]
+        [Display(Name = "Категория")]
         [Required, StringLength(maximumLength: 255)]
         public string NameRecipeCategory { get; set; }
 
@@ -23,7 +23,7 @@ namespace BLL.ViewModels
 
     public class AddCategoryViewModel
     {
-        [Display(Name = "Категории")]
+        [Display(Name = "Категория")]
         [Required, StringLength(maximumLength: 255)]
         public string NameRecipeCategory { get; set; }
 

@@ -2,13 +2,13 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_NavBar")
-<h2>Index</h2>
+<h2>Продукты</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Add")
+   @Html.ActionLink("Новый", "Add", null, htmlAttributes: new { @class = "btn btn-primary", @style = "color:white" })
 </p>
 <table class="table">
     <tr>
@@ -48,9 +48,9 @@
             @Html.DisplayFor(modelItem => item.CaloricValue)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Remove", new { id=item.Id })
+            @Html.ActionLink("Править", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning", @style = "line-height:1; margin-bottom:5px;" })
+            @Html.ActionLink("Детали", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success", @style = "line-height:1; margin-bottom:5px;" })
+            @Html.ActionLink("Удалить", "Remove", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger", @style = "line-height:1; margin-bottom:5px;" })
         </td>
     </tr>
 }

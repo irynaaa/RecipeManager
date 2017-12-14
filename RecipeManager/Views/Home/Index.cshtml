@@ -9,10 +9,10 @@
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     @*<link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
-    <script src="js/jquery-2.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>*@
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>*@
 
     <style>
         section {
@@ -60,25 +60,42 @@
                                                             @*@Html.ActionLink("Рецепты", "Index", "Home", htmlAttributes: new { @class = "dropdown-toggle" })*@
                                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                                 Рецепты
-                                                                <span class="caret"></span></a>
-                                                                <ul class="dropdown-menu">
-                                                                    <li><a href="#">Action</a></li>
-                                                                    <li><a href="#">Another action</a></li>
-                                                                    <li><a href="#">Something else here</a></li>
-                                                                    <li class="divider"></li>
-                                                                    <li><a href="#">Separated link</a></li>
-                                                                    <li class="divider"></li>
-                                                                    <li><a href="#">One more separated link</a></li>
-                                                                </ul>
-</li>
-                                                        <li>@Html.ActionLink("Домой", "Index", "Home")</li>
+                                                                <span class="caret"></span>
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#">Action</a></li>
+                                                                <li><a href="#">Another action</a></li>
+                                                                <li><a href="#">Something else here</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">Separated link</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">One more separated link</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            @*@Html.ActionLink("Рецепты", "Index", "Home", htmlAttributes: new { @class = "dropdown-toggle" })*@
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                Меню
+                                                                <span class="caret"></span>
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#">Action</a></li>
+                                                                <li><a href="#">Another action</a></li>
+                                                                <li><a href="#">Something else here</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">Separated link</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">One more separated link</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>@Html.ActionLink("Калькулятор калорий", "Index", "Home")</li>
                                                         @*<li><a class="border_none_1 active_1" href="index.html">Домой</a></li>*@
                                                         @*<li><a href="recipes.html">RECIPES</a></li>
-                                                        <li><a href="details.html">DETAILS</a></li>
-                                                        <li><a href="pages.html">TYPOGRAPHY</a></li>
-                                                        <li><a href="contact.html">CONTACT</a></li>*@
+                                                            <li><a href="details.html">DETAILS</a></li>
+                                                            <li><a href="pages.html">TYPOGRAPHY</a></li>
+                                                            <li><a href="contact.html">CONTACT</a></li>*@
                                                         <li class="dropdown">
-                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">VIDEOS <b class="caret"></b></a>
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Статьи <b class="caret"></b></a>
                                                             <ul class="dropdown-menu">
                                                                 <li><a href="#">Action</a></li>
                                                                 <li><a href="#">Another action</a></li>
@@ -118,11 +135,18 @@
                                         <div class="col-12 clearfix center_main_1">
                                             <div class="col-sm-4">
                                                 <div class="center_1">
-                                                    <a href="#"><h3>SIT AMET </h3></a>
+                                                    @*<a href="#"><h3>SIT AMET </h3></a>
                                                     <h4><a href="#">INTEGER</a></h4>
                                                     <p>Sed cursus ante dapibus diam.<br />consectetur adipiscing elit<br /> on <a href="#">Fusce nec tellus </a>,<a href="#">Sed nisi<br /></a>Nulla quis sem at nibh.</p>
-                                                    <p><a href="#">10+ consectetur adipiscing</a></p>
-                                                    <h5>CLASS APTENT TACITI SOCIOSQU</h5>
+                                                    <p><a href="#">10+ consectetur adipiscing</a></p>*@
+                                                    <h5>РЕЦЕПТЫ</h5>
+                                                    <ul>
+                                                        <li><a href="#">Vestibulum lacinia arcu</a></li>
+                                                        <li><a href="#">nibh elementum imperdiet</a></li>
+                                                        <li><a href="#">Sed nisi Nulla quis sem</a></li>
+                                                        <li><a href="#">Fusce nec tellus sed augue</a></li>
+                                                    </ul>
+                                                    <h5>МЕНЮ</h5>
                                                     <ul>
                                                         <li><a href="#">Vestibulum lacinia arcu</a></li>
                                                         <li><a href="#">nibh elementum imperdiet</a></li>
