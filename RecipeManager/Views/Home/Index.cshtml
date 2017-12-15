@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model BLL.ViewModels.RecipesViewModel
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -88,7 +90,7 @@
                                                                 <li><a href="#">One more separated link</a></li>
                                                             </ul>
                                                         </li>
-                                                        <li>@Html.ActionLink("Калькулятор калорий", "Index", "Home")</li>
+                                                        <li>@Html.ActionLink("Калькулятор калорий", "Index", "Home", null)</li>
                                                         @*<li><a class="border_none_1 active_1" href="index.html">Домой</a></li>*@
                                                         @*<li><a href="recipes.html">RECIPES</a></li>
                                                             <li><a href="details.html">DETAILS</a></li>
@@ -136,28 +138,35 @@
                                             <div class="col-sm-4">
                                                 <div class="center_1">
                                                     @*<a href="#"><h3>SIT AMET </h3></a>
-                                                    <h4><a href="#">INTEGER</a></h4>
-                                                    <p>Sed cursus ante dapibus diam.<br />consectetur adipiscing elit<br /> on <a href="#">Fusce nec tellus </a>,<a href="#">Sed nisi<br /></a>Nulla quis sem at nibh.</p>
-                                                    <p><a href="#">10+ consectetur adipiscing</a></p>*@
-                                                    <h5>РЕЦЕПТЫ</h5>
+                                                        <h4><a href="#">INTEGER</a></h4>
+                                                        <p>Sed cursus ante dapibus diam.<br />consectetur adipiscing elit<br /> on <a href="#">Fusce nec tellus </a>,<a href="#">Sed nisi<br /></a>Nulla quis sem at nibh.</p>
+                                                        <p><a href="#">10+ consectetur adipiscing</a></p>*@
+                                                    <h5>КАТЕГОРИИ</h5>
                                                     <ul>
-                                                        <li><a href="#">Vestibulum lacinia arcu</a></li>
-                                                        <li><a href="#">nibh elementum imperdiet</a></li>
-                                                        <li><a href="#">Sed nisi Nulla quis sem</a></li>
-                                                        <li><a href="#">Fusce nec tellus sed augue</a></li>
+                                                        <li><a href="#">Первые блюда</a></li>
+                                                        <li><a href="#">Вторые блюда</a></li>
+                                                        <li><a href="#">Закуски</a></li>
+                                                        <li><a href="#">Салаты</a></li>
+                                                        <li><a href="#">Десерты</a></li>
+                                                        <li><a href="#">Напитки</a></li>
                                                     </ul>
                                                     <h5>МЕНЮ</h5>
                                                     <ul>
-                                                        <li><a href="#">Vestibulum lacinia arcu</a></li>
-                                                        <li><a href="#">nibh elementum imperdiet</a></li>
-                                                        <li><a href="#">Sed nisi Nulla quis sem</a></li>
-                                                        <li><a href="#">Fusce nec tellus sed augue</a></li>
+                                                        <li><a href="#">Праздничное</a></li>
+                                                        <li><a href="#">Обычное</a></li>
+                                                        <li><a href="#">Детское</a></li>
+                                                        <li><a href="#">Завтрак</a></li>
+                                                        <li><a href="#">Обед</a></li>
+                                                        <li><a href="#">Ужин</a></li>
+                                                        <li><a href="#">Низкокалорийное</a></li>
+                                                        <li><a href="#">Высококалорийное</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8 watch">
                                                 <div class="center_inner clearfix">
-                                                    <img src="img/500.jpg">
+                                                    <img class="img-responsive img-rounded" src="@Url.Content(Model.RecipeImage)" title="@Model.RecipeName" alt="@Model.RecipeName" width="500" />
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 episodes">
@@ -165,7 +174,7 @@
                                                     <div class="Stream">
                                                         <h3> Lorem ipsum dolor</h3>
                                                         <div class="Stream_1">
-                                                            <a href="#"><img src="img/199.jpg" width="100%"></a>
+                                                            <a href="#"><img src="~/img/199.jpg" width="100%"></a>
                                                             <div class="Stream_2">
                                                                 <p>adipiscing elit.<br />nec</p>
                                                                 <p>Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.</p>
@@ -195,7 +204,7 @@
                                                             <li><a href="#"> Curabitursodales ligula in libero.</a></li>
                                                         </ul>
                                                     </div>
-                                                    <div class="Recipes_1"><img src="img/503.jpg"></div>
+                                                    <div class="Recipes_1"><img src="~/img/503.jpg"></div>
                                                 </div>
                                                 <div class="col-sm-8 lock">
                                                     <div class="Stream_3">
@@ -207,7 +216,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-4 Stream_inner_main">
-                                                                    <div class="Stream_4"><a href="#"><img src="img/197.jpg"></a></div>
+                                                                    <div class="Stream_4"><a href="#"><img src="~/img/197.jpg"></a></div>
                                                                 </div>
                                                                 <div class="col-sm-8 Stream_inner_main">
                                                                     <div class="Stream_5">
@@ -226,7 +235,7 @@
                                                                         <div class="col-sm-12">
                                                                             <div class="shape clearfix">
                                                                                 <div class="col-sm-6 Stream_inner_main clearfix">
-                                                                                    <div class="Stream_inner_1"><img src="img/195.jpg"></div>
+                                                                                    <div class="Stream_inner_1"><img src="~/img/195.jpg"></div>
                                                                                 </div>
                                                                                 <div class="col-sm-6 Stream_inner_main">
                                                                                     <div class="Stream_inner_2"><a href="#"> Mauris massa. Vestibulum </a></div>
@@ -239,7 +248,7 @@
                                                                             <div class="shape clearfix">
                                                                                 <div class="col-sm-6 Stream_inner_main">
                                                                                     <div class="Stream_inner_3">
-                                                                                        <img src="img/196.jpg">
+                                                                                        <img src="~/img/196.jpg">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-sm-6 Stream_inner_main">
@@ -258,7 +267,7 @@
                                                                 <h3>Fusce nec tellus sed augue</h3>
                                                             </div>
                                                             <div class="plane_1">
-                                                                <img src="img/191.jpg" width="95%" height="300px">
+                                                                <img src="~/img/191.jpg" width="95%" height="300px">
                                                             </div>
                                                             <div class="plane_2 clearfix">
                                                                 <a href="#">dignissim lacinia nunc</a>
@@ -285,7 +294,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="Squash_inner text-center">
-                                                                <img src="img/502.jpg">
+                                                                <img src="~/img/502.jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -295,48 +304,139 @@
                                     </div>
                                     <div class="col-sm-4 center_main_inner">
                                         <div class="Deviled clearfix">
-                                            <div class="col-sm-12 deviled_main">
-                                                <div class="col-sm-7 deviled_1">
-                                                    <div class="center_inner_1">
-                                                        <p><span class="about">NEC</span> SED CURSUS ANTE</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-5 deviled_1">
-                                                    <div class="center_inner_2">
-                                                        <ul>
-                                                            <li><a href="#">Fusce nec</a></li>
-                                                            <li><a class="border_none_1" href="#">augue Nulla</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 deviled_main">
-                                                <div class="col-sm-4 deviled_1">
-                                                    <div class="center_inner_3"><p>Fusce</p><h4>nec</h4></div>
-                                                </div>
-                                                <div class="col-sm-8 deviled_1">
-                                                    <div class="center_inner_4"><a href="#">Integer</a></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 deviled_main">
-                                                <div class="col-sm-4 deviled_1">
-                                                    <div class="center_inner_5"><p>litora<h4>conubia </h4></p></div>
-                                                </div>
-                                                <div class="col-sm-8 deviled_1">
-                                                    <div class="center_inner_6"><a href="#">lacinia arcu eget nulla.</a></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="col-sm-4 deviled_1">
-                                                    <div class="center_inner_7"><h3>nunc<br />litora </h3></div>
-                                                </div>
-                                                <div class="col-sm-4 deviled_1">
-                                                    <div class="center_inner_8"><a href="#"><img src="img/201.jpg"></a></div>
-                                                </div>
-                                                <div class="col-sm-4 deviled_1">
-                                                    <div class="center_inner_9"><a href="#">aptent taciti</a></div>
-                                                </div>
-                                            </div>
+
+                                            <dl class="dl-horizontal">
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.RecipeName)
+                                                </dt>
+
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.RecipeName)
+
+                                                </dd>
+
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.CookingTime)
+                                                </dt>
+
+                                                <dd>
+                                                    @ViewBag.ProdInfo.Hours часов @ViewBag.ProdInfo.Minutes минут
+                                                    @*@Html.DisplayFor(model => model.CookingTime)*@
+                                                </dd>
+
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.RecipeCategory.NameRecipeCategory)
+                                                </dt>
+
+                                                <dd>
+                                                    <a href="#"> @Html.DisplayFor(model => model.RecipeCategory.NameRecipeCategory)</a>
+                                                </dd>
+
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.Menus)
+                                                </dt>
+                                                <dd>
+                                                    @foreach (var menu in Model.Menus)
+            {
+                                                        <span>
+                                                            <a href="#"> @menu.Name</a>
+                                                        </span>
+                                                    }
+                                                </dd>
+                                                <dt>
+                                                    Калорийность:
+                                                </dt>
+                                                <dd>
+                                                    @ViewBag.ProdInfo.CaloricValue ккал
+                                                </dd>
+                                                <dt>
+                                                    Белки
+                                                </dt>
+                                                <dd>
+                                                    @ViewBag.ProdInfo.Proteins г
+                                                </dd>
+                                                <dt>
+                                                    Жиры
+                                                </dt>
+                                                <dd>
+                                                    @ViewBag.ProdInfo.Fat г
+                                                </dd>
+                                                <dt>
+                                                    Углеводы
+                                                </dt>
+                                                <dd>
+                                                    @ViewBag.ProdInfo.Carbohydrates г
+                                                </dd>
+                                            </dl>
+                                            @*<div class="col-md-10">
+                                                @for (var i = 0; i < Model.Weight.Count; i++)
+                                                {
+                                                    @Html.HiddenFor(model => Model.Weight[i].Id)
+                                                    @Html.DisplayFor(model => Model.Weight[i].Name)
+                                                    @Html.ValidationMessageFor(model => Model.Weight[i].Name, "", new { @class = "text-danger" })
+                                                    @Html.EditorFor(model => Model.Weight[i].Weight, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => Model.Weight[i].Weight, "", new { @class = "text-danger" })
+                                                }
+
+                                                @for (var i = 0; i < Model.Weight.Count; i++)
+                                                {
+                                                    @Html.HiddenFor(model => Model.Weight[i].Weight)
+                                                }
+                                            </div>*@
+                                           
+                                            @*<div class="col-sm-12 deviled_main">
+                                                                                    <div class="col-sm-7 deviled_1">
+                                                                                        <div class="center_inner_1">
+                                                                                            <p><span class="about">@Model.RecipeName</span></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-sm-5 deviled_1">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-sm-12 deviled_main">
+                                                                                    <div class="col-sm-7 deviled_1">
+                                                                                        <div class="center_inner_2"><h4>Время приготовления</h4></div>
+                                                                                    </div>
+                                                                                    <p><span class="about">@Model.CookingTime</span></p>
+                                                                                </div>
+
+                                                                                <div class="col-sm-5 deviled_1">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 deviled_main">
+                                                                                <div class="col-sm-4 deviled_1">
+                                                                                    <div class="center_inner_3"><h4>Меню</h4></div>
+                                                                                </div>
+                                                                                <div class="col-sm-8 deviled_1">
+                                                                                    <div class="center_inner_4">
+                                                                                        @foreach (var menu in Model.Menus)
+                                                {
+                                                                                            <span>
+                                                                                                <a href="#">@menu.Name</a>
+                                                                                            </span>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 deviled_main">
+                                                                                <div class="col-sm-4 deviled_1">
+                                                                                    <div class="center_inner_5"><h4>Категория: </h4></div>
+                                                                                </div>
+                                                                                <div class="col-sm-8 deviled_1">
+                                                                                    <div class="center_inner_6"><a href="#">@Model.RecipeCategory.NameRecipeCategory</a></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="col-sm-4 deviled_1">
+                                                                                    <div class="center_inner_7"><h5>Калорийность: <br />на 100г</h5></div>
+                                                                                </div>
+                                                                                <div class="col-sm-4 deviled_1">
+                                                                                    <div class="center_inner_8"><a href="#"><img src="~/img/201.jpg"></a></div>
+                                                                                </div>
+                                                                                <div class="col-sm-4 deviled_1">
+                                                                                    <div class="center_inner_9"><a href="#">aptent taciti</a></div>
+                                                                                </div>
+                                                                            </div>*@
                                         </div>
                                         <div class="popular clearfix">
                                             <div class="col-sm-12">
@@ -349,7 +449,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="middle_1"><img src="img/194.jpg"></div>
+                                            <div class="middle_1"><img src="~/img/194.jpg"></div>
                                             <div class="middle_2"><h4 class="text-center">Curabitursodal</h4></div>
                                         </div>
                                         <div class="col-sm-12">
@@ -372,13 +472,13 @@
                                             <div class="Premiere clearfix">
                                                 <div class="col-sm-6">
                                                     <div class="Premiere_block1">
-                                                        <div class="middle_5"><img src="img/193.jpg"></div>
+                                                        <div class="middle_5"><img src="~/img/193.jpg"></div>
                                                         <div class="middle_7"><a href="#">torquent per conubia nostra, per inceptos  [11:55:55]</a></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="Premiere_block2">
-                                                        <div class="middle_6"><img src="img/192.jpg"></div>
+                                                        <div class="middle_6"><img src="~/img/192.jpg"></div>
                                                         <div class="middle_7">
                                                             <a href="#">torquent per conubia nostra, per inceptos  [11:55:55]</a>
                                                         </div>
@@ -394,7 +494,7 @@
                                                         <div class="Healthy_2">
                                                             <ul>
                                                                 <li class="Healthy_3">1</li>
-                                                                <li class="Healthy_4"><a href="#"><img src="img/202.jpg"></a></li>
+                                                                <li class="Healthy_4"><a href="#"><img src="~/img/202.jpg"></a></li>
                                                                 <li class="Healthy_5"><a href="#">Integer nec odionec odio</a></li>
                                                             </ul>
                                                         </div>
@@ -490,7 +590,7 @@
                                         <h6><a href="#">Ante Iacinia</a></h6>
                                     </div>
                                     <div class="footer_top_5">
-                                        <img src="img/501.jpg">
+                                        <img src="~/img/501.jpg">
                                         <a href="#">50+ nunc-sed Vestibulum</a>
                                     </div>
                                 </div>

@@ -169,4 +169,36 @@ namespace BLL.ViewModels
         Error = 1
     }
 
+
+    public class GetRecipeProdItemInfoViewModel
+    {
+        [Key]
+        public int ProductId { get; set; }
+
+        [Display(Name = "Название")]
+        public string ProductName { get; set; }
+
+        [Display(Name = "Белки")]
+        public float Proteins { get; set; }
+
+        [Display(Name = "Жиры")]
+        public float Fat { get; set; }
+
+        [Display(Name = "Углеводы")]
+        public float Carbohydrates { get; set; }
+
+        [Display(Name = "Калории")]
+        public float CaloricValue { get; set; }
+
+
+        [Display(Name = "Часы")]
+        public string Hours { get; set; }
+
+        [Display(Name = "Минуты")]
+        public string Minutes { get; set; }
+
+    }
+
+   
+
 }

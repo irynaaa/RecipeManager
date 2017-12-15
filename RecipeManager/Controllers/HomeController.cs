@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL.Abstract;
+using BLL.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,10 +11,24 @@ namespace RecipeManager.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRecipeProvider _recipeProvider;
+
+        public HomeController(IRecipeProvider recipeProvider)
+        {
+            _recipeProvider = recipeProvider;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var model = _recipeProvider.GetRecipes();
+            var r = new Random();
+            var rand = r.Next(0, model.Count());
+            RecipesViewModel randRecipe = model.Where(m=>m.Id==3).FirstOrDefault()/*.ElementAt(rand)*/;
+            var c = _recipeProvider.GetRecipeProdInfo(3).CaloricValue;
+            ViewBag.ProdInfo = _recipeProvider.GetRecipeProdInfo(/*rand*/3)/*.CaloricValue*/;
+            return View(randRecipe);
         }
+
         [Authorize]
         public ActionResult About()
         {

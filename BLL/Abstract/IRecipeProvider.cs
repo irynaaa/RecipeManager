@@ -29,5 +29,7 @@ namespace BLL.Abstract
 
         IEnumerable<SelectProdWeightViewModel> GetListWeightProducts(int id);
 
+
+        GetRecipeProdItemInfoViewModel GetRecipeProdInfo(int recipeID);
     }
 }

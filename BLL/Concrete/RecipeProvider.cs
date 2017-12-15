@@ -357,7 +357,16 @@ namespace BLL.Concrete
                      {
                          Id = mr.MenuId,
                          Name = mr.Menu.MenuName,
-                     }).ToList()
+                     }).ToList(),
+
+                    Weight=p.RecipeProdRecords.Select(pr => new SelectProdWeightViewModel
+                    {
+                        Id = pr.ProductId,
+                        Name = pr.Product.ProductName,
+                        Weight = pr.Weight
+                    }).ToList()
+
+
                 });
 
             return recipe;
@@ -434,6 +443,77 @@ namespace BLL.Concrete
                     Id = r.Id,
                     Name = r.MenuName
                 });
+        }
+
+        /// <summary>
+        /// For index page frontend
+        /// </summary>
+        /// <param name="recipeID"></param>
+        /// <returns></returns>
+        public GetRecipeProdItemInfoViewModel GetRecipeProdInfo(int recipeID)
+        {
+            var prodInfo = new GetRecipeProdItemInfoViewModel();
+
+            int allMinutes = 0;
+            var MyViewModel = new RecipesViewModel();
+
+            var recipe = _recipeRepository.GetRecipeById(recipeID);
+
+            IEnumerable<SelectItemViewModel> categoriesList = new List<SelectItemViewModel>();
+            categoriesList = GetSelectCategories();
+            if (recipe != null)
+            {
+                MyViewModel.Id = recipeID;
+                MyViewModel.RecipeName = recipe.RecipeName;
+                MyViewModel.RecipeImage = recipe.RecipeImage;
+                MyViewModel.RecipeDescription = recipe.RecipeDescription;
+                MyViewModel.CreatedAt = recipe.CreatedAt;
+                MyViewModel.ModefiedAt = recipe.ModefiedAt;
+                MyViewModel.CookingTime = recipe.CookingTime;
+                MyViewModel.RecipeCategory = recipe.RecipeCategory;
+                MyViewModel.Products = recipe.RecipeProdRecords.Select(pr => new SelectItemViewModel
+                {
+                    Id = pr.ProductId,
+                    Name = pr.Product.ProductName,
+                }).ToList();
+
+                MyViewModel.Menus = recipe.MenuRecipeRecords.Select(mr => new SelectItemViewModel
+                {
+                    Id = mr.MenuId,
+                    Name = mr.Menu.MenuName,
+                }).ToList();
+
+                MyViewModel.Weight = recipe.RecipeProdRecords.Select(pr => new SelectProdWeightViewModel
+                {
+                    Id = pr.ProductId,
+                    Weight = pr.Weight
+                }).ToList();
+
+
+                allMinutes = MyViewModel.CookingTime;
+                prodInfo.Hours = (allMinutes/60).ToString();
+                prodInfo.Minutes = (allMinutes%60).ToString();
+            }
+
+            
+
+            if (MyViewModel.Weight!=null)
+            { 
+            foreach(var p in MyViewModel.Weight.ToList())
+            {
+                var item = _productRepository.GetProductById(p.Id);
+                
+                //prodInfo.ProductId = item.Id;
+                //prodInfo.ProductName = item.ProductName;
+                prodInfo.CaloricValue += (item.CaloricValue*p.Weight)/100;
+                prodInfo.Proteins += item.Proteins*p.Weight/100;
+                prodInfo.Fat += item.Fat * p.Weight/100;
+                prodInfo.Carbohydrates += item.Carbohydrates*p.Weight/100;
+               // prodList.Add(prodInfo);
+            }
+            }
+            
+                return prodInfo;
         }
 
     }

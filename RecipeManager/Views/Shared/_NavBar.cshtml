@@ -14,7 +14,7 @@
                 <li>@Html.ActionLink("Категории", "Index", "Category")</li>
                 <li>@Html.ActionLink("Типы меню", "Index", "Menu")</li>
                 <li>@Html.ActionLink("Рецепты", "Index", "Recipe")</li>
-                <li>@Html.ActionLink("Go to site", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                <li>@Html.ActionLink("Go to site", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @target = "_blank" })</li>
             </ul>
             @*<ul class="nav navbar-nav navbar-right">
                 @if (Request.IsAuthenticated)
