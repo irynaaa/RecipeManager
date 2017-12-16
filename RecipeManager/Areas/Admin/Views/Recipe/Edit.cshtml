@@ -28,6 +28,7 @@
         });
 
     </script>
+
 }
 <html>
 <head>
@@ -51,6 +52,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
 
+
             <div class="form-group">
                 @Html.LabelFor(model => model.RecipeName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -63,7 +65,7 @@
                 @Html.LabelFor(model => model.RecipeImage, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <img id="picPath" src="@path" class="img-responsive img-rounded" alt="@Model.RecipeName" /><br /><br />
-                    @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file", id="mainPicture"})
+                    @Html.TextBoxFor(m => m.PhotoUpload, new { type = "file", id = "mainPicture" })
                 </div>
             </div>
             <div class="form-group">
@@ -128,6 +130,8 @@
                             }
                         }
                     </div>
+
+                  
                 </div>
             </div>
 

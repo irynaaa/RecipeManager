@@ -165,7 +165,7 @@
                                             </div>
                                             <div class="col-sm-8 watch">
                                                 <div class="center_inner clearfix">
-                                                    <img class="img-responsive img-rounded" src="@Url.Content(Model.RecipeImage)" title="@Model.RecipeName" alt="@Model.RecipeName" width="500" />
+                                                    <img class="img-responsive img-rounded" src="@Url.Content(Model.RecipeImage)" title="@Model.RecipeName" alt="@Model.RecipeName" width="499" height="305" />
 
                                                 </div>
                                             </div>
@@ -320,7 +320,7 @@
                                                 </dt>
 
                                                 <dd>
-                                                    @ViewBag.ProdInfo.Hours часов @ViewBag.ProdInfo.Minutes минут
+                                                    @ViewBag.ProdInfo.Hours ч @ViewBag.ProdInfo.Minutes мин
                                                     @*@Html.DisplayFor(model => model.CookingTime)*@
                                                 </dd>
 
@@ -343,108 +343,36 @@
                                                         </span>
                                                     }
                                                 </dd>
-                                                <dt>
-                                                    Калорийность:
-                                                </dt>
-                                                <dd>
-                                                    @ViewBag.ProdInfo.CaloricValue ккал
-                                                </dd>
-                                                <dt>
-                                                    Белки
-                                                </dt>
-                                                <dd>
-                                                    @ViewBag.ProdInfo.Proteins г
-                                                </dd>
-                                                <dt>
-                                                    Жиры
-                                                </dt>
-                                                <dd>
-                                                    @ViewBag.ProdInfo.Fat г
-                                                </dd>
-                                                <dt>
-                                                    Углеводы
-                                                </dt>
-                                                <dd>
-                                                    @ViewBag.ProdInfo.Carbohydrates г
-                                                </dd>
                                             </dl>
-                                            @*<div class="col-md-10">
-                                                @for (var i = 0; i < Model.Weight.Count; i++)
-                                                {
-                                                    @Html.HiddenFor(model => Model.Weight[i].Id)
-                                                    @Html.DisplayFor(model => Model.Weight[i].Name)
-                                                    @Html.ValidationMessageFor(model => Model.Weight[i].Name, "", new { @class = "text-danger" })
-                                                    @Html.EditorFor(model => Model.Weight[i].Weight, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => Model.Weight[i].Weight, "", new { @class = "text-danger" })
-                                                }
-
-                                                @for (var i = 0; i < Model.Weight.Count; i++)
-                                                {
-                                                    @Html.HiddenFor(model => Model.Weight[i].Weight)
-                                                }
-                                            </div>*@
-                                           
-                                            @*<div class="col-sm-12 deviled_main">
-                                                                                    <div class="col-sm-7 deviled_1">
-                                                                                        <div class="center_inner_1">
-                                                                                            <p><span class="about">@Model.RecipeName</span></p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-sm-5 deviled_1">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-sm-12 deviled_main">
-                                                                                    <div class="col-sm-7 deviled_1">
-                                                                                        <div class="center_inner_2"><h4>Время приготовления</h4></div>
-                                                                                    </div>
-                                                                                    <p><span class="about">@Model.CookingTime</span></p>
-                                                                                </div>
-
-                                                                                <div class="col-sm-5 deviled_1">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12 deviled_main">
-                                                                                <div class="col-sm-4 deviled_1">
-                                                                                    <div class="center_inner_3"><h4>Меню</h4></div>
-                                                                                </div>
-                                                                                <div class="col-sm-8 deviled_1">
-                                                                                    <div class="center_inner_4">
-                                                                                        @foreach (var menu in Model.Menus)
-                                                {
-                                                                                            <span>
-                                                                                                <a href="#">@menu.Name</a>
-                                                                                            </span>
-                                                                                        }
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12 deviled_main">
-                                                                                <div class="col-sm-4 deviled_1">
-                                                                                    <div class="center_inner_5"><h4>Категория: </h4></div>
-                                                                                </div>
-                                                                                <div class="col-sm-8 deviled_1">
-                                                                                    <div class="center_inner_6"><a href="#">@Model.RecipeCategory.NameRecipeCategory</a></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12">
-                                                                                <div class="col-sm-4 deviled_1">
-                                                                                    <div class="center_inner_7"><h5>Калорийность: <br />на 100г</h5></div>
-                                                                                </div>
-                                                                                <div class="col-sm-4 deviled_1">
-                                                                                    <div class="center_inner_8"><a href="#"><img src="~/img/201.jpg"></a></div>
-                                                                                </div>
-                                                                                <div class="col-sm-4 deviled_1">
-                                                                                    <div class="center_inner_9"><a href="#">aptent taciti</a></div>
-                                                                                </div>
-                                                                            </div>*@
-                                        </div>
+                                            <div class="progressbarDiv">
+                                                <h3><span class="label label-success">Калорийность: @ViewBag.ProdInfo.CaloricValue ккал</span></h3>
+                                                </div>
+                                                <div class="progressbarDiv">
+                                                    <p class="progressbarText">Белки: @ViewBag.ProdInfo.Proteins г</p>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-warning" data-loading-text="@ViewBag.ProdInfo.Proteins" role="progressbar" aria-valuenow="@ViewBag.ProdInfo.Proteins" aria-valuemin="58" aria-valuemax="87" style="width: @Convert.ToInt32(ViewBag.ProdInfo.Proteins)%"><span class="sr-only">@ViewBag.ProdInfo.Carbohydrates</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="progressbarDiv">
+                                                    <p class="progressbarText">Жиры: @ViewBag.ProdInfo.Fat г</p>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-danger" data-loading-text="@ViewBag.ProdInfo.Fat" role="progressbar" aria-valuenow="@ViewBag.ProdInfo.Fat" aria-valuemin="60" aria-valuemax="102" style="width: @Convert.ToInt32(ViewBag.ProdInfo.Fat)%"><span class="sr-only">@ViewBag.ProdInfo.Carbohydrates</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="progressbarDiv">
+                                                    <p class="progressbarText">Углеводы: @ViewBag.ProdInfo.Carbohydrates г</p>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-info" data-loading-text="@ViewBag.ProdInfo.Carbohydrates" role="progressbar" aria-valuenow="@ViewBag.ProdInfo.Carbohydrates" aria-valuemin="257" aria-valuemax="586" style="width: @Convert.ToInt32(ViewBag.ProdInfo.Carbohydrates)%"><span class="sr-only">@ViewBag.ProdInfo.Carbohydrates</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <div class="popular clearfix">
                                             <div class="col-sm-12">
                                                 <div class="col-sm-7 middle_main_1">
-                                                    <div class="middle"><p>Integer nec odionec odio nunc</p></div>
+                                                    <div class="middle"><p></p></div>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <div class="middle"><a href="#">Lorem sit</a></div>
+                                                    <div class="middle"><a href="#">Подробности</a></div>
                                                 </div>
                                             </div>
                                         </div>

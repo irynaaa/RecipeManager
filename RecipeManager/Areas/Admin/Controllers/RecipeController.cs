@@ -35,7 +35,7 @@ namespace RecipeManager.Areas.Admin.Controllers
             var model = _recipeProvider.GetRecipes().OrderBy(i => i.Id);
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));
+            return View(_recipeProvider.GetRecipes().OrderByDescending(i => i.Id).ToPagedList(pageNumber, pageSize));
             //return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id));
         }
 
@@ -48,15 +48,15 @@ namespace RecipeManager.Areas.Admin.Controllers
             categoriesList = _recipeProvider.GetSelectCategories();
 
             ViewBag.CategoryId = new SelectList(categoriesList, "Id", "Name");
-            var model = _recipeProvider.GetRecipes().OrderBy(i => i.Id);
+            var model = _recipeProvider.GetRecipes().OrderByDescending(i => i.Id);
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             if (categoryId != null)
                 //View(_productProvider.GetProducts().Where(prod => prod.CategoryId == categoryId).OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));
-                return View(_recipeProvider.GetRecipes().Where(recipe => recipe.RecipeCategoryId == categoryId).OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));//;
+                return View(_recipeProvider.GetRecipes().Where(recipe => recipe.RecipeCategoryId == categoryId).OrderByDescending(i => i.Id).ToPagedList(pageNumber, pageSize));//;
             else
-                return View(_recipeProvider.GetRecipes().OrderBy(i => i.Id).ToPagedList(pageNumber, pageSize));//;
+                return View(_recipeProvider.GetRecipes().OrderByDescending(i => i.Id).ToPagedList(pageNumber, pageSize));//;
         }
 
         // [ValidateAntiForgeryToken]
@@ -210,7 +210,7 @@ namespace RecipeManager.Areas.Admin.Controllers
             editRecipe.Categories = categoriesList;
 
             var image = editRecipe.PhotoUpload;
-            var imageSave = WorkWithImage.CreateImage(image, 640, 480);
+            var imageSave = WorkWithImage.CreateImage(image, 500, 400);
 
             if (ModelState.IsValid)
             {
@@ -243,7 +243,7 @@ namespace RecipeManager.Areas.Admin.Controllers
 
             ViewBag.ListProducts = _recipeProvider.GetListItemProducts();
             ViewBag.ListMenus = _recipeProvider.GetListItemMenus();
-            //ViewBag.ListProductWeights = _recipeProvider.GetListWeightProducts(editRecipe.Id);
+           // ViewBag.ListProductWeights = _recipeProvider.GetListWeightProducts(editRecipe.Id);
             return View(editRecipe);
         }
 
@@ -341,7 +341,7 @@ namespace RecipeManager.Areas.Admin.Controllers
         public ActionResult ProductsWeight(RecipesViewModel editRecipe)
         {
             var image = editRecipe.PhotoUpload;
-            var imageSave = WorkWithImage.CreateImage(image, 800, 600);
+            var imageSave = WorkWithImage.CreateImage(image, 500, 400);
 
             if (ModelState.IsValid)
             {
@@ -390,7 +390,7 @@ namespace RecipeManager.Areas.Admin.Controllers
             editRecipe.Categories = categoriesList;
 
             var image = editRecipe.PhotoUpload;
-            var imageSave = WorkWithImage.CreateImage(image, 800, 600);
+            var imageSave = WorkWithImage.CreateImage(image, 500, 400);
 
             if (ModelState.IsValid)
             {

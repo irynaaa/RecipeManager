@@ -22,10 +22,12 @@ namespace RecipeManager.Controllers
         {
             var model = _recipeProvider.GetRecipes();
             var r = new Random();
+            
             var rand = r.Next(0, model.Count());
-            RecipesViewModel randRecipe = model.Where(m=>m.Id==3).FirstOrDefault()/*.ElementAt(rand)*/;
-            var c = _recipeProvider.GetRecipeProdInfo(3).CaloricValue;
-            ViewBag.ProdInfo = _recipeProvider.GetRecipeProdInfo(/*rand*/3)/*.CaloricValue*/;
+            RecipesViewModel randRecipe = model./*Where(m => m.Id == 53).FirstOrDefault()*/ElementAt(rand);
+           // var c = _recipeProvider.GetRecipeProdInfo(rand).CaloricValue;
+           GetRecipeProdItemInfoViewModel info= _recipeProvider.GetRecipeProdInfo(randRecipe.Id);
+            ViewBag.ProdInfo = info;
             return View(randRecipe);
         }
 

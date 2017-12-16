@@ -141,7 +141,7 @@ namespace BLL.Concrete
 
                 Products = recipe.RecipeProdRecords.Select(p => p.ProductId).ToList(),
                     Menus = recipe.MenuRecipeRecords.Select(p => p.MenuId).ToList(),
-                    //Weight=recipe.RecipeProdRecords.Select(p => p.Weight).ToList()
+                  //  Weight=recipe.RecipeProdRecords.Select(p => p.Weight).ToList()
                 };
 
                
@@ -171,7 +171,20 @@ namespace BLL.Concrete
                         recipe.RecipeCategoryId = editRecipe.RecipeCategoryId;
 
                         List<int> prodIdlist = new List<int>();
-                        //List<float> prodWeight = new List<float>();
+                        List<float> prodWeight = new List<float>();
+
+                        var weights = recipe.RecipeProdRecords.Select(pr => new SelectProdWeightViewModel
+                        {
+                            Id = pr.ProductId,
+                            Name = pr.Product.ProductName,
+                            Weight = pr.Weight
+                        }).ToList();
+                        foreach (var w in weights)
+                        {
+                            prodWeight.Add(w.Weight);
+                        }
+
+
                         foreach (var item in recipe.RecipeProdRecords)
                         {
                             prodIdlist.Add(item.Id);
@@ -186,7 +199,14 @@ namespace BLL.Concrete
                         {
                             var prod = _productRepository.GetProductById(item);
                             if (prod != null)
-                                _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item/*, Weight = editRecipe.Weight[i]*/ });
+                                try
+                                {
+                                    _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item, Weight = prodWeight[i] });
+                                }
+                                catch
+                                {
+                                    _recipeProdRecordRepository.Add(new RecipeProdRecord() { RecipeId = editRecipe.Id, ProductId = item, Weight = 0 });
+                                }
                             ++i;
                         }
 
